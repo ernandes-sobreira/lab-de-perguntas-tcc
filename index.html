@@ -1,0 +1,1420 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1"/>
+  <title>Lab de Perguntas Científicas — TCC & Pesquisa</title>
+  <style>
+    :root{
+      --bg:#F3F7F4;
+      --panel:#FFFFFF;
+      --ink:#0B1F14;
+      --muted:#2F4A3B;
+      --line:#0E2A1B22;
+
+      --green:#0E7A3A;
+      --blue:#0B6FBF;
+      --orange:#C55A11;
+      --red:#B21E2B;
+
+      --softGreen:#E6F6EC;
+      --softBlue:#E7F1FF;
+      --softOrange:#FFF1E5;
+      --softRed:#FFE9EC;
+
+      --shadow:0 14px 30px rgba(11,31,20,.10);
+      --r:18px;
+
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color:var(--ink);
+      background:
+        radial-gradient(900px 520px at 12% 0%, rgba(14,122,58,.12), rgba(14,122,58,0) 55%),
+        radial-gradient(900px 520px at 92% 10%, rgba(11,111,191,.10), rgba(11,111,191,0) 60%),
+        linear-gradient(180deg, #EEF6F1, var(--bg));
+      padding:14px;
+    }
+    .wrap{max-width:1120px;margin:0 auto;display:flex;flex-direction:column;gap:12px}
+    header{
+      border:2px solid var(--line);
+      background:rgba(255,255,255,.96);
+      box-shadow:var(--shadow);
+      border-radius:var(--r);
+      padding:14px;
+      backdrop-filter: blur(8px);
+    }
+    h1{margin:0 0 6px;font-size:18px;letter-spacing:.2px}
+    .sub{margin:0;color:var(--muted);font-size:13px;line-height:1.35}
+    .toprow{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:10px}
+    .pill{
+      display:inline-flex;align-items:center;gap:8px;
+      padding:8px 10px;border-radius:999px;
+      border:2px solid var(--line);
+      background:#fff;
+      color:var(--muted);
+      font-size:13px;
+      box-shadow:0 10px 22px rgba(11,31,20,.06);
+    }
+    .pill b{color:var(--ink)}
+    .btn{
+      padding:9px 12px;border-radius:14px;
+      border:2px solid var(--line);
+      background:var(--softGreen);
+      color:var(--ink);
+      font-weight:1000;
+      cursor:pointer;
+      user-select:none;
+      box-shadow:0 12px 24px rgba(11,31,20,.08);
+    }
+    .btn.blue{ background: var(--softBlue); }
+    .btn.warn{ background: var(--softOrange); }
+    .btn.ghost{ background: #fff; }
+    .btn.danger{ background: var(--softRed); }
+    .btn:active{ transform: translateY(1px); }
+
+    .grid{display:grid;grid-template-columns: 1.1fr .9fr;gap:12px}
+    @media (max-width: 980px){ .grid{grid-template-columns:1fr} }
+
+    .card{
+      border:2px solid var(--line);
+      background:rgba(255,255,255,.96);
+      box-shadow:var(--shadow);
+      border-radius:var(--r);
+      padding:12px;
+    }
+    .card h2{margin:0 0 10px;font-size:15px}
+    .small{font-size:12.5px;color:var(--muted);line-height:1.35}
+
+    .switch{
+      display:inline-flex;align-items:center;gap:10px;
+      padding:6px 10px;border-radius:999px;border:2px solid var(--line);
+      background:#fff;
+    }
+    .switch label{font-size:12.5px;color:var(--muted);font-weight:900;margin:0}
+    .toggle{
+      width:52px;height:28px;border-radius:999px;
+      background:#E9EFEA;border:2px solid var(--line);
+      position:relative;cursor:pointer;
+    }
+    .knob{
+      width:22px;height:22px;border-radius:999px;
+      background: var(--green);
+      position:absolute;top:1px;left:2px;
+      transition: transform 180ms ease;
+      box-shadow:0 8px 16px rgba(11,31,20,.18);
+    }
+    .toggle.on .knob{ transform: translateX(24px); background: var(--blue); }
+
+    label{display:block;font-size:12.5px;color:var(--muted);margin:10px 0 6px;font-weight:900}
+    input, textarea, select{
+      width:100%;
+      border:2px solid var(--line);
+      border-radius:14px;
+      padding:10px 11px;
+      font-size:14px;
+      outline:none;
+      background:#fff;
+      color:var(--ink);
+    }
+    textarea{min-height:90px;resize:vertical;line-height:1.35}
+    .row2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+    .row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
+    @media (max-width: 740px){ .row3{grid-template-columns:1fr} }
+    @media (max-width: 640px){ .row2{grid-template-columns:1fr} }
+
+    .stepper{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0 6px}
+    .step{
+      padding:7px 10px;border-radius:999px;
+      border:2px solid var(--line);
+      background:#fff;
+      color:var(--muted);
+      font-weight:1000;
+      cursor:pointer;
+      user-select:none;
+    }
+    .step.active{ background: var(--softBlue); color: var(--ink); }
+    .step.good{ background: var(--softGreen); color: var(--ink); }
+
+    .panel{display:none}
+    .panel.show{display:block}
+
+    .kpi{display:grid;grid-template-columns:1fr;gap:10px}
+    .k{
+      border:2px solid var(--line);
+      border-radius:16px;
+      padding:10px;
+      background:#fff;
+      box-shadow:0 10px 22px rgba(11,31,20,.06);
+    }
+    .k .t{font-size:12px;color:var(--muted);font-weight:1000}
+    .k .v{font-size:14px;font-weight:1000;margin-top:6px;line-height:1.25}
+    .k .chipRow{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+    .chip{
+      padding:6px 9px;border-radius:999px;
+      border:2px solid var(--line);
+      background:#fff;
+      font-size:12px;color:var(--muted);font-weight:1000;
+    }
+    .chip.green{ background: var(--softGreen); color: var(--ink); }
+    .chip.blue{ background: var(--softBlue); color: var(--ink); }
+    .chip.orange{ background: var(--softOrange); color: var(--ink); }
+    .chip.red{ background: var(--softRed); color: var(--ink); }
+
+    .out{
+      border:2px solid var(--line);
+      background:#fff;
+      border-radius:16px;
+      padding:10px;
+      font-family:var(--mono);
+      font-size:12px;
+      white-space:pre-wrap;
+      line-height:1.35;
+      min-height:140px;
+    }
+
+    .canvasBox{
+      border:2px solid var(--line);
+      border-radius:16px;
+      overflow:hidden;
+      background:#fff;
+      box-shadow:0 12px 24px rgba(11,31,20,.08);
+    }
+    canvas{display:block;width:100%;height:auto}
+
+    .divider{height:1px;background:var(--line);margin:10px 0}
+    .dangerText{ color: var(--red); font-weight:1000 }
+
+    .draftRow{display:flex;gap:8px;flex-wrap:wrap}
+    .draftRow select{flex:1}
+    .hintBox{
+      border:2px dashed var(--line);
+      background:#fff;
+      border-radius:16px;
+      padding:10px;
+      color:var(--muted);
+      font-size:12.5px;
+      line-height:1.35;
+    }
+
+    .toast{
+      position:fixed; left:14px; right:14px; top:12px;
+      display:flex; justify-content:center;
+      pointer-events:none;
+      z-index:9999;
+    }
+    .toast .b{
+      max-width:1120px;width:100%;
+      border:2px solid var(--line);
+      background:rgba(255,255,255,.96);
+      border-radius:14px;
+      padding:10px 12px;
+      box-shadow:0 18px 42px rgba(11,31,20,.18);
+      font-weight:1000;
+      color:var(--ink);
+      opacity:0;
+      transform:translateY(-8px);
+      transition:opacity 220ms ease, transform 220ms ease;
+    }
+    .toast .b.show{opacity:1; transform:translateY(0)}
+
+    footer{
+      text-align:center;
+      color:rgba(11,31,20,.70);
+      font-size:12px;
+      padding:6px 0 2px;
+    }
+  </style>
+</head>
+<body>
+  <div class="toast"><div class="b" id="toast">OK</div></div>
+
+  <div class="wrap">
+    <header>
+      <h1>🧪 Lab de Perguntas Científicas — TCC & Pesquisa</h1>
+      <p class="sub">
+        Construa: <b>problema → pergunta → hipóteses SE… ENTÃO…</b>, com <b>gráfico hipotético por magnitude</b>,
+        <b>mapa mental</b>, <b>cronograma</b> e <b>plano de apresentação</b>. Exporta <b>TXT</b> e <b>PNG</b>.
+      </p>
+
+      <div class="toprow">
+        <div class="switch" title="Modo Aluno = passos; Modo Professor = visão completa + rubrica">
+          <label>Modo:</label>
+          <div class="toggle" id="modeToggle" role="switch" aria-checked="false">
+            <div class="knob"></div>
+          </div>
+          <b id="modeLabel">ALUNO</b>
+        </div>
+
+        <div class="pill">💾 Auto-salva: <b id="autosave">ON</b></div>
+
+        <button class="btn" id="btnGenerate" type="button">Gerar saídas</button>
+        <button class="btn blue" id="btnTXT" type="button">Exportar TXT</button>
+        <button class="btn blue" id="btnPNG" type="button">Exportar Mapa PNG</button>
+        <button class="btn ghost" id="btnOpenTXT" type="button">Abrir TXT</button>
+        <button class="btn ghost" id="btnOpenPNG" type="button">Abrir PNG</button>
+        <button class="btn warn" id="btnAlt" type="button">3 perguntas alternativas</button>
+        <button class="btn danger" id="btnClear" type="button">Limpar</button>
+      </div>
+
+      <div class="hintBox" style="margin-top:10px">
+        Se o download não funcionar no seu celular: use <b>Abrir TXT</b> ou <b>Abrir PNG</b> e depois <b>Salvar/Compartilhar</b> no Android.
+      </div>
+    </header>
+
+    <div class="grid">
+      <!-- ESQUERDA -->
+      <section class="card">
+        <h2 id="leftTitle">Modo Aluno — Passos</h2>
+        <div class="small" id="leftHelp">
+          Preencha por partes. Clique em <b>Gerar saídas</b>. Depois refine a hipótese e o cronograma.
+        </div>
+
+        <div class="stepper" id="stepper">
+          <div class="step active" data-step="1">1) Problema</div>
+          <div class="step" data-step="2">2) Variáveis</div>
+          <div class="step" data-step="3">3) Hipótese</div>
+          <div class="step" data-step="4">4) Método</div>
+          <div class="step" data-step="5">5) Magnitude</div>
+          <div class="step" data-step="6">6) Cronograma</div>
+          <div class="step" data-step="7">7) Apresentação</div>
+        </div>
+
+        <!-- STEP 1 -->
+        <div class="panel show" id="step1">
+          <label>Aluno(a) / Turma (opcional)</label>
+          <input id="student" placeholder="Ex.: Turma 2026 / Nome"/>
+
+          <label>Tema (1 linha)</label>
+          <input id="theme" placeholder="Ex.: SBN e redução de calor urbano"/>
+
+          <label>Problema real (contexto + por que importa?)</label>
+          <textarea id="problem" placeholder="Quem é afetado? Onde? Quais consequências?"></textarea>
+
+          <div class="row2">
+            <div>
+              <label>Local/escala</label>
+              <input id="place" placeholder="Ex.: Cáceres-MT / bairro X / campus"/>
+            </div>
+            <div>
+              <label>Área/linha</label>
+              <select id="field">
+                <option>Ciências Ambientais</option>
+                <option>Ecologia</option>
+                <option>Saúde & Ambiente</option>
+                <option>Geografia</option>
+                <option>Engenharia/Planejamento</option>
+                <option>Educação/Extensão</option>
+                <option>Outra</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- STEP 2 -->
+        <div class="panel" id="step2">
+          <label>Variável resposta (Y)</label>
+          <input id="yVar" placeholder="Ex.: temperatura do ar (°C) / mortalidade por calor"/>
+
+          <label>Variável explicativa (X)</label>
+          <input id="xVar" placeholder="Ex.: cobertura arbórea (%) / presença de parque"/>
+
+          <div class="row2">
+            <div>
+              <label>Desenho</label>
+              <select id="design">
+                <option>Comparação (2+ grupos)</option>
+                <option>Antes vs Depois (intervenção)</option>
+                <option>Gradiente (níveis crescentes)</option>
+                <option>Série temporal (ao longo do tempo)</option>
+                <option>Experimental (controle vs tratamento)</option>
+              </select>
+            </div>
+            <div>
+              <label>Direção do efeito</label>
+              <select id="effectDir">
+                <option value="up">Aumenta (X ↑ → Y ↑)</option>
+                <option value="down">Diminui (X ↑ → Y ↓)</option>
+                <option value="curve">Curva (ótimo/limiar)</option>
+                <option value="null">Sem efeito (nulo)</option>
+              </select>
+            </div>
+          </div>
+
+          <label>Intervenção/solução (se houver)</label>
+          <input id="intervention" placeholder="Ex.: plantar árvores / telhado verde / refúgio climático"/>
+
+          <label>Unidade amostral</label>
+          <input id="unit" placeholder="Ex.: pontos / quadras / bairros / indivíduos"/>
+        </div>
+
+        <!-- STEP 3 -->
+        <div class="panel" id="step3">
+          <label>Mecanismo (por quê X afeta Y?)</label>
+          <textarea id="mechanism" placeholder="Ex.: sombra reduz radiação; evapotranspiração resfria; vulneráveis sofrem mais."></textarea>
+
+          <label>Hipótese principal (SE… ENTÃO… PORQUE…)</label>
+          <textarea id="hypUser" placeholder="SE (X mudar) ENTÃO (Y muda) PORQUE (mecanismo)."></textarea>
+        </div>
+
+        <!-- STEP 4 -->
+        <div class="panel" id="step4">
+          <label>Como você vai medir? (método)</label>
+          <textarea id="methods" placeholder="Ex.: sensores + transectos; ou dados públicos + análise estatística."></textarea>
+
+          <label>Limitações & riscos</label>
+          <textarea id="limits" placeholder="Tempo, acesso, custo, sazonalidade, ética, viés."></textarea>
+        </div>
+
+        <!-- STEP 5: Magnitude -->
+        <div class="panel" id="step5">
+          <div class="hintBox">
+            Aqui você define <b>magnitude</b> para o gráfico hipotético (ex.: “Grupo B tem 2x o efeito do A”).
+          </div>
+
+          <label>Tipo de magnitude (para o gráfico)</label>
+          <select id="magType">
+            <option value="auto">Automático (padrão)</option>
+            <option value="groups">2 grupos (A vs B) — médias e razão</option>
+            <option value="slope">Gradiente — base e inclinação</option>
+          </select>
+
+          <div class="row3" style="margin-top:10px">
+            <div>
+              <label>Média Grupo A (Y)</label>
+              <input id="meanA" type="number" step="0.1" placeholder="Ex.: 10" />
+            </div>
+            <div>
+              <label>Razão B/A</label>
+              <input id="ratioBA" type="number" step="0.1" placeholder="Ex.: 2 (B = 2x A)" />
+            </div>
+            <div>
+              <label>Média Grupo B (Y)</label>
+              <input id="meanB" type="number" step="0.1" placeholder="Ex.: 20" />
+            </div>
+          </div>
+
+          <div class="row2" style="margin-top:10px">
+            <div>
+              <label>Base (Y em X=0)</label>
+              <input id="baseY" type="number" step="0.1" placeholder="Ex.: 15" />
+            </div>
+            <div>
+              <label>Inclinação (ΔY quando X vai 0→1)</label>
+              <input id="slopeY" type="number" step="0.1" placeholder="Ex.: -3 (reduz 3 unidades)" />
+            </div>
+          </div>
+
+          <div class="small" style="margin-top:8px">
+            Dica: se você está estudando <b>temperatura (°C)</b>, uma inclinação de <b>-2</b> significa “do baixo para alto X, cai 2°C”.
+          </div>
+        </div>
+
+        <!-- STEP 6: Cronograma -->
+        <div class="panel" id="step6">
+          <div class="row2">
+            <div>
+              <label>Data de início</label>
+              <input id="startDate" type="date"/>
+            </div>
+            <div>
+              <label>Duração (semanas)</label>
+              <input id="durationWeeks" type="number" min="1" step="1" placeholder="Ex.: 12"/>
+            </div>
+          </div>
+
+          <button class="btn" id="btnGenSchedule" type="button" style="margin-top:10px">Gerar cronograma padrão</button>
+
+          <label style="margin-top:10px">Cronograma (1 linha por atividade — você pode editar)</label>
+          <textarea id="schedule" placeholder="Ex.: Semana 1-2: revisão; Semana 3: desenho; ..."></textarea>
+
+          <div class="small">
+            Cronograma entra automaticamente no TXT.
+          </div>
+        </div>
+
+        <!-- STEP 7: Apresentação -->
+        <div class="panel" id="step7">
+          <label>Onde você quer apresentar os resultados?</label>
+          <select id="wherePresent">
+            <option value="Somente TCC">Somente no TCC</option>
+            <option value="Congresso">Congresso</option>
+            <option value="Artigo (periódico)">Artigo (periódico)</option>
+            <option value="TCC + Congresso">TCC + Congresso</option>
+            <option value="TCC + Artigo">TCC + Artigo</option>
+            <option value="TCC + Congresso + Artigo">TCC + Congresso + Artigo</option>
+          </select>
+
+          <label>Nome do congresso/periódico (se houver)</label>
+          <input id="venueName" placeholder="Ex.: Congresso Brasileiro de ... / Journal of ..." />
+
+          <label>Link do congresso/periódico (cole aqui)</label>
+          <input id="venueLink" placeholder="https://..." />
+
+          <div class="small">
+            Isso entra no TXT para você já ter o “plano de entrega”.
+          </div>
+        </div>
+
+        <!-- PLANOS: salvar vários -->
+        <div class="divider"></div>
+        <h2 style="margin:0 0 8px;font-size:14px">Planos (salvar vários e carregar)</h2>
+
+        <div class="draftRow">
+          <input id="planName" placeholder="Nome do plano (ex.: 'Calor urbano — árvores vs sem árvores')" />
+          <button class="btn" id="btnSavePlan" type="button">Salvar plano</button>
+        </div>
+
+        <div class="draftRow" style="margin-top:8px">
+          <select id="planSelect"></select>
+          <button class="btn blue" id="btnLoadPlan" type="button">Carregar</button>
+          <button class="btn warn" id="btnDupPlan" type="button">Duplicar</button>
+          <button class="btn danger" id="btnDeletePlan" type="button">Excluir</button>
+        </div>
+
+        <div class="small" style="margin-top:8px">
+          Os planos ficam salvos <b>no seu navegador</b>. Para compartilhar com alguém, exporte o TXT.
+        </div>
+      </section>
+
+      <!-- DIREITA -->
+      <section class="card">
+        <h2>Saídas (orientação do projeto)</h2>
+
+        <div class="kpi">
+          <div class="k">
+            <div class="t">Pergunta científica</div>
+            <div class="v" id="kQuestion">—</div>
+            <div class="chipRow">
+              <span class="chip blue" id="chipDesign">Desenho: —</span>
+              <span class="chip green" id="chipDir">Direção: —</span>
+              <span class="chip orange" id="chipFeas">Viabilidade: —</span>
+            </div>
+          </div>
+
+          <div class="k">
+            <div class="t">Hipótese (SE… ENTÃO…)</div>
+            <div class="v" id="kHyp">—</div>
+            <div class="small" id="kHyp2"></div>
+          </div>
+
+          <div class="k" id="profOnlyRubric">
+            <div class="t">Rubrica (modo professor)</div>
+            <div class="v" id="rubricScore">—</div>
+            <div class="small" id="rubricText">Ative o modo professor para ver a nota automática.</div>
+          </div>
+
+          <div class="k">
+            <div class="t">Texto pronto (exporta TXT)</div>
+            <div class="out" id="outText">Clique em “Gerar saídas”.</div>
+          </div>
+
+          <div class="k">
+            <div class="t">Gráfico esperado (hipotético por magnitude)</div>
+            <div class="canvasBox"><canvas id="chart" width="980" height="360"></canvas></div>
+            <div class="small">Agora o gráfico respeita médias/razões/inclinação que você definir.</div>
+          </div>
+
+          <div class="k">
+            <div class="t">Mapa mental (arrastável) — exporta PNG</div>
+            <div class="canvasBox"><canvas id="mind" width="980" height="520"></canvas></div>
+            <div class="small">Arraste as caixas. Exportação com fallback (Abrir PNG).</div>
+          </div>
+        </div>
+
+        <footer>Idealizado por Ernandes Sobreira para educação climática e orientação científica.</footer>
+      </section>
+    </div>
+  </div>
+
+<script>
+(() => {
+  const $ = (id)=>document.getElementById(id);
+  const toastEl = $("toast");
+
+  const STORAGE_KEY = "lab_pergunta_v3_autosave";
+  const PLANS_KEY   = "lab_pergunta_v3_plans";
+
+  function toast(msg, ms=1200){
+    toastEl.textContent = msg;
+    toastEl.classList.add("show");
+    clearTimeout(toastEl._t);
+    toastEl._t = setTimeout(()=>toastEl.classList.remove("show"), ms);
+  }
+
+  let mode = "ALUNO";
+
+  // ========= Helpers =========
+  function clean(s){ return (s||"").trim().replace(/\s+/g," "); }
+  function safeLine(s, max=220){ return clean(s).slice(0,max); }
+  function nowLabel(){
+    const d=new Date();
+    const p=(n)=>String(n).padStart(2,"0");
+    return `${d.getFullYear()}-${p(d.getMonth()+1)}-${p(d.getDate())} ${p(d.getHours())}:${p(d.getMinutes())}`;
+  }
+
+  // ========= Mode =========
+  function setMode(newMode){
+    mode = newMode;
+    $("modeLabel").textContent = mode;
+    const t = $("modeToggle");
+    if(mode === "PROFESSOR"){
+      t.classList.add("on");
+      t.setAttribute("aria-checked","true");
+      $("leftTitle").textContent = "Modo Professor — visão e avaliação";
+      $("leftHelp").textContent = "Professor: use rubrica e alternativas para orientar ajustes. Os alunos seguem os passos.";
+      $("profOnlyRubric").style.display = "block";
+    } else {
+      t.classList.remove("on");
+      t.setAttribute("aria-checked","false");
+      $("leftTitle").textContent = "Modo Aluno — Passos";
+      $("leftHelp").textContent = "Preencha por partes. Clique em Gerar saídas. Depois refine a hipótese e o cronograma.";
+      $("profOnlyRubric").style.display = "none";
+    }
+    saveAuto();
+  }
+  $("modeToggle").addEventListener("click", ()=>{
+    setMode(mode === "ALUNO" ? "PROFESSOR" : "ALUNO");
+    toast(`Modo ${mode} ativado.`, 900);
+  });
+
+  // ========= Stepper =========
+  function showStep(n){
+    document.querySelectorAll(".step").forEach(s=>s.classList.remove("active"));
+    document.querySelectorAll(".panel").forEach(p=>p.classList.remove("show"));
+    document.querySelector(`.step[data-step="${n}"]`).classList.add("active");
+    $(`step${n}`).classList.add("show");
+    saveAuto();
+  }
+  document.querySelectorAll(".step").forEach(s=>{
+    s.addEventListener("click", ()=>showStep(s.dataset.step));
+  });
+
+  // ========= Fields & State =========
+  const fields = [
+    "student","theme","problem","place","field",
+    "yVar","xVar","design","effectDir","intervention","unit",
+    "mechanism","hypUser","methods","limits",
+    "magType","meanA","ratioBA","meanB","baseY","slopeY",
+    "startDate","durationWeeks","schedule",
+    "wherePresent","venueName","venueLink"
+  ];
+
+  function getState(){
+    const s = { mode };
+    fields.forEach(id=> s[id] = ($(id)?.value ?? "") );
+    s._step = document.querySelector(".step.active")?.dataset?.step || "1";
+    return s;
+  }
+  function setState(s){
+    fields.forEach(id=> { if($(id)) $(id).value = s?.[id] ?? ""; });
+    if(s?.mode) setMode(s.mode);
+    showStep(s?._step || "1");
+  }
+
+  function saveAuto(){
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(getState()));
+  }
+  function loadAuto(){
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if(!raw) return;
+    try{ setState(JSON.parse(raw)); } catch {}
+  }
+
+  fields.forEach(id=>{
+    $(id).addEventListener("input", saveAuto);
+    $(id).addEventListener("change", saveAuto);
+  });
+
+  // ========= Builders =========
+  function buildQuestion(S){
+    const place = clean(S.place) || "o local de estudo";
+    const y = clean(S.yVar) || "Y (variável resposta)";
+    const x = clean(S.xVar) || "X (variável explicativa)";
+    const design = clean(S.design);
+
+    if(design.includes("Antes vs Depois")){
+      const interv = clean(S.intervention) || "uma intervenção";
+      return `Em ${place}, ${interv} altera ${y} ao longo do tempo (antes vs depois) em função de ${x}?`;
+    }
+    if(design.includes("Comparação")){
+      return `Em ${place}, ${y} difere entre grupos com diferentes níveis de ${x}?`;
+    }
+    if(design.includes("Gradiente")){
+      return `Em ${place}, como ${y} varia ao longo de um gradiente de ${x}?`;
+    }
+    if(design.includes("Série temporal")){
+      return `Em ${place}, ${y} apresenta tendência/sazonalidade associada a variações em ${x} ao longo do tempo?`;
+    }
+    if(design.includes("Experimental")){
+      return `Em ${place}, um tratamento que modifica ${x} causa mudança em ${y} quando comparado ao controle?`;
+    }
+    return `Em ${place}, qual é a relação entre ${x} e ${y}?`;
+  }
+
+  function buildHypothesisAuto(S){
+    const y = clean(S.yVar) || "Y";
+    const x = clean(S.xVar) || "X";
+    const place = clean(S.place) || "o local de estudo";
+    const dir = clean(S.effectDir);
+    const mech = clean(S.mechanism) || (clean(S.intervention) ? `devido a “${clean(S.intervention)}”` : "por um mecanismo plausível");
+
+    if(dir==="up") return `SE ${x} aumentar em ${place}, ENTÃO ${y} aumentará, PORQUE ${mech}.`;
+    if(dir==="down") return `SE ${x} aumentar em ${place}, ENTÃO ${y} diminuirá, PORQUE ${mech}.`;
+    if(dir==="curve") return `SE ${x} aumentar em ${place}, ENTÃO ${y} mudará de forma não-linear (limiar/ótimo), PORQUE ${mech}.`;
+    return `SE ${x} variar em ${place}, ENTÃO ${y} não mudará de forma detectável (hipótese nula).`;
+  }
+
+  function buildAltQuestions(S){
+    const place = clean(S.place) || "o local de estudo";
+    const y = clean(S.yVar) || "Y";
+    const x = clean(S.xVar) || "X";
+    const interv = clean(S.intervention);
+
+    return [
+      `1) (Efeito) Em ${place}, qual é o efeito de ${x} sobre ${y}?`,
+      `2) (Mecanismo) Em ${place}, o efeito de ${x} em ${y} ocorre via ${clean(S.mechanism)||"qual mecanismo"}?`,
+      `3) (Decisão) Em ${place}, ${interv||"uma intervenção"} altera ${y} quando comparada a uma área sem intervenção?`
+    ].join("\n");
+  }
+
+  // ========= Rubrica =========
+  function rubric(S){
+    let score = 0;
+    const fb = [];
+    const hasProb = clean(S.problem).length >= 40;
+    const hasVars = clean(S.xVar).length >= 3 && clean(S.yVar).length >= 3;
+    const hasPlace = clean(S.place).length >= 3;
+    const hasDesign = clean(S.design).length >= 3;
+    const hasHyp = clean(S.hypUser).toUpperCase().includes("SE") && clean(S.hypUser).toUpperCase().includes("ENTÃO");
+    const hasMech = clean(S.mechanism).length >= 10;
+    const hasMeth = clean(S.methods).length >= 25;
+    const hasLim = clean(S.limits).length >= 15;
+    const hasSched = clean(S.schedule).length >= 20;
+
+    if(hasProb){ score+=2; } else fb.push("• Fortaleça o problema (contexto + impacto).");
+    if(hasPlace){ score+=1; } else fb.push("• Defina local/escala.");
+    if(hasVars){ score+=2; } else fb.push("• Defina X e Y com clareza.");
+    if(hasDesign){ score+=1; } else fb.push("• Escolha um desenho (comparação, gradiente, etc.).");
+    if(hasHyp){ score+=2; } else fb.push("• Escreva hipótese SE… ENTÃO… (sua versão).");
+    if(hasMech){ score+=1; } else fb.push("• Explique o mecanismo (por quê).");
+    if(hasMeth){ score+=1; } else fb.push("• Método precisa estar viável e medível.");
+    if(hasLim){ score+=0.5; } else fb.push("• Liste limitações (tempo, acesso, sazonalidade).");
+    if(hasSched){ score+=0.5; } else fb.push("• Inclua cronograma mínimo.");
+
+    score = Math.min(10, Math.round(score*10)/10);
+    let label = "Baixa";
+    if(score >= 8.5) label = "Alta";
+    else if(score >= 7) label = "Boa";
+    else if(score >= 5.5) label = "Média";
+
+    return { score, label, feedback: fb.length? fb.join("\n") : "• Excelente. Agora refine amostragem e análise." };
+  }
+
+  // ========= Magnitude -> data =========
+  function computeMagnitude(S){
+    const magType = clean(S.magType || "auto");
+    const design = clean(S.design);
+    const dir = clean(S.effectDir);
+
+    // Defaults
+    let meanA = parseFloat(S.meanA);
+    let meanB = parseFloat(S.meanB);
+    let ratio = parseFloat(S.ratioBA);
+    let baseY = parseFloat(S.baseY);
+    let slopeY = parseFloat(S.slopeY);
+
+    const isTwoGroup = design.includes("Comparação") || design.includes("Antes vs Depois");
+
+    // pick type if "auto"
+    let use = magType;
+    if(use === "auto"){
+      use = isTwoGroup ? "groups" : "slope";
+    }
+
+    // normalize direction for slope
+    const sign = (dir==="down") ? -1 : 1;
+
+    if(use === "groups"){
+      // If ratio provided, derive B
+      if(!isFinite(meanA)) meanA = 10;
+      if(isFinite(ratio) && !isFinite(meanB)) meanB = meanA * ratio;
+      if(!isFinite(meanB)) meanB = (dir==="down") ? meanA*0.7 : meanA*1.3;
+      // If both means exist, compute ratio (optional)
+      if(!isFinite(ratio) && isFinite(meanA) && isFinite(meanB) && meanA!==0) ratio = meanB/meanA;
+      return { mode:"groups", meanA, meanB, ratio: isFinite(ratio)?ratio:null };
+    }
+
+    // slope mode
+    if(!isFinite(baseY)) baseY = 15;
+    if(!isFinite(slopeY)){
+      // default slope magnitude
+      slopeY = (dir==="null") ? 0 : (dir==="curve" ? 0 : 3*sign);
+      if(dir==="down") slopeY = -Math.abs(slopeY);
+      if(dir==="up") slopeY = Math.abs(slopeY);
+    }
+    // if curve, we ignore slopeY in curve draw and use a peak amplitude based on |slopeY| or default
+    return { mode:"slope", baseY, slopeY };
+  }
+
+  // ========= Render =========
+  function markSteps(S){
+    const ok1 = clean(S.problem).length >= 20 && clean(S.theme).length >= 3;
+    const ok2 = clean(S.xVar).length >= 3 && clean(S.yVar).length >= 3;
+    const ok3 = clean(S.hypUser).length >= 10 || clean(S.mechanism).length >= 10;
+    const ok4 = clean(S.methods).length >= 15;
+    const ok5 = true; // magnitude optional
+    const ok6 = clean(S.schedule).length >= 15;
+    const ok7 = clean(S.wherePresent).length >= 3;
+
+    const map = {1:ok1, 2:ok2, 3:ok3, 4:ok4, 5:ok5, 6:ok6, 7:ok7};
+    document.querySelectorAll(".step").forEach(s=>{
+      const n = s.dataset.step;
+      if(map[n]) s.classList.add("good"); else s.classList.remove("good");
+    });
+  }
+
+  function render(){
+    const S = getState();
+
+    const question = buildQuestion(S);
+    const hypAuto = buildHypothesisAuto(S);
+    const hypUser = clean(S.hypUser);
+    const hypFinal = hypUser.length ? hypUser : hypAuto;
+
+    $("kQuestion").textContent = question;
+    $("kHyp").textContent = hypFinal;
+    $("kHyp2").textContent = hypUser.length ? "Hipótese do aluno (priorizada)." : "Hipótese automática (recomendado reescrever).";
+
+    $("chipDesign").textContent = `Desenho: ${clean(S.design)||"—"}`;
+
+    const dirLabel = (S.effectDir==="up") ? "↑ aumenta" :
+                     (S.effectDir==="down") ? "↓ diminui" :
+                     (S.effectDir==="curve") ? "∩ curva" :
+                     "≈ nulo";
+    $("chipDir").textContent = `Direção: ${dirLabel}`;
+
+    const feas = rubric(S);
+    $("chipFeas").textContent = `Viabilidade: ${feas.label} (${feas.score}/10)`;
+    $("chipFeas").className = "chip " + (feas.score>=8.5 ? "green" : feas.score>=7 ? "blue" : feas.score>=5.5 ? "orange" : "red");
+
+    if(mode==="PROFESSOR"){
+      $("rubricScore").textContent = `Nota: ${feas.score}/10 (${feas.label})`;
+      $("rubricText").textContent = feas.feedback;
+    }
+
+    const mag = computeMagnitude(S);
+
+    const txt =
+`LAB DE PERGUNTAS CIENTÍFICAS (TCC/Pesquisa)
+
+Aluno/Turma: ${clean(S.student)||"—"}
+Área/Linha: ${clean(S.field)||"—"}
+Tema: ${clean(S.theme)||"—"}
+Local/escala: ${clean(S.place)||"—"}
+
+1) Problema
+${clean(S.problem)||"—"}
+
+2) Pergunta científica
+${question}
+
+3) Variáveis
+Y (resposta): ${clean(S.yVar)||"—"}
+X (explicativa): ${clean(S.xVar)||"—"}
+Intervenção: ${clean(S.intervention)||"—"}
+Unidade amostral: ${clean(S.unit)||"—"}
+Desenho: ${clean(S.design)||"—"}
+Direção esperada: ${dirLabel}
+
+4) Hipótese (SE… ENTÃO…)
+${hypFinal}
+
+Mecanismo
+${clean(S.mechanism)||"—"}
+
+5) Magnitude esperada (para o gráfico hipotético)
+${mag.mode==="groups"
+  ? `• Dois grupos: média A = ${mag.meanA}; média B = ${mag.meanB}` + (mag.ratio ? `; razão B/A ≈ ${mag.ratio.toFixed(2)}x` : "")
+  : `• Gradiente: base (X=0) = ${mag.baseY}; inclinação (ΔY de X 0→1) = ${mag.slopeY}`
+}
+
+6) Método (resumo)
+${clean(S.methods)||"—"}
+
+7) Limitações & riscos
+${clean(S.limits)||"—"}
+
+8) Cronograma
+Início: ${clean(S.startDate)||"—"} | Duração: ${clean(S.durationWeeks)||"—"} semanas
+${clean(S.schedule)||"—"}
+
+9) Apresentação/Divulgação
+Plano: ${clean(S.wherePresent)||"—"}
+Local (congresso/periódico): ${clean(S.venueName)||"—"}
+Link: ${clean(S.venueLink)||"—"}
+
+Gerado em: ${nowLabel()}
+`;
+    $("outText").textContent = txt;
+
+    drawChart(S, mag);
+    buildMind(S, question, hypFinal);
+    drawMind();
+
+    markSteps(S);
+    saveAuto();
+    toast("Saídas geradas.", 900);
+  }
+
+  // ========= Chart =========
+  function drawChart(S, mag){
+    const c = $("chart");
+    const ctx = c.getContext("2d");
+    const W = c.width, H = c.height;
+    ctx.clearRect(0,0,W,H);
+    ctx.fillStyle="#fff"; ctx.fillRect(0,0,W,H);
+
+    const padL=70, padR=22, padT=24, padB=56;
+    const plotW=W-padL-padR, plotH=H-padT-padB;
+
+    // grid
+    ctx.strokeStyle="rgba(14,42,27,.10)";
+    ctx.lineWidth=1;
+    for(let i=0;i<=5;i++){
+      const y=padT+(plotH*i/5);
+      ctx.beginPath(); ctx.moveTo(padL,y); ctx.lineTo(padL+plotW,y); ctx.stroke();
+    }
+    for(let i=0;i<=6;i++){
+      const x=padL+(plotW*i/6);
+      ctx.beginPath(); ctx.moveTo(x,padT); ctx.lineTo(x,padT+plotH); ctx.stroke();
+    }
+
+    // axes
+    ctx.strokeStyle="rgba(14,42,27,.28)";
+    ctx.lineWidth=2;
+    ctx.beginPath();
+    ctx.moveTo(padL,padT);
+    ctx.lineTo(padL,padT+plotH);
+    ctx.lineTo(padL+plotW,padT+plotH);
+    ctx.stroke();
+
+    // title
+    ctx.fillStyle="rgba(11,31,20,.92)";
+    ctx.font="900 14px system-ui";
+    ctx.fillText("Resultado esperado (hipotético por magnitude)", padL, 18);
+
+    const xLab = safeLine(S.xVar)||"X";
+    const yLab = safeLine(S.yVar)||"Y";
+    ctx.fillStyle="rgba(47,74,59,.92)";
+    ctx.font="900 12px system-ui";
+    ctx.fillText(yLab, 10, padT+14);
+    ctx.fillText(xLab, padL+plotW-ctx.measureText(xLab).width, H-16);
+
+    const design = clean(S.design);
+    const dir = clean(S.effectDir);
+
+    const px = (x)=> padL + x*plotW;
+    const pyScale = (y, yMin, yMax)=> {
+      const t = (y - yMin) / (yMax - yMin || 1);
+      return padT + (1 - t) * plotH;
+    };
+
+    if(mag.mode==="groups" && (design.includes("Comparação") || design.includes("Antes vs Depois"))){
+      const A = mag.meanA, B = mag.meanB;
+      const yMin = Math.min(A,B) - Math.abs(Math.max(A,B)*0.35) - 0.01;
+      const yMax = Math.max(A,B) + Math.abs(Math.max(A,B)*0.35) + 0.01;
+
+      const barW = plotW*0.22;
+      const labels = design.includes("Antes vs Depois") ? ["Antes","Depois"] : ["Grupo A","Grupo B"];
+      const vals = [A,B];
+
+      for(let i=0;i<2;i++){
+        const x = (i===0) ? padL+plotW*0.22 : padL+plotW*0.62;
+        const y = pyScale(vals[i], yMin, yMax);
+        const base = pyScale(yMin, yMin, yMax);
+
+        ctx.fillStyle = (i===0) ? "rgba(11,111,191,.25)" : "rgba(14,122,58,.25)";
+        ctx.fillRect(x, y, barW, base - y);
+        ctx.strokeStyle="rgba(14,42,27,.22)";
+        ctx.strokeRect(x, y, barW, base - y);
+
+        ctx.fillStyle="rgba(11,31,20,.80)";
+        ctx.beginPath(); ctx.arc(x+barW/2, y, 4.5, 0, Math.PI*2); ctx.fill();
+
+        ctx.fillStyle="rgba(47,74,59,.92)";
+        ctx.font="900 12px system-ui";
+        ctx.fillText(labels[i], x, padT+plotH+24);
+
+        ctx.font="900 12px system-ui";
+        ctx.fillText(String(vals[i]), x, y-8);
+      }
+
+      // annotation
+      ctx.fillStyle="rgba(47,74,59,.92)";
+      ctx.font="800 12px system-ui";
+      const ratioText = mag.ratio ? `Razão B/A ≈ ${mag.ratio.toFixed(2)}x` : "";
+      ctx.fillText(ratioText, padL, H-10);
+      return;
+    }
+
+    // slope / curve / null
+    const n=18;
+    const xs=[...Array(n)].map((_,i)=>i/(n-1));
+
+    // build y based on magnitude
+    let ys=[];
+    if(dir==="null"){
+      const base = isFinite(mag.baseY)?mag.baseY:15;
+      ys = xs.map(()=>base);
+    } else if(dir==="curve"){
+      const base = isFinite(mag.baseY)?mag.baseY:15;
+      const amp = Math.max(1, Math.abs(isFinite(mag.slopeY)?mag.slopeY:3)); // use slope magnitude as amplitude proxy
+      ys = xs.map(x=> base + amp * Math.exp(-Math.pow((x-0.55)/0.22,2)));
+    } else {
+      const base = isFinite(mag.baseY)?mag.baseY:15;
+      const slope = isFinite(mag.slopeY)?mag.slopeY: (dir==="down"?-3:3);
+      ys = xs.map(x=> base + slope * x);
+    }
+
+    const yMin = Math.min(...ys) - Math.max(1, Math.abs(Math.max(...ys))*0.15);
+    const yMax = Math.max(...ys) + Math.max(1, Math.abs(Math.max(...ys))*0.15);
+
+    // line
+    ctx.strokeStyle="rgba(14,122,58,.85)";
+    ctx.lineWidth=3;
+    ctx.beginPath();
+    xs.forEach((x,i)=>{
+      const X=px(x), Y=pyScale(ys[i], yMin, yMax);
+      if(i===0) ctx.moveTo(X,Y); else ctx.lineTo(X,Y);
+    });
+    ctx.stroke();
+
+    // points
+    ctx.fillStyle="rgba(14,122,58,.90)";
+    xs.forEach((x,i)=>{
+      const X=px(x), Y=pyScale(ys[i], yMin, yMax);
+      ctx.beginPath(); ctx.arc(X,Y,4,0,Math.PI*2); ctx.fill();
+    });
+
+    ctx.fillStyle="rgba(47,74,59,.90)";
+    ctx.font="800 12px system-ui";
+    ctx.fillText(`Base ≈ ${Math.round((ys[0]+Number.EPSILON)*100)/100} | ΔY(0→1) ≈ ${Math.round(((ys[ys.length-1]-ys[0])+Number.EPSILON)*100)/100}`, padL, H-10);
+  }
+
+  // ========= Mind Map =========
+  const mind = { nodes:[], edges:[], dragging:null, offX:0, offY:0 };
+
+  function truncateLines(text, maxLines, maxChars){
+    const lines = text.split("\n").flatMap(line=>{
+      const out=[];
+      let s=line;
+      while(s.length>maxChars){
+        out.push(s.slice(0,maxChars-1)+"…");
+        s=s.slice(maxChars-1);
+      }
+      out.push(s);
+      return out;
+    });
+    if(lines.length<=maxLines) return lines.join("\n");
+    return lines.slice(0,maxLines-1).join("\n")+"\n…";
+  }
+
+  function buildMind(S, question, hyp){
+    const theme = clean(S.theme) || "TEMA";
+    mind.nodes = [
+      {id:"C", x:490,y:220,w:260,h:92, color: "rgba(14,122,58,.18)", title:"TEMA", text: theme},
+      {id:"P", x:210,y:110,w:280,h:92, color: "rgba(178,30,43,.14)", title:"PROBLEMA", text: clean(S.problem)||"—"},
+      {id:"Q", x:790,y:110,w:280,h:92, color: "rgba(11,111,191,.14)", title:"PERGUNTA", text: question},
+      {id:"V", x:210,y:320,w:280,h:92, color: "rgba(197,90,17,.14)", title:"VARIÁVEIS", text: `Y: ${clean(S.yVar)||"—"}\nX: ${clean(S.xVar)||"—"}`},
+      {id:"H", x:790,y:320,w:280,h:92, color: "rgba(14,122,58,.14)", title:"HIPÓTESE", text: hyp},
+      {id:"M", x:210,y:490,w:280,h:92, color: "rgba(11,31,20,.08)", title:"MÉTODO", text: clean(S.methods)||"—"},
+      {id:"L", x:790,y:490,w:280,h:92, color: "rgba(11,31,20,.08)", title:"CRONOGRAMA", text: clean(S.schedule)||"—"},
+    ];
+    mind.nodes.forEach(n=> n.text = truncateLines(n.text, 5, 46));
+    mind.edges = [["C","P"],["C","Q"],["C","V"],["C","H"],["C","M"],["C","L"],["Q","H"],["V","H"]];
+  }
+
+  function roundRect(ctx, x,y,w,h,r,fill,stroke){
+    ctx.beginPath();
+    ctx.moveTo(x+r,y);
+    ctx.arcTo(x+w,y,x+w,y+h,r);
+    ctx.arcTo(x+w,y+h,x,y+h,r);
+    ctx.arcTo(x,y+h,x,y,r);
+    ctx.arcTo(x,y,x+w,y,r);
+    ctx.closePath();
+    ctx.fillStyle=fill; ctx.fill();
+    ctx.strokeStyle=stroke; ctx.lineWidth=2; ctx.stroke();
+  }
+
+  function drawMind(){
+    const c = $("mind");
+    const ctx = c.getContext("2d");
+    const W=c.width, H=c.height;
+    ctx.clearRect(0,0,W,H);
+    ctx.fillStyle="#fff"; ctx.fillRect(0,0,W,H);
+
+    if(mind.nodes.length===0){
+      const S=getState();
+      buildMind(S, buildQuestion(S), buildHypothesisAuto(S));
+    }
+
+    // edges
+    ctx.strokeStyle="rgba(14,42,27,.18)";
+    ctx.lineWidth=2;
+    mind.edges.forEach(([a,b])=>{
+      const A=mind.nodes.find(n=>n.id===a);
+      const B=mind.nodes.find(n=>n.id===b);
+      if(!A||!B) return;
+      ctx.beginPath();
+      ctx.moveTo(A.x,A.y);
+      ctx.lineTo(B.x,B.y);
+      ctx.stroke();
+    });
+
+    // nodes
+    mind.nodes.forEach(n=>{
+      const x=n.x-n.w/2, y=n.y-n.h/2;
+      roundRect(ctx, x,y,n.w,n.h,16,n.color,"rgba(14,42,27,.22)");
+      ctx.fillStyle="rgba(11,31,20,.92)";
+      ctx.font="1000 12px system-ui";
+      ctx.fillText(n.title, x+12, y+18);
+
+      ctx.fillStyle="rgba(47,74,59,.92)";
+      ctx.font="800 12px system-ui";
+      const lines=n.text.split("\n");
+      let yy=y+38;
+      for(let i=0;i<lines.length;i++){
+        ctx.fillText(lines[i], x+12, yy);
+        yy += 15;
+        if(yy > y+n.h-10) break;
+      }
+    });
+
+    ctx.fillStyle="rgba(47,74,59,.85)";
+    ctx.font="900 12px system-ui";
+    ctx.fillText("Mapa mental • arraste caixas • exporte PNG", 14, H-14);
+  }
+
+  // drag
+  const mindCanvas=$("mind");
+  function getPos(evt){
+    const r=mindCanvas.getBoundingClientRect();
+    const sx=mindCanvas.width/r.width;
+    const sy=mindCanvas.height/r.height;
+    return {x:(evt.clientX-r.left)*sx, y:(evt.clientY-r.top)*sy};
+  }
+  function hitNode(mx,my){
+    for(let i=mind.nodes.length-1;i>=0;i--){
+      const n=mind.nodes[i];
+      const x=n.x-n.w/2, y=n.y-n.h/2;
+      if(mx>=x && mx<=x+n.w && my>=y && my<=y+n.h) return n;
+    }
+    return null;
+  }
+  mindCanvas.addEventListener("pointerdown",(e)=>{
+    const p=getPos(e);
+    const n=hitNode(p.x,p.y);
+    if(!n) return;
+    mind.dragging=n;
+    mind.offX=p.x-n.x; mind.offY=p.y-n.y;
+    mindCanvas.setPointerCapture(e.pointerId);
+  });
+  mindCanvas.addEventListener("pointermove",(e)=>{
+    if(!mind.dragging) return;
+    const p=getPos(e);
+    mind.dragging.x = Math.max(mind.dragging.w/2+8, Math.min(mindCanvas.width-mind.dragging.w/2-8, p.x-mind.offX));
+    mind.dragging.y = Math.max(mind.dragging.h/2+8, Math.min(mindCanvas.height-mind.dragging.h/2-28, p.y-mind.offY));
+    drawMind();
+  });
+  mindCanvas.addEventListener("pointerup",()=> mind.dragging=null);
+
+  // ========= Plans =========
+  function loadPlans(){
+    const raw = localStorage.getItem(PLANS_KEY);
+    let list = [];
+    try{ list = raw ? JSON.parse(raw) : []; } catch { list=[]; }
+    return Array.isArray(list) ? list : [];
+  }
+  function savePlans(list){
+    localStorage.setItem(PLANS_KEY, JSON.stringify(list));
+  }
+  function refreshPlanSelect(){
+    const sel = $("planSelect");
+    const list = loadPlans();
+    sel.innerHTML = "";
+    if(list.length===0){
+      const opt=document.createElement("option");
+      opt.value=""; opt.textContent="(sem planos salvos)";
+      sel.appendChild(opt);
+      return;
+    }
+    list.forEach((p,i)=>{
+      const opt=document.createElement("option");
+      opt.value=String(i);
+      opt.textContent = `${p.name} — ${p.atLabel}`;
+      sel.appendChild(opt);
+    });
+  }
+
+  $("btnSavePlan").addEventListener("click", ()=>{
+    const name = clean($("planName").value) || `${clean($("theme").value)||"Plano"} — ${nowLabel()}`;
+    const data = getState();
+    const list = loadPlans();
+    list.unshift({name, data, at: Date.now(), atLabel: nowLabel()});
+    savePlans(list.slice(0,60));
+    refreshPlanSelect();
+    toast("Plano salvo.", 900);
+  });
+
+  $("btnLoadPlan").addEventListener("click", ()=>{
+    const idx = $("planSelect").value;
+    const list = loadPlans();
+    if(idx==="" || !list[Number(idx)]) return;
+    setState(list[Number(idx)].data);
+    render();
+    toast("Plano carregado.", 900);
+  });
+
+  $("btnDupPlan").addEventListener("click", ()=>{
+    const idx = $("planSelect").value;
+    const list = loadPlans();
+    if(idx==="" || !list[Number(idx)]) return;
+    const p = list[Number(idx)];
+    list.unshift({name: p.name + " (cópia)", data: p.data, at: Date.now(), atLabel: nowLabel()});
+    savePlans(list.slice(0,60));
+    refreshPlanSelect();
+    toast("Plano duplicado.", 900);
+  });
+
+  $("btnDeletePlan").addEventListener("click", ()=>{
+    const idx = $("planSelect").value;
+    const list = loadPlans();
+    if(idx==="" || !list[Number(idx)]) return;
+    if(!confirm("Excluir este plano?")) return;
+    list.splice(Number(idx),1);
+    savePlans(list);
+    refreshPlanSelect();
+    toast("Plano excluído.", 900);
+  });
+
+  // ========= Schedule generator =========
+  function genSchedule(){
+    const start = $("startDate").value;
+    const weeks = parseInt($("durationWeeks").value || "12", 10);
+    const lines = [
+      `Semana 1: delimitar problema + pergunta (rascunho)`,
+      `Semana 2: revisão bibliográfica (mapa de conceitos + 10 fontes)`,
+      `Semana 3: definir X/Y + desenho amostral + critérios`,
+      `Semana 4: piloto / teste do método`,
+      `Semana 5-7: coleta/extração de dados`,
+      `Semana 8: organização (planilhas) + checagem de qualidade`,
+      `Semana 9: análises (estatística/figuras)`,
+      `Semana 10: interpretação + discussão`,
+      `Semana 11: redação (IMRaD/TCC) + revisão`,
+      `Semana 12: apresentação (slides/pôster) + ajustes finais`
+    ];
+    const trimmed = lines.slice(0, Math.max(4, Math.min(weeks, 12)));
+    $("schedule").value =
+      `Início: ${start || "—"} | Duração: ${weeks || "—"} semanas\n` +
+      trimmed.join("\n");
+    saveAuto();
+    toast("Cronograma gerado.", 900);
+  }
+  $("btnGenSchedule").addEventListener("click", genSchedule);
+
+  // ========= Export robust =========
+  function getTXT(){
+    render();
+    return $("outText").textContent || "";
+  }
+
+  function blobDownload(filename, mime, contentOrBlob){
+    try{
+      const blob = contentOrBlob instanceof Blob ? contentOrBlob : new Blob([contentOrBlob], {type:mime});
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = filename;
+      a.rel = "noopener";
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      setTimeout(()=>URL.revokeObjectURL(url), 1200);
+      return true;
+    } catch {
+      return false;
+    }
+  }
+
+  function openInNewTab(mime, content){
+    const blob = content instanceof Blob ? content : new Blob([content], {type:mime});
+    const url = URL.createObjectURL(blob);
+    window.open(url, "_blank", "noopener,noreferrer");
+    setTimeout(()=>URL.revokeObjectURL(url), 8000);
+  }
+
+  async function shareFileFallback(filename, mime, content){
+    // Try Web Share (Android works often)
+    try{
+      if(!navigator.share) return false;
+      const blob = content instanceof Blob ? content : new Blob([content], {type:mime});
+      const file = new File([blob], filename, {type:mime});
+      if(navigator.canShare && !navigator.canShare({files:[file]})) return false;
+      await navigator.share({files:[file], title:filename, text:"Export do Lab de Perguntas"});
+      return true;
+    } catch {
+      return false;
+    }
+  }
+
+  function safeNameBase(){
+    const nm = (clean($("student").value)||"aluno").toLowerCase().replace(/[^a-z0-9]+/gi,"_").slice(0,20);
+    const th = (clean($("theme").value)||"tema").toLowerCase().replace(/[^a-z0-9]+/gi,"_").slice(0,26);
+    return `${nm}_${th}`;
+  }
+
+  $("btnTXT").addEventListener("click", async ()=>{
+    const base = safeNameBase();
+    const filename = `ideia_${base}.txt`;
+    const txt = getTXT();
+    const ok = blobDownload(filename, "text/plain;charset=utf-8", txt);
+    if(ok){ toast("TXT exportado.", 900); return; }
+
+    const shared = await shareFileFallback(filename, "text/plain;charset=utf-8", txt);
+    if(shared){ toast("TXT compartilhado.", 900); return; }
+
+    openInNewTab("text/plain;charset=utf-8", txt);
+    toast("Abrindo TXT (salve manualmente).", 1200);
+  });
+
+  $("btnOpenTXT").addEventListener("click", ()=>{
+    const txt = getTXT();
+    openInNewTab("text/plain;charset=utf-8", txt);
+    toast("TXT aberto em nova aba.", 900);
+  });
+
+  function getMindPNGBlob(){
+    render();
+    const c = $("mind");
+    // toBlob async wrapper
+    return new Promise((resolve)=>{
+      c.toBlob((b)=>resolve(b), "image/png", 1.0);
+    });
+  }
+
+  $("btnPNG").addEventListener("click", async ()=>{
+    const base = safeNameBase();
+    const filename = `mapa_mental_${base}.png`;
+    const blob = await getMindPNGBlob();
+    if(!blob){ toast("Falha ao gerar PNG.", 1200); return; }
+
+    const ok = blobDownload(filename, "image/png", blob);
+    if(ok){ toast("PNG exportado.", 900); return; }
+
+    const shared = await shareFileFallback(filename, "image/png", blob);
+    if(shared){ toast("PNG compartilhado.", 900); return; }
+
+    openInNewTab("image/png", blob);
+    toast("Abrindo PNG (salve/compartilhe).", 1200);
+  });
+
+  $("btnOpenPNG").addEventListener("click", async ()=>{
+    const blob = await getMindPNGBlob();
+    if(!blob){ toast("Falha ao gerar PNG.", 1200); return; }
+    openInNewTab("image/png", blob);
+    toast("PNG aberto em nova aba.", 900);
+  });
+
+  $("btnAlt").addEventListener("click", ()=>{
+    const S=getState();
+    const alts = buildAltQuestions(S);
+    $("outText").textContent = ( $("outText").textContent || "" ) + "\n\n--- 3 PERGUNTAS ALTERNATIVAS ---\n" + alts + "\n";
+    toast("Alternativas adicionadas.", 1000);
+  });
+
+  $("btnClear").addEventListener("click", ()=>{
+    if(!confirm("Limpar tudo? Isso apaga o auto-salvamento (não apaga planos salvos).")) return;
+    localStorage.removeItem(STORAGE_KEY);
+    fields.forEach(id=>$(id).value="");
+    $("outText").textContent = "Clique em “Gerar saídas”.";
+    $("kQuestion").textContent="—";
+    $("kHyp").textContent="—";
+    $("kHyp2").textContent="";
+    mind.nodes=[]; mind.edges=[];
+    drawChart(getState(), computeMagnitude(getState()));
+    drawMind();
+    toast("Limpo.", 900);
+  });
+
+  // ========= Initial draw + render =========
+  function drawInitial(){
+    const S=getState();
+    drawChart(S, computeMagnitude(S));
+    buildMind(S, buildQuestion(S), buildHypothesisAuto(S));
+    drawMind();
+  }
+
+  $("btnGenerate").addEventListener("click", render);
+
+  function saveAuto(){
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(getState()));
+  }
+  function loadAuto(){
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if(!raw) return;
+    try{ setState(JSON.parse(raw)); } catch {}
+  }
+
+  // step marks
+  function markSteps(S){
+    const ok1 = clean(S.problem).length >= 20 && clean(S.theme).length >= 3;
+    const ok2 = clean(S.xVar).length >= 3 && clean(S.yVar).length >= 3;
+    const ok3 = clean(S.hypUser).length >= 10 || clean(S.mechanism).length >= 10;
+    const ok4 = clean(S.methods).length >= 15;
+    const ok6 = clean(S.schedule).length >= 15;
+    const ok7 = clean(S.wherePresent).length >= 3;
+    const map = {1:ok1, 2:ok2, 3:ok3, 4:ok4, 5:true, 6:ok6, 7:ok7};
+    document.querySelectorAll(".step").forEach(s=>{
+      const n = s.dataset.step;
+      if(map[n]) s.classList.add("good"); else s.classList.remove("good");
+    });
+  }
+
+  // ========= Boot =========
+  function boot(){
+    $("profOnlyRubric").style.display = "none";
+    setMode("ALUNO");
+
+    loadAuto();
+    refreshPlanSelect();
+
+    // If no date set, set today
+    if(!$("startDate").value){
+      const d=new Date();
+      const iso = new Date(d.getTime()-d.getTimezoneOffset()*60000).toISOString().slice(0,10);
+      $("startDate").value = iso;
+    }
+    if(!$("durationWeeks").value) $("durationWeeks").value = "12";
+
+    drawInitial();
+
+    const hasSomething = fields.some(id => clean($(id).value).length>0);
+    if(hasSomething) render();
+  }
+
+  boot();
+
+  // Keep step marks on typing
+  fields.forEach(id=>{
+    $(id).addEventListener("input", ()=> markSteps(getState()));
+    $(id).addEventListener("change", ()=> markSteps(getState()));
+  });
+
+})();
+</script>
+</body>
+</html>
