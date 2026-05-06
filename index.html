@@ -1,1420 +1,1284 @@
 <!doctype html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1"/>
-  <title>Lab de Perguntas Científicas — TCC & Pesquisa</title>
-  <style>
-    :root{
-      --bg:#F3F7F4;
-      --panel:#FFFFFF;
-      --ink:#0B1F14;
-      --muted:#2F4A3B;
-      --line:#0E2A1B22;
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Lab Científico — Ernandes Sobreira</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:      #FFFFFF;
+  --sur:     #F7F8F6;
+  --bord:    #E4E9E5;
+  --bord2:   #C8D6CC;
+  --ink:     #0A1209;
+  --ink2:    #162B1E;
+  --ink3:    #2C4A3A;
+  --ink4:    #4A7060;
+  --ink5:    #C2D3CB;
+  --verde:   #165C36;
+  --verde-m: #1E7A47;
+  --verde-s: #EAF4EE;
+  --verde-t: #F3FAF6;
+  --azul:    #0F4C8A;
+  --azul-m:  #1566B3;
+  --azul-s:  #EAF1FB;
+  --ambar:   #8A4B00;
+  --ambar-s: #FEF6EB;
+  --r:       10px;
+  --r2:      16px;
+  --sans:    'Inter', system-ui, sans-serif;
+  --serif:   'Lora', Georgia, serif;
+  --t:       200ms ease;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);color:var(--ink);background:var(--bg);line-height:1.5;-webkit-font-smoothing:antialiased}
 
-      --green:#0E7A3A;
-      --blue:#0B6FBF;
-      --orange:#C55A11;
-      --red:#B21E2B;
+/* TOAST */
+#toast{position:fixed;bottom:28px;left:50%;transform:translateX(-50%) translateY(6px);background:var(--ink);color:#fff;padding:10px 24px;border-radius:999px;font-size:14px;font-weight:500;opacity:0;pointer-events:none;transition:var(--t);z-index:9999}
+#toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 
-      --softGreen:#E6F6EC;
-      --softBlue:#E7F1FF;
-      --softOrange:#FFF1E5;
-      --softRed:#FFE9EC;
+/* ══════════════════ TELA INICIAL ══════════════════ */
+#tela-inicio{min-height:100vh;display:flex;flex-direction:column;background:var(--bg)}
 
-      --shadow:0 14px 30px rgba(11,31,20,.10);
-      --r:18px;
+/* NAV */
+.nav{display:flex;align-items:center;justify-content:space-between;padding:20px 48px;border-bottom:1px solid var(--bord)}
+.nav-logo{display:flex;align-items:center;gap:10px;font-family:var(--serif);font-size:17px;color:var(--ink)}
+.nav-logo-ico{width:32px;height:32px;background:var(--verde);border-radius:8px;display:flex;align-items:center;justify-content:center}
+.nav-logo-ico svg{width:16px;height:16px}
+.btn-nav{padding:9px 22px;background:var(--verde);color:#fff;border:none;border-radius:var(--r);font-size:14px;font-weight:600;font-family:var(--sans);cursor:pointer;transition:var(--t)}
+.btn-nav:hover{background:var(--verde-m)}
 
-      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
-    }
-    *{box-sizing:border-box}
-    body{
-      margin:0;
-      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-      color:var(--ink);
-      background:
-        radial-gradient(900px 520px at 12% 0%, rgba(14,122,58,.12), rgba(14,122,58,0) 55%),
-        radial-gradient(900px 520px at 92% 10%, rgba(11,111,191,.10), rgba(11,111,191,0) 60%),
-        linear-gradient(180deg, #EEF6F1, var(--bg));
-      padding:14px;
-    }
-    .wrap{max-width:1120px;margin:0 auto;display:flex;flex-direction:column;gap:12px}
-    header{
-      border:2px solid var(--line);
-      background:rgba(255,255,255,.96);
-      box-shadow:var(--shadow);
-      border-radius:var(--r);
-      padding:14px;
-      backdrop-filter: blur(8px);
-    }
-    h1{margin:0 0 6px;font-size:18px;letter-spacing:.2px}
-    .sub{margin:0;color:var(--muted);font-size:13px;line-height:1.35}
-    .toprow{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:10px}
-    .pill{
-      display:inline-flex;align-items:center;gap:8px;
-      padding:8px 10px;border-radius:999px;
-      border:2px solid var(--line);
-      background:#fff;
-      color:var(--muted);
-      font-size:13px;
-      box-shadow:0 10px 22px rgba(11,31,20,.06);
-    }
-    .pill b{color:var(--ink)}
-    .btn{
-      padding:9px 12px;border-radius:14px;
-      border:2px solid var(--line);
-      background:var(--softGreen);
-      color:var(--ink);
-      font-weight:1000;
-      cursor:pointer;
-      user-select:none;
-      box-shadow:0 12px 24px rgba(11,31,20,.08);
-    }
-    .btn.blue{ background: var(--softBlue); }
-    .btn.warn{ background: var(--softOrange); }
-    .btn.ghost{ background: #fff; }
-    .btn.danger{ background: var(--softRed); }
-    .btn:active{ transform: translateY(1px); }
+/* HERO */
+.hero{max-width:820px;margin:0 auto;padding:80px 48px 64px;width:100%}
+.hero-tag{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:600;letter-spacing:.8px;text-transform:uppercase;color:var(--verde);margin-bottom:28px}
+.hero-tag span{width:8px;height:8px;border-radius:50%;background:var(--verde);animation:blink 2.4s ease-in-out infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+.hero h1{font-family:var(--serif);font-size:clamp(36px,5vw,56px);line-height:1.1;letter-spacing:-.5px;color:var(--ink);margin-bottom:24px}
+.hero h1 em{font-style:italic;color:var(--verde)}
+.hero-desc{font-size:18px;font-weight:300;color:var(--ink3);line-height:1.7;max-width:640px;margin-bottom:40px}
+.btn-hero{display:inline-flex;align-items:center;gap:10px;padding:16px 32px;background:var(--verde);color:#fff;border:none;border-radius:var(--r);font-size:16px;font-weight:600;font-family:var(--sans);cursor:pointer;transition:var(--t);width:fit-content;margin-bottom:64px}
+.btn-hero:hover{background:var(--verde-m);transform:translateY(-1px)}
 
-    .grid{display:grid;grid-template-columns: 1.1fr .9fr;gap:12px}
-    @media (max-width: 980px){ .grid{grid-template-columns:1fr} }
+/* SOBRE */
+.sobre{border-top:1px solid var(--bord);padding:56px 0 0}
+.sobre-tag{font-size:11px;font-weight:600;letter-spacing:1.2px;text-transform:uppercase;color:var(--ink4);margin-bottom:20px}
+.sobre h2{font-family:var(--serif);font-size:26px;color:var(--ink);margin-bottom:20px;line-height:1.3}
+.sobre p{font-size:16px;color:var(--ink3);line-height:1.75;margin-bottom:16px;font-weight:300}
+.sobre-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:36px;padding-bottom:56px}
+.sobre-card{padding:24px;background:var(--sur);border:1px solid var(--bord);border-radius:var(--r2)}
+.sobre-card-ico{font-size:24px;margin-bottom:14px}
+.sobre-card h3{font-family:var(--serif);font-size:16px;color:var(--ink);margin-bottom:8px}
+.sobre-card p{font-size:14px;color:var(--ink3);line-height:1.6;font-weight:300}
 
-    .card{
-      border:2px solid var(--line);
-      background:rgba(255,255,255,.96);
-      box-shadow:var(--shadow);
-      border-radius:var(--r);
-      padding:12px;
-    }
-    .card h2{margin:0 0 10px;font-size:15px}
-    .small{font-size:12.5px;color:var(--muted);line-height:1.35}
+/* MODOS */
+.modos{padding:56px 0;border-top:1px solid var(--bord)}
+.modos h2{font-family:var(--serif);font-size:26px;color:var(--ink);margin-bottom:28px}
+.modos-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.modo-card{padding:28px;border:2px solid var(--bord);border-radius:var(--r2)}
+.modo-card.aluno{border-color:var(--verde);background:var(--verde-t)}
+.modo-card.prof{border-color:var(--azul);background:var(--azul-s)}
+.modo-badge{display:inline-flex;align-items:center;gap:6px;padding:4px 12px;border-radius:999px;font-size:11px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;margin-bottom:16px}
+.modo-badge.aluno{background:var(--verde);color:#fff}
+.modo-badge.prof{background:var(--azul);color:#fff}
+.modo-card h3{font-family:var(--serif);font-size:18px;color:var(--ink);margin-bottom:12px}
+.modo-card p{font-size:14px;color:var(--ink3);line-height:1.65;font-weight:300;margin-bottom:10px}
+.modo-lista{list-style:none;display:flex;flex-direction:column;gap:6px;margin-top:4px}
+.modo-lista li{font-size:13.5px;color:var(--ink2);padding-left:18px;position:relative;line-height:1.5}
+.modo-lista li::before{content:'→';position:absolute;left:0;color:var(--ink4);font-size:12px}
 
-    .switch{
-      display:inline-flex;align-items:center;gap:10px;
-      padding:6px 10px;border-radius:999px;border:2px solid var(--line);
-      background:#fff;
-    }
-    .switch label{font-size:12.5px;color:var(--muted);font-weight:900;margin:0}
-    .toggle{
-      width:52px;height:28px;border-radius:999px;
-      background:#E9EFEA;border:2px solid var(--line);
-      position:relative;cursor:pointer;
-    }
-    .knob{
-      width:22px;height:22px;border-radius:999px;
-      background: var(--green);
-      position:absolute;top:1px;left:2px;
-      transition: transform 180ms ease;
-      box-shadow:0 8px 16px rgba(11,31,20,.18);
-    }
-    .toggle.on .knob{ transform: translateX(24px); background: var(--blue); }
+/* AUTOR */
+.autor{background:var(--sur);border-top:1px solid var(--bord);padding:40px 48px;display:flex;align-items:center;gap:28px}
+.autor-av{width:56px;height:56px;border-radius:50%;background:var(--verde);display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-size:18px;color:#fff;font-weight:600;flex-shrink:0}
+.autor-nome{font-family:var(--serif);font-size:17px;color:var(--ink);margin-bottom:4px}
+.autor-role{font-size:13px;color:var(--ink3);line-height:1.5}
+.autor-links{margin-left:auto;display:flex;gap:10px;flex-shrink:0}
+.autor-link{padding:8px 16px;border:1.5px solid var(--bord2);border-radius:999px;font-size:13px;font-weight:500;color:var(--ink3);text-decoration:none;transition:var(--t)}
+.autor-link:hover{border-color:var(--verde);color:var(--verde);background:var(--verde-t)}
 
-    label{display:block;font-size:12.5px;color:var(--muted);margin:10px 0 6px;font-weight:900}
-    input, textarea, select{
-      width:100%;
-      border:2px solid var(--line);
-      border-radius:14px;
-      padding:10px 11px;
-      font-size:14px;
-      outline:none;
-      background:#fff;
-      color:var(--ink);
-    }
-    textarea{min-height:90px;resize:vertical;line-height:1.35}
-    .row2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-    .row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
-    @media (max-width: 740px){ .row3{grid-template-columns:1fr} }
-    @media (max-width: 640px){ .row2{grid-template-columns:1fr} }
+/* ══════════════════ APP ══════════════════ */
+#tela-app{display:none;min-height:100vh;background:var(--bg)}
 
-    .stepper{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0 6px}
-    .step{
-      padding:7px 10px;border-radius:999px;
-      border:2px solid var(--line);
-      background:#fff;
-      color:var(--muted);
-      font-weight:1000;
-      cursor:pointer;
-      user-select:none;
-    }
-    .step.active{ background: var(--softBlue); color: var(--ink); }
-    .step.good{ background: var(--softGreen); color: var(--ink); }
+/* APP BAR */
+.app-bar{position:fixed;top:0;left:0;right:0;height:64px;background:rgba(255,255,255,.97);border-bottom:1px solid var(--bord);display:flex;align-items:center;padding:0 28px;gap:16px;z-index:100;backdrop-filter:blur(8px)}
+.app-bar-logo{display:flex;align-items:center;gap:10px;font-family:var(--serif);font-size:15px;color:var(--ink);cursor:pointer;flex-shrink:0}
+.app-bar-logo .ico{width:28px;height:28px;background:var(--verde);border-radius:7px;display:flex;align-items:center;justify-content:center}
+.app-bar-logo .ico svg{width:14px;height:14px}
+.app-bar-tema{flex:1;font-size:15px;font-weight:500;color:var(--ink3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;padding:0 12px}
+.app-bar-dir{display:flex;align-items:center;gap:10px;flex-shrink:0}
 
-    .panel{display:none}
-    .panel.show{display:block}
+/* Toggle modo */
+.modo-toggle{display:flex;align-items:center;gap:8px;padding:7px 14px;border:1.5px solid var(--bord2);border-radius:999px;cursor:pointer;transition:var(--t);background:var(--bg)}
+.modo-toggle:hover{border-color:var(--verde)}
+.tog-track{width:40px;height:22px;border-radius:999px;background:var(--bord);position:relative;transition:var(--t)}
+.tog-track.on{background:var(--azul)}
+.tog-knob{width:16px;height:16px;border-radius:50%;background:#fff;position:absolute;top:3px;left:3px;transition:var(--t);box-shadow:0 1px 4px rgba(0,0,0,.15)}
+.tog-track.on .tog-knob{transform:translateX(18px)}
+.modo-nome{font-size:13px;font-weight:700;color:var(--ink3);min-width:80px}
+.modo-nome.prof{color:var(--azul)}
 
-    .kpi{display:grid;grid-template-columns:1fr;gap:10px}
-    .k{
-      border:2px solid var(--line);
-      border-radius:16px;
-      padding:10px;
-      background:#fff;
-      box-shadow:0 10px 22px rgba(11,31,20,.06);
-    }
-    .k .t{font-size:12px;color:var(--muted);font-weight:1000}
-    .k .v{font-size:14px;font-weight:1000;margin-top:6px;line-height:1.25}
-    .k .chipRow{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
-    .chip{
-      padding:6px 9px;border-radius:999px;
-      border:2px solid var(--line);
-      background:#fff;
-      font-size:12px;color:var(--muted);font-weight:1000;
-    }
-    .chip.green{ background: var(--softGreen); color: var(--ink); }
-    .chip.blue{ background: var(--softBlue); color: var(--ink); }
-    .chip.orange{ background: var(--softOrange); color: var(--ink); }
-    .chip.red{ background: var(--softRed); color: var(--ink); }
+.btn-gerar{display:flex;align-items:center;gap:8px;padding:9px 20px;background:var(--verde);color:#fff;border:none;border-radius:var(--r);font-size:14px;font-weight:600;font-family:var(--sans);cursor:pointer;transition:var(--t)}
+.btn-gerar:hover{background:var(--verde-m)}
+.btn-bare{padding:8px 14px;border:1.5px solid var(--bord2);border-radius:var(--r);font-size:13px;font-weight:500;color:var(--ink3);background:var(--bg);cursor:pointer;font-family:var(--sans);transition:var(--t);white-space:nowrap}
+.btn-bare:hover{border-color:var(--verde);color:var(--verde);background:var(--verde-t)}
 
-    .out{
-      border:2px solid var(--line);
-      background:#fff;
-      border-radius:16px;
-      padding:10px;
-      font-family:var(--mono);
-      font-size:12px;
-      white-space:pre-wrap;
-      line-height:1.35;
-      min-height:140px;
-    }
+/* LAYOUT */
+.app-layout{display:grid;grid-template-columns:460px 1fr;margin-top:64px;min-height:calc(100vh - 64px)}
 
-    .canvasBox{
-      border:2px solid var(--line);
-      border-radius:16px;
-      overflow:hidden;
-      background:#fff;
-      box-shadow:0 12px 24px rgba(11,31,20,.08);
-    }
-    canvas{display:block;width:100%;height:auto}
+/* ─── ESQUERDO ─── */
+.pan-esq{background:#F0F4F1;border-right:1px solid var(--bord);display:flex;flex-direction:column;height:calc(100vh - 64px);position:sticky;top:64px;overflow:hidden}
 
-    .divider{height:1px;background:var(--line);margin:10px 0}
-    .dangerText{ color: var(--red); font-weight:1000 }
+/* Progresso + etapas */
+.etapas-nav{padding:14px 16px 0;flex-shrink:0}
+.prog-linha{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.prog-txt{font-size:12px;font-weight:600;color:var(--ink4);text-transform:uppercase;letter-spacing:.6px}
+.prog-pct{font-size:14px;font-weight:600;color:var(--verde)}
+.prog-barra{height:4px;background:var(--bord);border-radius:999px;overflow:hidden;margin-bottom:12px}
+.prog-fill{height:100%;background:var(--verde);border-radius:999px;transition:width .5s ease}
 
-    .draftRow{display:flex;gap:8px;flex-wrap:wrap}
-    .draftRow select{flex:1}
-    .hintBox{
-      border:2px dashed var(--line);
-      background:#fff;
-      border-radius:16px;
-      padding:10px;
-      color:var(--muted);
-      font-size:12.5px;
-      line-height:1.35;
-    }
+.etapas-lista{display:flex;gap:4px;flex-wrap:wrap;flex-direction:row}
+.etapa-item{display:flex;align-items:center;gap:6px;padding:6px 10px;border-radius:999px;cursor:pointer;transition:var(--t);border:1.5px solid transparent}
+.etapa-item:hover{background:var(--bord)}
+.etapa-item.ativa{background:var(--verde);border-color:var(--verde)}
+.etapa-num{width:22px;height:22px;border-radius:50%;border:1.5px solid var(--bord2);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:var(--ink4);flex-shrink:0;transition:var(--t)}
+.etapa-item.ativa .etapa-num{background:rgba(255,255,255,.25);border-color:rgba(255,255,255,.4);color:#fff}
+.etapa-item.ok    .etapa-num{background:var(--verde-s);border-color:var(--verde-m);color:var(--verde)}
+.etapa-nome{font-size:13px;font-weight:500;color:#2C4A3A}
+.etapa-item.ativa .etapa-nome{color:#fff;font-weight:600}
+.etapa-item.ok    .etapa-nome{color:var(--ink2)}
+.etapa-check{font-size:12px;color:var(--verde);opacity:0;transition:var(--t)}
+.etapa-item.ok .etapa-check{opacity:1}
 
-    .toast{
-      position:fixed; left:14px; right:14px; top:12px;
-      display:flex; justify-content:center;
-      pointer-events:none;
-      z-index:9999;
-    }
-    .toast .b{
-      max-width:1120px;width:100%;
-      border:2px solid var(--line);
-      background:rgba(255,255,255,.96);
-      border-radius:14px;
-      padding:10px 12px;
-      box-shadow:0 18px 42px rgba(11,31,20,.18);
-      font-weight:1000;
-      color:var(--ink);
-      opacity:0;
-      transform:translateY(-8px);
-      transition:opacity 220ms ease, transform 220ms ease;
-    }
-    .toast .b.show{opacity:1; transform:translateY(0)}
+/* Formulário */
+.form-scroll{flex:1;overflow-y:auto;padding:0 20px 24px}
+.form-scroll::-webkit-scrollbar{width:4px}
+.form-scroll::-webkit-scrollbar-thumb{background:var(--bord2);border-radius:999px}
 
-    footer{
-      text-align:center;
-      color:rgba(11,31,20,.70);
-      font-size:12px;
-      padding:6px 0 2px;
-    }
-  </style>
+.etapa-panel{display:none}
+.etapa-panel.ativo{display:block}
+
+.p-header{padding-top:16px;margin-bottom:16px}
+.p-num{font-size:11px;font-weight:600;color:var(--ink4);letter-spacing:.8px;text-transform:uppercase;margin-bottom:6px}
+.p-titulo{font-family:var(--serif);font-size:20px;color:var(--ink);margin-bottom:6px;line-height:1.2}
+.p-desc{font-size:13px;color:var(--ink3);line-height:1.5;font-weight:300}
+
+/* Grupos de formulário — letras grandes */
+.fg{margin-bottom:18px}
+.fg label{display:block;font-size:15px;font-weight:700;color:#0A1F10;margin-bottom:10px;letter-spacing:.1px}
+.fg label span{display:block;font-size:12px;font-weight:400;color:var(--ink4);margin-top:2px}
+
+.fg input,
+.fg select{
+  width:100%;
+  border:3px solid #1E7A47;
+  border-radius:12px;
+  padding:14px 18px;
+  font-size:16px;
+  font-family:var(--sans);
+  color:#0A1F10;
+  background:#E8F5EE;
+  outline:none;
+  transition:var(--t);
+  line-height:1.4;
+  font-weight:500;
+  box-shadow:0 2px 8px rgba(22,92,54,.10);
+}
+
+.fg textarea{
+  width:100%;
+  border:3px solid #1E7A47;
+  border-radius:12px;
+  padding:18px 20px;
+  font-size:17px;
+  font-family:var(--sans);
+  color:#0A1F10;
+  background:#E8F5EE;
+  outline:none;
+  transition:var(--t);
+  resize:vertical;
+  line-height:1.75;
+  min-height:160px;
+  font-weight:500;
+  box-shadow:0 2px 8px rgba(22,92,54,.10);
+}
+
+.fg input:focus,.fg select:focus,.fg textarea:focus{
+  border-color:#0A5C2E;
+  background:#D2EDDB;
+  box-shadow:0 0 0 5px rgba(22,92,54,.22),0 2px 12px rgba(22,92,54,.15);
+}
+.fg input::placeholder,.fg textarea::placeholder{color:#5A8A6A;font-weight:400}
+
+.fg select{
+  appearance:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16' fill='none'%3E%3Cpath d='M4 6l4 4 4-4' stroke='%238FA89C' stroke-width='1.8' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;
+  background-position:right 14px center;
+  padding-right:40px;
+  cursor:pointer;
+}
+
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
+
+.dica{padding:12px 14px;background:var(--verde-t);border-left:3px solid var(--verde);border-radius:0 var(--r) var(--r) 0;font-size:14px;color:var(--ink3);line-height:1.6;margin-bottom:20px}
+.dica strong{color:var(--verde)}
+
+/* Nav etapas */
+.etapa-nav{display:flex;gap:8px;padding:10px 16px;border-top:1px solid var(--bord);background:var(--bg);flex-shrink:0}
+.btn-etapa{flex:1;padding:9px;border:1.5px solid var(--bord2);border-radius:var(--r);font-size:14px;font-weight:600;font-family:var(--sans);cursor:pointer;transition:var(--t);background:var(--bg);color:var(--ink3)}
+.btn-etapa:hover:not(:disabled){border-color:var(--verde);color:var(--verde)}
+.btn-etapa:disabled{opacity:.35;cursor:not-allowed}
+.btn-etapa.avan{background:var(--verde);color:#fff;border-color:var(--verde)}
+.btn-etapa.avan:hover{background:var(--verde-m);border-color:var(--verde-m)}
+
+/* Planos */
+.planos-area{padding:10px 16px;border-top:1px solid var(--bord);flex-shrink:0}
+.planos-titulo{font-size:11px;font-weight:600;color:var(--ink4);text-transform:uppercase;letter-spacing:.8px;margin-bottom:10px}
+.planos-row{display:flex;gap:8px;margin-bottom:8px}
+.planos-row input{flex:1;padding:9px 12px;font-size:14px;border:1.5px solid var(--bord2);border-radius:var(--r);background:var(--bg);color:var(--ink);font-family:var(--sans);outline:none}
+.planos-row input:focus{border-color:var(--verde)}
+.planos-row select{flex:1;padding:9px 12px;font-size:14px;border:1.5px solid var(--bord2);border-radius:var(--r);background:var(--bg);color:var(--ink);font-family:var(--sans);outline:none}
+.btn-plano{padding:9px 12px;border:1.5px solid var(--bord2);border-radius:var(--r);font-size:13px;font-weight:600;font-family:var(--sans);cursor:pointer;background:var(--bg);color:var(--ink3);transition:var(--t);white-space:nowrap}
+.btn-plano:hover{border-color:var(--verde);color:var(--verde)}
+.btn-plano.perigo:hover{border-color:#8A1A22;color:#8A1A22}
+
+/* Rubrica */
+#sec-rubrica{display:none;border-top:1px solid var(--bord);padding:16px 20px}
+
+/* ─── DIREITO ─── */
+.pan-dir{padding:36px 40px;overflow-y:auto;display:flex;flex-direction:column;gap:28px}
+
+.sec-titulo{font-size:11px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--ink4);margin-bottom:16px;display:flex;align-items:center;gap:12px}
+.sec-titulo::after{content:'';flex:1;height:1px;background:var(--bord)}
+
+.card-saida{background:var(--bg);border:1px solid var(--bord);border-radius:var(--r2);overflow:hidden}
+.card-topo{display:flex;align-items:center;justify-content:space-between;padding:16px 22px;border-bottom:1px solid var(--bord)}
+.card-label{font-size:12px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:var(--ink4)}
+.card-acao{font-size:13px;font-weight:600;color:var(--azul-m);cursor:pointer;padding:4px 10px;border-radius:999px;transition:var(--t)}
+.card-acao:hover{background:var(--azul-s)}
+.card-corpo{padding:22px}
+
+/* Pergunta */
+.pergunta-txt{font-family:var(--serif);font-size:19px;line-height:1.55;color:var(--ink);margin-bottom:18px}
+.chips{display:flex;gap:8px;flex-wrap:wrap}
+.chip{padding:5px 14px;border-radius:999px;font-size:13px;font-weight:600}
+.chip-v{background:var(--verde-s);color:var(--verde)}
+.chip-a{background:var(--azul-s);color:var(--azul)}
+.chip-am{background:var(--ambar-s);color:var(--ambar)}
+
+/* Hipótese */
+.hip-auto{font-size:16px;line-height:1.75;color:var(--ink2);padding:18px 20px;background:var(--verde-t);border-left:4px solid var(--verde);border-radius:0 var(--r) var(--r) 0;margin-bottom:14px;font-style:italic}
+.hip-user{font-size:15px;line-height:1.7;color:var(--ink3);padding:14px 18px;background:var(--azul-s);border-left:3px solid var(--azul-m);border-radius:0 var(--r) var(--r) 0}
+
+/* Rubrica */
+.rub-meter{display:flex;align-items:center;gap:20px;padding:18px 20px;background:var(--verde-t);border-radius:var(--r);margin-bottom:16px}
+.rub-score{font-family:var(--serif);font-size:42px;font-weight:600;color:var(--verde);line-height:1}
+.rub-nivel{font-size:16px;font-weight:600;color:var(--ink);margin-bottom:4px}
+.rub-sub{font-size:13px;color:var(--ink3)}
+.rub-barra{height:6px;background:var(--bord);border-radius:999px;overflow:hidden;margin-bottom:16px}
+.rub-fill{height:100%;background:var(--verde);border-radius:999px;transition:width .6s ease}
+.rub-itens{display:flex;flex-direction:column;gap:8px}
+.rub-item{display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:var(--r);border:1px solid var(--bord);background:var(--sur)}
+.rub-item.ok{background:var(--verde-t);border-color:rgba(22,92,54,.15)}
+.rub-item.nao{background:var(--ambar-s);border-color:rgba(138,75,0,.12)}
+.rub-dot{width:9px;height:9px;border-radius:50%;flex-shrink:0}
+.rub-dot.ok{background:var(--verde-m)}
+.rub-dot.nao{background:var(--ambar)}
+.rub-txt{font-size:14px;color:var(--ink2);flex:1}
+.rub-pts{font-size:12px;font-weight:700;color:var(--ink4)}
+
+/* Texto */
+.txt-saida{font-family:'Courier New',monospace;font-size:13px;line-height:1.75;color:var(--ink2);white-space:pre-wrap;background:var(--sur);padding:18px 20px;border-radius:var(--r);max-height:380px;overflow-y:auto;border:1px solid var(--bord)}
+
+/* Canvas */
+.canvas-wrap{border:1px solid var(--bord);border-radius:var(--r);overflow:hidden;background:var(--bg)}
+canvas{display:block;width:100%;height:auto}
+
+/* Alt */
+.alt-q{padding:14px 16px;background:var(--azul-s);border-left:3px solid var(--azul-m);border-radius:0 var(--r) var(--r) 0;font-size:15px;color:var(--ink2);line-height:1.65;margin-bottom:10px}
+
+/* Timeline */
+.timeline{display:flex;flex-direction:column;gap:0}
+.tl-item{display:flex;gap:16px;padding:10px 0;position:relative}
+.tl-item:not(:last-child)::before{content:'';position:absolute;left:11px;top:38px;bottom:-10px;width:1px;background:var(--bord)}
+.tl-dot{width:24px;height:24px;border-radius:50%;background:var(--verde-s);border:2px solid var(--verde-m);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:var(--verde);flex-shrink:0;margin-top:2px}
+.tl-sem{font-size:11px;font-weight:700;color:var(--ink4);text-transform:uppercase;letter-spacing:.4px}
+.tl-txt{font-size:14px;color:var(--ink2);margin-top:2px;line-height:1.5}
+
+/* Footer */
+.app-footer{text-align:center;padding:28px;font-size:13px;color:var(--ink4);border-top:1px solid var(--bord)}
+.app-footer a{color:var(--verde);font-weight:600;text-decoration:none}
+
+/* ─── RESPONSIVO ─── */
+@media(max-width:900px){
+  .app-layout{grid-template-columns:1fr}
+  .pan-esq{height:auto;position:static}
+  .pan-dir{padding:24px 20px}
+  .sobre-cards{grid-template-columns:1fr}
+  .modos-grid{grid-template-columns:1fr}
+  .nav{padding:16px 24px}
+  .hero{padding:48px 24px 40px}
+  .autor{padding:28px 24px;flex-wrap:wrap}
+  .autor-links{margin-left:0}
+  .row2{grid-template-columns:1fr}
+  .row3{grid-template-columns:1fr}
+  .app-bar-tema{display:none}
+}
+</style>
 </head>
 <body>
-  <div class="toast"><div class="b" id="toast">OK</div></div>
 
-  <div class="wrap">
-    <header>
-      <h1>🧪 Lab de Perguntas Científicas — TCC & Pesquisa</h1>
-      <p class="sub">
-        Construa: <b>problema → pergunta → hipóteses SE… ENTÃO…</b>, com <b>gráfico hipotético por magnitude</b>,
-        <b>mapa mental</b>, <b>cronograma</b> e <b>plano de apresentação</b>. Exporta <b>TXT</b> e <b>PNG</b>.
+<div id="toast"></div>
+
+<!-- ══════════════════════ TELA INICIAL ══════════════════════ -->
+<div id="tela-inicio">
+
+  <nav class="nav">
+    <div class="nav-logo">
+      <div class="nav-logo-ico">
+        <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.2" stroke-linecap="round">
+          <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+        </svg>
+      </div>
+      Lab Científico
+    </div>
+    <button class="btn-nav" onclick="abrirApp()">Abrir o laboratório →</button>
+  </nav>
+
+  <div class="hero">
+
+    <div class="hero-tag"><span></span> Educação científica e climática</div>
+
+    <h1>Do problema à <em>hipótese</em> científica.</h1>
+
+    <p class="hero-desc">
+      Uma ferramenta de orientação criada por um pesquisador do Pantanal para ajudar alunos e professores a estruturar projetos de pesquisa com rigor, clareza e autonomia.
+    </p>
+
+    <button class="btn-hero" onclick="abrirApp()">
+      Iniciar meu projeto de pesquisa
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+    </button>
+
+    <!-- O QUE É -->
+    <div class="sobre">
+      <div class="sobre-tag">O que é esta plataforma?</div>
+      <h2>Um laboratório para construir pensamento científico</h2>
+      <p>
+        O <strong>Lab Científico</strong> é uma ferramenta educacional desenvolvida por Ernandes Sobreira Oliveira Junior — biólogo, doutor e professor da UNEMAT — para orientar a construção de projetos de pesquisa científica. Do problema inicial até a hipótese testável, o método, o cronograma e o plano de publicação.
+      </p>
+      <p>
+        A plataforma foi desenhada para uso em sala de aula, em orientações de TCC e em disciplinas de metodologia científica. Ela guia o aluno passo a passo, evita o bloqueio diante de uma folha em branco e ajuda o professor a identificar onde o projeto ainda precisa amadurecer.
+      </p>
+      <p>
+        Cada etapa ensina um conceito central da ciência: variável, hipótese, mecanismo causal, delineamento, magnitude do efeito. Sem transformar isso em um formulário burocrático.
       </p>
 
-      <div class="toprow">
-        <div class="switch" title="Modo Aluno = passos; Modo Professor = visão completa + rubrica">
-          <label>Modo:</label>
-          <div class="toggle" id="modeToggle" role="switch" aria-checked="false">
-            <div class="knob"></div>
+      <div class="sobre-cards">
+        <div class="sobre-card">
+          <div class="sobre-card-ico">🔬</div>
+          <h3>Para alunos de TCC</h3>
+          <p>Sete etapas guiadas levam do problema à hipótese completa, com geração automática de pergunta científica e mapa mental.</p>
+        </div>
+        <div class="sobre-card">
+          <div class="sobre-card-ico">👩‍🏫</div>
+          <h3>Para professores e orientadores</h3>
+          <p>Modo Professor ativa rubrica automática de maturidade científica, com pontuação por critério e feedback estruturado.</p>
+        </div>
+        <div class="sobre-card">
+          <div class="sobre-card-ico">🌿</div>
+          <h3>Contexto Pantanal e clima</h3>
+          <p>Desenvolvido com foco em educação climática e recursos hídricos, mas aplicável a qualquer área científica.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- MODOS -->
+    <div class="modos">
+      <h2>Dois modos, uma plataforma</h2>
+      <div class="modos-grid">
+
+        <div class="modo-card aluno">
+          <div class="modo-badge aluno">🎓 Modo Aluno</div>
+          <h3>Para quem está construindo o projeto</h3>
+          <p>O aluno é guiado por sete etapas sequenciais, com dicas contextuais em cada campo.</p>
+          <ul class="modo-lista">
+            <li>Progresso visual por etapa concluída</li>
+            <li>Geração automática da pergunta científica</li>
+            <li>Hipótese SE… ENTÃO… PORQUE estruturada</li>
+            <li>Gráfico hipotético por magnitude</li>
+            <li>Mapa mental interativo e arrastável</li>
+            <li>Exportação em TXT e PNG</li>
+          </ul>
+        </div>
+
+        <div class="modo-card prof">
+          <div class="modo-badge prof">👩‍🏫 Modo Professor</div>
+          <h3>Para quem está orientando e avaliando</h3>
+          <p>O professor acessa todas as funções do aluno mais uma camada de avaliação pedagógica automática.</p>
+          <ul class="modo-lista">
+            <li>Rubrica de maturidade científica com pontuação</li>
+            <li>Avaliação por critério: problema, variáveis, hipótese, método, cronograma</li>
+            <li>Nível automático: Iniciante até Excelente</li>
+            <li>Destaque visual das lacunas a melhorar</li>
+            <li>Visão completa do projeto do aluno</li>
+            <li>Útil em orientações presenciais e a distância</li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+
+  </div><!-- /hero -->
+
+  <!-- AUTOR -->
+  <div class="autor">
+    <div class="autor-av">ES</div>
+    <div>
+      <div class="autor-nome">Ernandes Sobreira Oliveira Junior</div>
+      <div class="autor-role">
+        Biólogo · Professor UNEMAT Cáceres-MT · Doutor pela Radboud University (Holanda)<br>
+        Pesquisador do Pantanal Norte · mais de 100 artigos publicados · mais de 100 bancas orientadas
+      </div>
+    </div>
+    <div class="autor-links">
+      <a class="autor-link" href="https://ernandes-sobreira.github.io/meu-mundo/" target="_blank" rel="noopener">CV Online</a>
+      <a class="autor-link" href="http://lattes.cnpq.br/7461346615427709"           target="_blank" rel="noopener">Lattes CNPq</a>
+    </div>
+  </div>
+
+</div><!-- /tela-inicio -->
+
+
+<!-- ══════════════════════ APP ══════════════════════ -->
+<div id="tela-app">
+
+  <div class="app-bar">
+    <div class="app-bar-logo" onclick="voltarInicio()">
+      <div class="ico">
+        <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.2" stroke-linecap="round">
+          <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+        </svg>
+      </div>
+      Lab Científico
+    </div>
+    <div class="app-bar-tema" id="barTema">Novo projeto</div>
+    <div class="app-bar-dir">
+      <div class="modo-toggle" onclick="alternarModo()">
+        <div class="tog-track" id="togTrack"><div class="tog-knob"></div></div>
+        <span class="modo-nome" id="modoNome">ALUNO</span>
+      </div>
+      <button class="btn-gerar" onclick="gerar()">
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M2 8l3 3 9-9"/></svg>
+        Gerar saídas
+      </button>
+      <button class="btn-bare" onclick="exportarTXT()">↓ TXT</button>
+      <button class="btn-bare" onclick="exportarPNG()">↓ PNG</button>
+    </div>
+  </div>
+
+  <div class="app-layout">
+
+    <!-- ─── ESQUERDO ─── -->
+    <div class="pan-esq">
+
+      <div class="etapas-nav">
+        <div class="prog-linha">
+          <span class="prog-txt">Progresso</span>
+          <span class="prog-pct" id="progPct">0%</span>
+        </div>
+        <div class="prog-barra"><div class="prog-fill" id="progFill" style="width:0%"></div></div>
+
+        <div class="etapas-lista" id="etapasList">
+          <div class="etapa-item ativa" data-s="1" onclick="irEtapa(1)">
+            <div class="etapa-num">1</div><div class="etapa-nome">Problema e Contexto</div><span class="etapa-check">✓</span>
           </div>
-          <b id="modeLabel">ALUNO</b>
+          <div class="etapa-item" data-s="2" onclick="irEtapa(2)">
+            <div class="etapa-num">2</div><div class="etapa-nome">Variáveis e Desenho</div><span class="etapa-check">✓</span>
+          </div>
+          <div class="etapa-item" data-s="3" onclick="irEtapa(3)">
+            <div class="etapa-num">3</div><div class="etapa-nome">Hipótese e Mecanismo</div><span class="etapa-check">✓</span>
+          </div>
+          <div class="etapa-item" data-s="4" onclick="irEtapa(4)">
+            <div class="etapa-num">4</div><div class="etapa-nome">Método e Limitações</div><span class="etapa-check">✓</span>
+          </div>
+          <div class="etapa-item" data-s="5" onclick="irEtapa(5)">
+            <div class="etapa-num">5</div><div class="etapa-nome">Magnitude do Efeito</div><span class="etapa-check">✓</span>
+          </div>
+          <div class="etapa-item" data-s="6" onclick="irEtapa(6)">
+            <div class="etapa-num">6</div><div class="etapa-nome">Cronograma</div><span class="etapa-check">✓</span>
+          </div>
+          <div class="etapa-item" data-s="7" onclick="irEtapa(7)">
+            <div class="etapa-num">7</div><div class="etapa-nome">Plano de Publicação</div><span class="etapa-check">✓</span>
+          </div>
         </div>
-
-        <div class="pill">💾 Auto-salva: <b id="autosave">ON</b></div>
-
-        <button class="btn" id="btnGenerate" type="button">Gerar saídas</button>
-        <button class="btn blue" id="btnTXT" type="button">Exportar TXT</button>
-        <button class="btn blue" id="btnPNG" type="button">Exportar Mapa PNG</button>
-        <button class="btn ghost" id="btnOpenTXT" type="button">Abrir TXT</button>
-        <button class="btn ghost" id="btnOpenPNG" type="button">Abrir PNG</button>
-        <button class="btn warn" id="btnAlt" type="button">3 perguntas alternativas</button>
-        <button class="btn danger" id="btnClear" type="button">Limpar</button>
       </div>
 
-      <div class="hintBox" style="margin-top:10px">
-        Se o download não funcionar no seu celular: use <b>Abrir TXT</b> ou <b>Abrir PNG</b> e depois <b>Salvar/Compartilhar</b> no Android.
-      </div>
-    </header>
+      <!-- FORMULÁRIO -->
+      <div class="form-scroll" id="formScroll">
 
-    <div class="grid">
-      <!-- ESQUERDA -->
-      <section class="card">
-        <h2 id="leftTitle">Modo Aluno — Passos</h2>
-        <div class="small" id="leftHelp">
-          Preencha por partes. Clique em <b>Gerar saídas</b>. Depois refine a hipótese e o cronograma.
-        </div>
-
-        <div class="stepper" id="stepper">
-          <div class="step active" data-step="1">1) Problema</div>
-          <div class="step" data-step="2">2) Variáveis</div>
-          <div class="step" data-step="3">3) Hipótese</div>
-          <div class="step" data-step="4">4) Método</div>
-          <div class="step" data-step="5">5) Magnitude</div>
-          <div class="step" data-step="6">6) Cronograma</div>
-          <div class="step" data-step="7">7) Apresentação</div>
-        </div>
-
-        <!-- STEP 1 -->
-        <div class="panel show" id="step1">
-          <label>Aluno(a) / Turma (opcional)</label>
-          <input id="student" placeholder="Ex.: Turma 2026 / Nome"/>
-
-          <label>Tema (1 linha)</label>
-          <input id="theme" placeholder="Ex.: SBN e redução de calor urbano"/>
-
-          <label>Problema real (contexto + por que importa?)</label>
-          <textarea id="problem" placeholder="Quem é afetado? Onde? Quais consequências?"></textarea>
-
+        <!-- ETAPA 1 -->
+        <div class="etapa-panel ativo" id="ep1">
+          <div class="p-header">
+            <div class="p-num">Etapa 01 de 07</div>
+            <div class="p-titulo">Problema e Contexto</div>
+            <div class="p-desc">Defina o que motiva a pesquisa. Um bom problema tem contexto, escala e impacto claro.</div>
+          </div>
+          <div class="fg">
+            <label>Aluno(a) / Turma <span>Opcional — para identificar o plano</span></label>
+            <input id="student" type="text" placeholder="Ex.: Ana Souza — Turma 2026"/>
+          </div>
+          <div class="fg">
+            <label>Tema da pesquisa <span>Uma linha objetiva</span></label>
+            <input id="theme" type="text" placeholder="Ex.: Soluções baseadas na natureza e calor urbano"/>
+          </div>
+          <div class="fg">
+            <label>Problema real <span>Quem sofre? Onde? Por que importa?</span></label>
+            <textarea id="problem" placeholder="Descreva o contexto, quem é afetado, as consequências e por que o problema merece ser estudado agora."></textarea>
+          </div>
           <div class="row2">
-            <div>
-              <label>Local/escala</label>
-              <input id="place" placeholder="Ex.: Cáceres-MT / bairro X / campus"/>
+            <div class="fg">
+              <label>Local / Escala</label>
+              <input id="place" type="text" placeholder="Ex.: Cáceres-MT"/>
             </div>
-            <div>
-              <label>Área/linha</label>
+            <div class="fg">
+              <label>Área</label>
               <select id="field">
                 <option>Ciências Ambientais</option>
                 <option>Ecologia</option>
-                <option>Saúde & Ambiente</option>
+                <option>Saúde e Ambiente</option>
+                <option>Hidrologia</option>
                 <option>Geografia</option>
-                <option>Engenharia/Planejamento</option>
-                <option>Educação/Extensão</option>
+                <option>Engenharia e Planejamento</option>
+                <option>Educação e Extensão</option>
                 <option>Outra</option>
               </select>
             </div>
           </div>
         </div>
 
-        <!-- STEP 2 -->
-        <div class="panel" id="step2">
-          <label>Variável resposta (Y)</label>
-          <input id="yVar" placeholder="Ex.: temperatura do ar (°C) / mortalidade por calor"/>
-
-          <label>Variável explicativa (X)</label>
-          <input id="xVar" placeholder="Ex.: cobertura arbórea (%) / presença de parque"/>
-
+        <!-- ETAPA 2 -->
+        <div class="etapa-panel" id="ep2">
+          <div class="p-header">
+            <div class="p-num">Etapa 02 de 07</div>
+            <div class="p-titulo">Variáveis e Desenho</div>
+            <div class="p-desc">Toda hipótese liga uma causa (X) a um efeito (Y). Defina cada uma com precisão.</div>
+          </div>
+          <div class="dica"><strong>X</strong> é o que você manipula ou mede como causa. <strong>Y</strong> é o que você observa como resposta.</div>
+          <div class="fg">
+            <label>Variável resposta — Y <span>O que você vai medir como resultado?</span></label>
+            <input id="yVar" type="text" placeholder="Ex.: temperatura do ar (°C) / mortalidade por calor"/>
+          </div>
+          <div class="fg">
+            <label>Variável explicativa — X <span>O que você acredita que causa mudança em Y?</span></label>
+            <input id="xVar" type="text" placeholder="Ex.: cobertura arbórea (%) / presença de parque urbano"/>
+          </div>
           <div class="row2">
-            <div>
-              <label>Desenho</label>
+            <div class="fg">
+              <label>Delineamento</label>
               <select id="design">
-                <option>Comparação (2+ grupos)</option>
+                <option>Comparação (2 ou mais grupos)</option>
                 <option>Antes vs Depois (intervenção)</option>
                 <option>Gradiente (níveis crescentes)</option>
                 <option>Série temporal (ao longo do tempo)</option>
                 <option>Experimental (controle vs tratamento)</option>
               </select>
             </div>
-            <div>
+            <div class="fg">
               <label>Direção do efeito</label>
               <select id="effectDir">
-                <option value="up">Aumenta (X ↑ → Y ↑)</option>
-                <option value="down">Diminui (X ↑ → Y ↓)</option>
-                <option value="curve">Curva (ótimo/limiar)</option>
-                <option value="null">Sem efeito (nulo)</option>
+                <option value="up">X aumenta → Y aumenta</option>
+                <option value="down">X aumenta → Y diminui</option>
+                <option value="curve">Curva (ótimo ou limiar)</option>
+                <option value="null">Sem efeito (hipótese nula)</option>
               </select>
             </div>
           </div>
-
-          <label>Intervenção/solução (se houver)</label>
-          <input id="intervention" placeholder="Ex.: plantar árvores / telhado verde / refúgio climático"/>
-
-          <label>Unidade amostral</label>
-          <input id="unit" placeholder="Ex.: pontos / quadras / bairros / indivíduos"/>
-        </div>
-
-        <!-- STEP 3 -->
-        <div class="panel" id="step3">
-          <label>Mecanismo (por quê X afeta Y?)</label>
-          <textarea id="mechanism" placeholder="Ex.: sombra reduz radiação; evapotranspiração resfria; vulneráveis sofrem mais."></textarea>
-
-          <label>Hipótese principal (SE… ENTÃO… PORQUE…)</label>
-          <textarea id="hypUser" placeholder="SE (X mudar) ENTÃO (Y muda) PORQUE (mecanismo)."></textarea>
-        </div>
-
-        <!-- STEP 4 -->
-        <div class="panel" id="step4">
-          <label>Como você vai medir? (método)</label>
-          <textarea id="methods" placeholder="Ex.: sensores + transectos; ou dados públicos + análise estatística."></textarea>
-
-          <label>Limitações & riscos</label>
-          <textarea id="limits" placeholder="Tempo, acesso, custo, sazonalidade, ética, viés."></textarea>
-        </div>
-
-        <!-- STEP 5: Magnitude -->
-        <div class="panel" id="step5">
-          <div class="hintBox">
-            Aqui você define <b>magnitude</b> para o gráfico hipotético (ex.: “Grupo B tem 2x o efeito do A”).
+          <div class="fg">
+            <label>Intervenção / Solução <span>Se houver uma ação humana no centro da pesquisa</span></label>
+            <input id="intervention" type="text" placeholder="Ex.: plantio de árvores / telhado verde / refúgio climático"/>
           </div>
-
-          <label>Tipo de magnitude (para o gráfico)</label>
-          <select id="magType">
-            <option value="auto">Automático (padrão)</option>
-            <option value="groups">2 grupos (A vs B) — médias e razão</option>
-            <option value="slope">Gradiente — base e inclinação</option>
-          </select>
-
-          <div class="row3" style="margin-top:10px">
-            <div>
-              <label>Média Grupo A (Y)</label>
-              <input id="meanA" type="number" step="0.1" placeholder="Ex.: 10" />
-            </div>
-            <div>
-              <label>Razão B/A</label>
-              <input id="ratioBA" type="number" step="0.1" placeholder="Ex.: 2 (B = 2x A)" />
-            </div>
-            <div>
-              <label>Média Grupo B (Y)</label>
-              <input id="meanB" type="number" step="0.1" placeholder="Ex.: 20" />
-            </div>
-          </div>
-
-          <div class="row2" style="margin-top:10px">
-            <div>
-              <label>Base (Y em X=0)</label>
-              <input id="baseY" type="number" step="0.1" placeholder="Ex.: 15" />
-            </div>
-            <div>
-              <label>Inclinação (ΔY quando X vai 0→1)</label>
-              <input id="slopeY" type="number" step="0.1" placeholder="Ex.: -3 (reduz 3 unidades)" />
-            </div>
-          </div>
-
-          <div class="small" style="margin-top:8px">
-            Dica: se você está estudando <b>temperatura (°C)</b>, uma inclinação de <b>-2</b> significa “do baixo para alto X, cai 2°C”.
+          <div class="fg">
+            <label>Unidade amostral</label>
+            <input id="unit" type="text" placeholder="Ex.: pontos de medição / quadras / indivíduos / bacias"/>
           </div>
         </div>
 
-        <!-- STEP 6: Cronograma -->
-        <div class="panel" id="step6">
+        <!-- ETAPA 3 -->
+        <div class="etapa-panel" id="ep3">
+          <div class="p-header">
+            <div class="p-num">Etapa 03 de 07</div>
+            <div class="p-titulo">Hipótese e Mecanismo</div>
+            <div class="p-desc">A hipótese é a peça central do projeto. Ela deve ser falsificável e ter mecanismo causal claro.</div>
+          </div>
+          <div class="dica"><strong>Mecanismo</strong> é o processo biológico, físico ou químico que explica por que X afeta Y. Sem mecanismo, a hipótese é apenas uma esperança.</div>
+          <div class="fg">
+            <label>Mecanismo <span>Por que X afeta Y? Explique o processo.</span></label>
+            <textarea id="mechanism" placeholder="Ex.: a sombra reduz a radiação solar incidente; a evapotranspiração resfria o ar por latência; grupos vulneráveis têm menos acesso a áreas verdes."></textarea>
+          </div>
+          <div class="fg">
+            <label>Hipótese principal — SE… ENTÃO… PORQUE <span>Escreva na estrutura completa ou deixe gerar automaticamente</span></label>
+            <textarea id="hypUser" placeholder="SE [X mudar], ENTÃO [Y mudará], PORQUE [mecanismo].&#10;&#10;Ex.: SE a cobertura arbórea aumentar em 10%, ENTÃO a temperatura máxima do ar diminuirá em 1,5°C, PORQUE sombra e evapotranspiração reduzem o saldo de radiação."></textarea>
+          </div>
+        </div>
+
+        <!-- ETAPA 4 -->
+        <div class="etapa-panel" id="ep4">
+          <div class="p-header">
+            <div class="p-num">Etapa 04 de 07</div>
+            <div class="p-titulo">Método e Limitações</div>
+            <div class="p-desc">Descreva como vai testar a hipótese. Seja específico sobre coleta, análise e o que pode dar errado.</div>
+          </div>
+          <div class="fg">
+            <label>Como você vai medir? <span>Protocolo, instrumentos, dados utilizados</span></label>
+            <textarea id="methods" placeholder="Ex.: sensores iButton em 15 pontos ao longo de gradiente de cobertura arbórea; análise de correlação de Spearman; NDVI via Google Earth Engine."></textarea>
+          </div>
+          <div class="fg">
+            <label>Limitações e Riscos <span>Seja honesto — orientadores valorizam isso</span></label>
+            <textarea id="limits" placeholder="Ex.: acesso limitado a certas áreas; sazonalidade das chuvas pode confundir o efeito de X; custo de sensores; tempo reduzido do semestre."></textarea>
+          </div>
+        </div>
+
+        <!-- ETAPA 5 -->
+        <div class="etapa-panel" id="ep5">
+          <div class="p-header">
+            <div class="p-num">Etapa 05 de 07</div>
+            <div class="p-titulo">Magnitude do Efeito</div>
+            <div class="p-desc">Quantifique o efeito esperado. Mesmo estimativas grosseiras são mais informativas do que nenhuma.</div>
+          </div>
+          <div class="fg">
+            <label>Tipo de gráfico</label>
+            <select id="magType">
+              <option value="auto">Automático (baseado no delineamento)</option>
+              <option value="groups">Dois grupos (A vs B)</option>
+              <option value="slope">Gradiente (base e inclinação)</option>
+            </select>
+          </div>
+          <div class="row3">
+            <div class="fg"><label>Média Grupo A</label><input id="meanA" type="number" step="0.1" placeholder="Ex.: 10"/></div>
+            <div class="fg"><label>Razão B/A</label><input id="ratioBA" type="number" step="0.1" placeholder="Ex.: 2"/></div>
+            <div class="fg"><label>Média Grupo B</label><input id="meanB" type="number" step="0.1" placeholder="Ex.: 20"/></div>
+          </div>
           <div class="row2">
-            <div>
-              <label>Data de início</label>
-              <input id="startDate" type="date"/>
-            </div>
-            <div>
-              <label>Duração (semanas)</label>
-              <input id="durationWeeks" type="number" min="1" step="1" placeholder="Ex.: 12"/>
-            </div>
-          </div>
-
-          <button class="btn" id="btnGenSchedule" type="button" style="margin-top:10px">Gerar cronograma padrão</button>
-
-          <label style="margin-top:10px">Cronograma (1 linha por atividade — você pode editar)</label>
-          <textarea id="schedule" placeholder="Ex.: Semana 1-2: revisão; Semana 3: desenho; ..."></textarea>
-
-          <div class="small">
-            Cronograma entra automaticamente no TXT.
+            <div class="fg"><label>Base Y (X = 0)</label><input id="baseY" type="number" step="0.1" placeholder="Ex.: 32"/></div>
+            <div class="fg"><label>Inclinação (ΔY por unidade X)</label><input id="slopeY" type="number" step="0.1" placeholder="Ex.: -0,5"/></div>
           </div>
         </div>
 
-        <!-- STEP 7: Apresentação -->
-        <div class="panel" id="step7">
-          <label>Onde você quer apresentar os resultados?</label>
-          <select id="wherePresent">
-            <option value="Somente TCC">Somente no TCC</option>
-            <option value="Congresso">Congresso</option>
-            <option value="Artigo (periódico)">Artigo (periódico)</option>
-            <option value="TCC + Congresso">TCC + Congresso</option>
-            <option value="TCC + Artigo">TCC + Artigo</option>
-            <option value="TCC + Congresso + Artigo">TCC + Congresso + Artigo</option>
-          </select>
-
-          <label>Nome do congresso/periódico (se houver)</label>
-          <input id="venueName" placeholder="Ex.: Congresso Brasileiro de ... / Journal of ..." />
-
-          <label>Link do congresso/periódico (cole aqui)</label>
-          <input id="venueLink" placeholder="https://..." />
-
-          <div class="small">
-            Isso entra no TXT para você já ter o “plano de entrega”.
+        <!-- ETAPA 6 -->
+        <div class="etapa-panel" id="ep6">
+          <div class="p-header">
+            <div class="p-num">Etapa 06 de 07</div>
+            <div class="p-titulo">Cronograma</div>
+            <div class="p-desc">Um cronograma realista é sinal de maturidade científica. Organize as etapas no tempo.</div>
+          </div>
+          <div class="row2">
+            <div class="fg"><label>Data de início</label><input id="startDate" type="date"/></div>
+            <div class="fg"><label>Duração (semanas)</label><input id="durationWeeks" type="number" min="4" step="1" placeholder="Ex.: 12"/></div>
+          </div>
+          <button class="btn-bare" style="margin-bottom:16px;width:100%;padding:12px;font-size:15px" onclick="gerarCronograma()">Gerar cronograma automático</button>
+          <div class="fg">
+            <label>Cronograma <span>Edite livremente — uma atividade por linha</span></label>
+            <textarea id="schedule" style="min-height:180px" placeholder="Semana 1: delimitar problema + pergunta&#10;Semana 2: revisão bibliográfica..."></textarea>
           </div>
         </div>
 
-        <!-- PLANOS: salvar vários -->
-        <div class="divider"></div>
-        <h2 style="margin:0 0 8px;font-size:14px">Planos (salvar vários e carregar)</h2>
-
-        <div class="draftRow">
-          <input id="planName" placeholder="Nome do plano (ex.: 'Calor urbano — árvores vs sem árvores')" />
-          <button class="btn" id="btnSavePlan" type="button">Salvar plano</button>
+        <!-- ETAPA 7 -->
+        <div class="etapa-panel" id="ep7">
+          <div class="p-header">
+            <div class="p-num">Etapa 07 de 07</div>
+            <div class="p-titulo">Plano de Publicação</div>
+            <div class="p-desc">Definir onde publicar desde o início orienta o nível de rigor e a profundidade da pesquisa.</div>
+          </div>
+          <div class="fg">
+            <label>Destino dos resultados</label>
+            <select id="wherePresent">
+              <option value="Somente TCC">Somente no TCC</option>
+              <option value="Congresso científico">Congresso científico</option>
+              <option value="Artigo em periódico">Artigo em periódico</option>
+              <option value="TCC e Congresso">TCC e Congresso</option>
+              <option value="TCC e Artigo">TCC e Artigo</option>
+              <option value="TCC, Congresso e Artigo">TCC, Congresso e Artigo</option>
+            </select>
+          </div>
+          <div class="fg">
+            <label>Nome do congresso ou periódico</label>
+            <input id="venueName" type="text" placeholder="Ex.: Congresso Brasileiro de Ecologia / Ecological Indicators"/>
+          </div>
+          <div class="fg">
+            <label>Link do evento ou revista</label>
+            <input id="venueLink" type="text" placeholder="https://..."/>
+          </div>
+          <div style="margin-top:12px;padding:18px;background:var(--verde-t);border-radius:var(--r);text-align:center">
+            <p style="font-size:15px;color:var(--ink3);line-height:1.65;margin-bottom:14px">Você completou todas as etapas!<br>Clique em <strong>Gerar saídas</strong> para ver o resultado.</p>
+            <button class="btn-gerar" onclick="gerar()" style="width:100%;justify-content:center;font-size:16px;padding:13px">Gerar saídas do projeto</button>
+          </div>
         </div>
 
-        <div class="draftRow" style="margin-top:8px">
+      </div><!-- /form-scroll -->
+
+      <!-- Nav etapas -->
+      <div class="etapa-nav">
+        <button class="btn-etapa" id="btnVoltar" onclick="navEtapa(-1)" disabled>← Anterior</button>
+        <button class="btn-etapa avan" id="btnAvancar" onclick="navEtapa(1)">Próxima →</button>
+      </div>
+
+      <!-- Planos -->
+      <div class="planos-area">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
+          <span class="planos-titulo" style="margin-bottom:0">Planos salvos</span>
+          <span style="font-size:11px;color:#8A4B00;background:#FEF6EB;border:1px solid #DDA020;border-radius:999px;padding:3px 10px;cursor:help" title="Os planos ficam salvos APENAS neste navegador, neste equipamento (localStorage). Para não perder seus dados, exporte o arquivo TXT regularmente.">⚠️ só neste PC/navegador</span>
+        </div>
+        <div class="planos-row">
+          <input id="planName" placeholder="Nome do plano..."/>
+          <button class="btn-plano" onclick="salvarPlano()">Salvar</button>
+        </div>
+        <div class="planos-row">
           <select id="planSelect"></select>
-          <button class="btn blue" id="btnLoadPlan" type="button">Carregar</button>
-          <button class="btn warn" id="btnDupPlan" type="button">Duplicar</button>
-          <button class="btn danger" id="btnDeletePlan" type="button">Excluir</button>
+          <button class="btn-plano" onclick="carregarPlano()">Carregar</button>
+          <button class="btn-plano" onclick="duplicarPlano()">Copiar</button>
+          <button class="btn-plano perigo" onclick="excluirPlano()">Excluir</button>
         </div>
+      </div>
 
-        <div class="small" style="margin-top:8px">
-          Os planos ficam salvos <b>no seu navegador</b>. Para compartilhar com alguém, exporte o TXT.
+      <!-- Rubrica Professor -->
+      <div id="sec-rubrica">
+        <div class="planos-titulo" style="color:var(--azul)">Rubrica — Modo Professor</div>
+        <div id="rubrica-conteudo"></div>
+      </div>
+
+    </div><!-- /pan-esq -->
+
+    <!-- ─── DIREITO ─── -->
+    <div class="pan-dir">
+
+      <div class="sec-titulo">Pergunta e Hipótese</div>
+
+      <div class="card-saida">
+        <div class="card-topo">
+          <span class="card-label">Pergunta Científica</span>
+          <span class="card-acao" onclick="gerarAlternativas()">+ 3 alternativas</span>
         </div>
-      </section>
-
-      <!-- DIREITA -->
-      <section class="card">
-        <h2>Saídas (orientação do projeto)</h2>
-
-        <div class="kpi">
-          <div class="k">
-            <div class="t">Pergunta científica</div>
-            <div class="v" id="kQuestion">—</div>
-            <div class="chipRow">
-              <span class="chip blue" id="chipDesign">Desenho: —</span>
-              <span class="chip green" id="chipDir">Direção: —</span>
-              <span class="chip orange" id="chipFeas">Viabilidade: —</span>
-            </div>
-          </div>
-
-          <div class="k">
-            <div class="t">Hipótese (SE… ENTÃO…)</div>
-            <div class="v" id="kHyp">—</div>
-            <div class="small" id="kHyp2"></div>
-          </div>
-
-          <div class="k" id="profOnlyRubric">
-            <div class="t">Rubrica (modo professor)</div>
-            <div class="v" id="rubricScore">—</div>
-            <div class="small" id="rubricText">Ative o modo professor para ver a nota automática.</div>
-          </div>
-
-          <div class="k">
-            <div class="t">Texto pronto (exporta TXT)</div>
-            <div class="out" id="outText">Clique em “Gerar saídas”.</div>
-          </div>
-
-          <div class="k">
-            <div class="t">Gráfico esperado (hipotético por magnitude)</div>
-            <div class="canvasBox"><canvas id="chart" width="980" height="360"></canvas></div>
-            <div class="small">Agora o gráfico respeita médias/razões/inclinação que você definir.</div>
-          </div>
-
-          <div class="k">
-            <div class="t">Mapa mental (arrastável) — exporta PNG</div>
-            <div class="canvasBox"><canvas id="mind" width="980" height="520"></canvas></div>
-            <div class="small">Arraste as caixas. Exportação com fallback (Abrir PNG).</div>
+        <div class="card-corpo">
+          <div class="pergunta-txt" id="kPergunta">Preencha as etapas e clique em "Gerar saídas".</div>
+          <div class="chips">
+            <span class="chip chip-v" id="chipDelin">Delineamento: —</span>
+            <span class="chip chip-a" id="chipDir">Direção: —</span>
+            <span class="chip chip-am" id="chipViab">Viabilidade: —</span>
           </div>
         </div>
+      </div>
 
-        <footer>Idealizado por Ernandes Sobreira para educação climática e orientação científica.</footer>
-      </section>
-    </div>
-  </div>
+      <div class="card-saida">
+        <div class="card-topo"><span class="card-label">Hipótese SE… ENTÃO… PORQUE</span></div>
+        <div class="card-corpo">
+          <div class="hip-auto" id="kHip">Aguardando dados...</div>
+          <div class="hip-user" id="kHipUser" style="display:none"></div>
+        </div>
+      </div>
+
+      <div class="card-saida" id="cardAlts" style="display:none">
+        <div class="card-topo">
+          <span class="card-label">Perguntas Alternativas</span>
+          <span class="card-acao" onclick="document.getElementById('cardAlts').style.display='none'">Fechar</span>
+        </div>
+        <div class="card-corpo" id="altsCorpo"></div>
+      </div>
+
+      <div class="sec-titulo">Visualizações</div>
+
+      <div class="card-saida">
+        <div class="card-topo">
+          <span class="card-label">Gráfico Hipotético por Magnitude</span>
+          <span class="card-acao" onclick="exportarPNG()">↓ PNG</span>
+        </div>
+        <div class="card-corpo" style="padding:14px">
+          <div class="canvas-wrap"><canvas id="chart" width="960" height="380"></canvas></div>
+          <p style="font-size:13px;color:var(--ink4);margin-top:10px">Gráfico hipotético baseado nos valores de magnitude definidos na Etapa 5.</p>
+        </div>
+      </div>
+
+      <div class="card-saida">
+        <div class="card-topo">
+          <span class="card-label">Mapa Mental — Estrutura do Projeto</span>
+          <span class="card-acao" onclick="exportarPNGMapa()">↓ PNG</span>
+        </div>
+        <div class="card-corpo" style="padding:14px">
+          <div class="canvas-wrap"><canvas id="mind" width="960" height="520"></canvas></div>
+          <p style="font-size:13px;color:var(--ink4);margin-top:10px">Arraste os nós para reorganizar. Use "↓ PNG" para exportar.</p>
+        </div>
+      </div>
+
+      <div class="sec-titulo">Texto e Cronograma</div>
+
+      <div class="card-saida">
+        <div class="card-topo">
+          <span class="card-label">Texto do Projeto (para o orientador)</span>
+          <span class="card-acao" onclick="exportarTXT()">↓ TXT</span>
+        </div>
+        <div class="card-corpo">
+          <div class="txt-saida" id="textoSaida">Clique em "Gerar saídas" para ver o texto estruturado do projeto.</div>
+        </div>
+      </div>
+
+      <div class="card-saida" id="cardCronograma" style="display:none">
+        <div class="card-topo"><span class="card-label">Cronograma Visual</span></div>
+        <div class="card-corpo"><div class="timeline" id="timelineConteudo"></div></div>
+      </div>
+
+      <div class="app-footer">
+        Idealizado por <a href="https://ernandes-sobreira.github.io/meu-mundo/" target="_blank" rel="noopener">Ernandes Sobreira</a> — UNEMAT, Cáceres-MT · Educação climática e orientação científica
+      </div>
+
+    </div><!-- /pan-dir -->
+
+  </div><!-- /app-layout -->
+</div><!-- /tela-app -->
 
 <script>
-(() => {
-  const $ = (id)=>document.getElementById(id);
-  const toastEl = $("toast");
+'use strict';
+const $=id=>document.getElementById(id);
+const tx=s=>(s||'').trim().replace(/\s+/g,' ');
 
-  const STORAGE_KEY = "lab_pergunta_v3_autosave";
-  const PLANS_KEY   = "lab_pergunta_v3_plans";
+const SAVE_KEY='labcient5_auto';
+const PLAN_KEY='labcient5_plans';
 
-  function toast(msg, ms=1200){
-    toastEl.textContent = msg;
-    toastEl.classList.add("show");
-    clearTimeout(toastEl._t);
-    toastEl._t = setTimeout(()=>toastEl.classList.remove("show"), ms);
-  }
+function nowStr(){const d=new Date(),p=n=>String(n).padStart(2,'0');return`${d.getFullYear()}-${p(d.getMonth()+1)}-${p(d.getDate())} ${p(d.getHours())}:${p(d.getMinutes())}`}
 
-  let mode = "ALUNO";
+function toast(msg,ms=1800){const el=$('toast');el.textContent=msg;el.classList.add('show');clearTimeout(el._t);el._t=setTimeout(()=>el.classList.remove('show'),ms)}
 
-  // ========= Helpers =========
-  function clean(s){ return (s||"").trim().replace(/\s+/g," "); }
-  function safeLine(s, max=220){ return clean(s).slice(0,max); }
-  function nowLabel(){
-    const d=new Date();
-    const p=(n)=>String(n).padStart(2,"0");
-    return `${d.getFullYear()}-${p(d.getMonth()+1)}-${p(d.getDate())} ${p(d.getHours())}:${p(d.getMinutes())}`;
-  }
+/* ── NAVEGAÇÃO DE TELAS ── */
+function abrirApp(){
+  $('tela-inicio').style.display='none';
+  $('tela-app').style.display='block';
+  document.title='Lab Científico — Projeto';
+  carregarAuto();
+  atualizarSelectPlanos();
+  const d=new Date();
+  if(!$('startDate').value) $('startDate').value=new Date(d-d.getTimezoneOffset()*60000).toISOString().slice(0,10);
+  if(!$('durationWeeks').value) $('durationWeeks').value='12';
+  desenharInicial();
+  const temDados=campos.some(id=>tx($(id).value).length>0);
+  if(temDados) gerar();
+  marcarEtapas(getState());
+  atualizarProgresso(getState());
+}
+function voltarInicio(){$('tela-app').style.display='none';$('tela-inicio').style.display='block';document.title='Lab Científico — Ernandes Sobreira'}
 
-  // ========= Mode =========
-  function setMode(newMode){
-    mode = newMode;
-    $("modeLabel").textContent = mode;
-    const t = $("modeToggle");
-    if(mode === "PROFESSOR"){
-      t.classList.add("on");
-      t.setAttribute("aria-checked","true");
-      $("leftTitle").textContent = "Modo Professor — visão e avaliação";
-      $("leftHelp").textContent = "Professor: use rubrica e alternativas para orientar ajustes. Os alunos seguem os passos.";
-      $("profOnlyRubric").style.display = "block";
-    } else {
-      t.classList.remove("on");
-      t.setAttribute("aria-checked","false");
-      $("leftTitle").textContent = "Modo Aluno — Passos";
-      $("leftHelp").textContent = "Preencha por partes. Clique em Gerar saídas. Depois refine a hipótese e o cronograma.";
-      $("profOnlyRubric").style.display = "none";
-    }
-    saveAuto();
-  }
-  $("modeToggle").addEventListener("click", ()=>{
-    setMode(mode === "ALUNO" ? "PROFESSOR" : "ALUNO");
-    toast(`Modo ${mode} ativado.`, 900);
-  });
+window.abrirApp=abrirApp;
+window.voltarInicio=voltarInicio;
 
-  // ========= Stepper =========
-  function showStep(n){
-    document.querySelectorAll(".step").forEach(s=>s.classList.remove("active"));
-    document.querySelectorAll(".panel").forEach(p=>p.classList.remove("show"));
-    document.querySelector(`.step[data-step="${n}"]`).classList.add("active");
-    $(`step${n}`).classList.add("show");
-    saveAuto();
-  }
-  document.querySelectorAll(".step").forEach(s=>{
-    s.addEventListener("click", ()=>showStep(s.dataset.step));
-  });
+/* ── MODO ── */
+let modo='ALUNO';
+function alternarModo(){
+  modo=modo==='ALUNO'?'PROFESSOR':'ALUNO';
+  const track=$('togTrack'),nomeEl=$('modoNome');
+  if(modo==='PROFESSOR'){track.classList.add('on');nomeEl.textContent='PROFESSOR';nomeEl.classList.add('prof');$('sec-rubrica').style.display='block'}
+  else{track.classList.remove('on');nomeEl.textContent='ALUNO';nomeEl.classList.remove('prof');$('sec-rubrica').style.display='none'}
+  salvarAuto();toast(`Modo ${modo} ativado.`,900);
+}
+window.alternarModo=alternarModo;
 
-  // ========= Fields & State =========
-  const fields = [
-    "student","theme","problem","place","field",
-    "yVar","xVar","design","effectDir","intervention","unit",
-    "mechanism","hypUser","methods","limits",
-    "magType","meanA","ratioBA","meanB","baseY","slopeY",
-    "startDate","durationWeeks","schedule",
-    "wherePresent","venueName","venueLink"
-  ];
+/* ── ETAPAS ── */
+let etapaAtual=1;
+function irEtapa(n){
+  n=Number(n);etapaAtual=n;
+  document.querySelectorAll('.etapa-item').forEach(el=>el.classList.remove('ativa'));
+  document.querySelectorAll('.etapa-panel').forEach(el=>el.classList.remove('ativo'));
+  document.querySelector(`.etapa-item[data-s="${n}"]`)?.classList.add('ativa');
+  $(`ep${n}`)?.classList.add('ativo');
+  $('btnVoltar').disabled=(n===1);
+  $('btnAvancar').textContent=n===7?'Gerar saídas ✓':'Próxima →';
+  $('formScroll').scrollTop=0;
+  salvarAuto();
+}
+function navEtapa(dir){const p=etapaAtual+dir;if(p===8){gerar();return}if(p<1||p>7)return;irEtapa(p)}
+window.irEtapa=irEtapa;window.navEtapa=navEtapa;
 
-  function getState(){
-    const s = { mode };
-    fields.forEach(id=> s[id] = ($(id)?.value ?? "") );
-    s._step = document.querySelector(".step.active")?.dataset?.step || "1";
-    return s;
-  }
-  function setState(s){
-    fields.forEach(id=> { if($(id)) $(id).value = s?.[id] ?? ""; });
-    if(s?.mode) setMode(s.mode);
-    showStep(s?._step || "1");
-  }
+/* ── CAMPOS ── */
+const campos=['student','theme','problem','place','field','yVar','xVar','design','effectDir','intervention','unit','mechanism','hypUser','methods','limits','magType','meanA','ratioBA','meanB','baseY','slopeY','startDate','durationWeeks','schedule','wherePresent','venueName','venueLink'];
 
-  function saveAuto(){
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(getState()));
-  }
-  function loadAuto(){
-    const raw = localStorage.getItem(STORAGE_KEY);
-    if(!raw) return;
-    try{ setState(JSON.parse(raw)); } catch {}
-  }
+function getState(){const s={modo,etapa:etapaAtual};campos.forEach(id=>{s[id]=$(id)?.value??''});return s}
+function setState(s){if(!s)return;campos.forEach(id=>{if($(id))$(id).value=s[id]??''});if(s.modo&&s.modo!==modo)alternarModo();irEtapa(s.etapa||1)}
+function salvarAuto(){try{localStorage.setItem(SAVE_KEY,JSON.stringify(getState()))}catch{}}
+function carregarAuto(){const raw=localStorage.getItem(SAVE_KEY);if(!raw)return;try{setState(JSON.parse(raw))}catch{}}
 
-  fields.forEach(id=>{
-    $(id).addEventListener("input", saveAuto);
-    $(id).addEventListener("change", saveAuto);
-  });
+campos.forEach(id=>{
+  $(id)?.addEventListener('input',()=>{salvarAuto();marcarEtapas(getState());atualizarProgresso(getState());atualizarBarTema()});
+  $(id)?.addEventListener('change',()=>{salvarAuto();marcarEtapas(getState());atualizarProgresso(getState())});
+});
 
-  // ========= Builders =========
-  function buildQuestion(S){
-    const place = clean(S.place) || "o local de estudo";
-    const y = clean(S.yVar) || "Y (variável resposta)";
-    const x = clean(S.xVar) || "X (variável explicativa)";
-    const design = clean(S.design);
+function atualizarBarTema(){const t=tx($('theme').value);$('barTema').textContent=t||'Novo projeto'}
 
-    if(design.includes("Antes vs Depois")){
-      const interv = clean(S.intervention) || "uma intervenção";
-      return `Em ${place}, ${interv} altera ${y} ao longo do tempo (antes vs depois) em função de ${x}?`;
-    }
-    if(design.includes("Comparação")){
-      return `Em ${place}, ${y} difere entre grupos com diferentes níveis de ${x}?`;
-    }
-    if(design.includes("Gradiente")){
-      return `Em ${place}, como ${y} varia ao longo de um gradiente de ${x}?`;
-    }
-    if(design.includes("Série temporal")){
-      return `Em ${place}, ${y} apresenta tendência/sazonalidade associada a variações em ${x} ao longo do tempo?`;
-    }
-    if(design.includes("Experimental")){
-      return `Em ${place}, um tratamento que modifica ${x} causa mudança em ${y} quando comparado ao controle?`;
-    }
-    return `Em ${place}, qual é a relação entre ${x} e ${y}?`;
-  }
-
-  function buildHypothesisAuto(S){
-    const y = clean(S.yVar) || "Y";
-    const x = clean(S.xVar) || "X";
-    const place = clean(S.place) || "o local de estudo";
-    const dir = clean(S.effectDir);
-    const mech = clean(S.mechanism) || (clean(S.intervention) ? `devido a “${clean(S.intervention)}”` : "por um mecanismo plausível");
-
-    if(dir==="up") return `SE ${x} aumentar em ${place}, ENTÃO ${y} aumentará, PORQUE ${mech}.`;
-    if(dir==="down") return `SE ${x} aumentar em ${place}, ENTÃO ${y} diminuirá, PORQUE ${mech}.`;
-    if(dir==="curve") return `SE ${x} aumentar em ${place}, ENTÃO ${y} mudará de forma não-linear (limiar/ótimo), PORQUE ${mech}.`;
-    return `SE ${x} variar em ${place}, ENTÃO ${y} não mudará de forma detectável (hipótese nula).`;
-  }
-
-  function buildAltQuestions(S){
-    const place = clean(S.place) || "o local de estudo";
-    const y = clean(S.yVar) || "Y";
-    const x = clean(S.xVar) || "X";
-    const interv = clean(S.intervention);
-
-    return [
-      `1) (Efeito) Em ${place}, qual é o efeito de ${x} sobre ${y}?`,
-      `2) (Mecanismo) Em ${place}, o efeito de ${x} em ${y} ocorre via ${clean(S.mechanism)||"qual mecanismo"}?`,
-      `3) (Decisão) Em ${place}, ${interv||"uma intervenção"} altera ${y} quando comparada a uma área sem intervenção?`
-    ].join("\n");
-  }
-
-  // ========= Rubrica =========
-  function rubric(S){
-    let score = 0;
-    const fb = [];
-    const hasProb = clean(S.problem).length >= 40;
-    const hasVars = clean(S.xVar).length >= 3 && clean(S.yVar).length >= 3;
-    const hasPlace = clean(S.place).length >= 3;
-    const hasDesign = clean(S.design).length >= 3;
-    const hasHyp = clean(S.hypUser).toUpperCase().includes("SE") && clean(S.hypUser).toUpperCase().includes("ENTÃO");
-    const hasMech = clean(S.mechanism).length >= 10;
-    const hasMeth = clean(S.methods).length >= 25;
-    const hasLim = clean(S.limits).length >= 15;
-    const hasSched = clean(S.schedule).length >= 20;
-
-    if(hasProb){ score+=2; } else fb.push("• Fortaleça o problema (contexto + impacto).");
-    if(hasPlace){ score+=1; } else fb.push("• Defina local/escala.");
-    if(hasVars){ score+=2; } else fb.push("• Defina X e Y com clareza.");
-    if(hasDesign){ score+=1; } else fb.push("• Escolha um desenho (comparação, gradiente, etc.).");
-    if(hasHyp){ score+=2; } else fb.push("• Escreva hipótese SE… ENTÃO… (sua versão).");
-    if(hasMech){ score+=1; } else fb.push("• Explique o mecanismo (por quê).");
-    if(hasMeth){ score+=1; } else fb.push("• Método precisa estar viável e medível.");
-    if(hasLim){ score+=0.5; } else fb.push("• Liste limitações (tempo, acesso, sazonalidade).");
-    if(hasSched){ score+=0.5; } else fb.push("• Inclua cronograma mínimo.");
-
-    score = Math.min(10, Math.round(score*10)/10);
-    let label = "Baixa";
-    if(score >= 8.5) label = "Alta";
-    else if(score >= 7) label = "Boa";
-    else if(score >= 5.5) label = "Média";
-
-    return { score, label, feedback: fb.length? fb.join("\n") : "• Excelente. Agora refine amostragem e análise." };
-  }
-
-  // ========= Magnitude -> data =========
-  function computeMagnitude(S){
-    const magType = clean(S.magType || "auto");
-    const design = clean(S.design);
-    const dir = clean(S.effectDir);
-
-    // Defaults
-    let meanA = parseFloat(S.meanA);
-    let meanB = parseFloat(S.meanB);
-    let ratio = parseFloat(S.ratioBA);
-    let baseY = parseFloat(S.baseY);
-    let slopeY = parseFloat(S.slopeY);
-
-    const isTwoGroup = design.includes("Comparação") || design.includes("Antes vs Depois");
-
-    // pick type if "auto"
-    let use = magType;
-    if(use === "auto"){
-      use = isTwoGroup ? "groups" : "slope";
-    }
-
-    // normalize direction for slope
-    const sign = (dir==="down") ? -1 : 1;
-
-    if(use === "groups"){
-      // If ratio provided, derive B
-      if(!isFinite(meanA)) meanA = 10;
-      if(isFinite(ratio) && !isFinite(meanB)) meanB = meanA * ratio;
-      if(!isFinite(meanB)) meanB = (dir==="down") ? meanA*0.7 : meanA*1.3;
-      // If both means exist, compute ratio (optional)
-      if(!isFinite(ratio) && isFinite(meanA) && isFinite(meanB) && meanA!==0) ratio = meanB/meanA;
-      return { mode:"groups", meanA, meanB, ratio: isFinite(ratio)?ratio:null };
-    }
-
-    // slope mode
-    if(!isFinite(baseY)) baseY = 15;
-    if(!isFinite(slopeY)){
-      // default slope magnitude
-      slopeY = (dir==="null") ? 0 : (dir==="curve" ? 0 : 3*sign);
-      if(dir==="down") slopeY = -Math.abs(slopeY);
-      if(dir==="up") slopeY = Math.abs(slopeY);
-    }
-    // if curve, we ignore slopeY in curve draw and use a peak amplitude based on |slopeY| or default
-    return { mode:"slope", baseY, slopeY };
-  }
-
-  // ========= Render =========
-  function markSteps(S){
-    const ok1 = clean(S.problem).length >= 20 && clean(S.theme).length >= 3;
-    const ok2 = clean(S.xVar).length >= 3 && clean(S.yVar).length >= 3;
-    const ok3 = clean(S.hypUser).length >= 10 || clean(S.mechanism).length >= 10;
-    const ok4 = clean(S.methods).length >= 15;
-    const ok5 = true; // magnitude optional
-    const ok6 = clean(S.schedule).length >= 15;
-    const ok7 = clean(S.wherePresent).length >= 3;
-
-    const map = {1:ok1, 2:ok2, 3:ok3, 4:ok4, 5:ok5, 6:ok6, 7:ok7};
-    document.querySelectorAll(".step").forEach(s=>{
-      const n = s.dataset.step;
-      if(map[n]) s.classList.add("good"); else s.classList.remove("good");
-    });
-  }
-
-  function render(){
-    const S = getState();
-
-    const question = buildQuestion(S);
-    const hypAuto = buildHypothesisAuto(S);
-    const hypUser = clean(S.hypUser);
-    const hypFinal = hypUser.length ? hypUser : hypAuto;
-
-    $("kQuestion").textContent = question;
-    $("kHyp").textContent = hypFinal;
-    $("kHyp2").textContent = hypUser.length ? "Hipótese do aluno (priorizada)." : "Hipótese automática (recomendado reescrever).";
-
-    $("chipDesign").textContent = `Desenho: ${clean(S.design)||"—"}`;
-
-    const dirLabel = (S.effectDir==="up") ? "↑ aumenta" :
-                     (S.effectDir==="down") ? "↓ diminui" :
-                     (S.effectDir==="curve") ? "∩ curva" :
-                     "≈ nulo";
-    $("chipDir").textContent = `Direção: ${dirLabel}`;
-
-    const feas = rubric(S);
-    $("chipFeas").textContent = `Viabilidade: ${feas.label} (${feas.score}/10)`;
-    $("chipFeas").className = "chip " + (feas.score>=8.5 ? "green" : feas.score>=7 ? "blue" : feas.score>=5.5 ? "orange" : "red");
-
-    if(mode==="PROFESSOR"){
-      $("rubricScore").textContent = `Nota: ${feas.score}/10 (${feas.label})`;
-      $("rubricText").textContent = feas.feedback;
-    }
-
-    const mag = computeMagnitude(S);
-
-    const txt =
-`LAB DE PERGUNTAS CIENTÍFICAS (TCC/Pesquisa)
-
-Aluno/Turma: ${clean(S.student)||"—"}
-Área/Linha: ${clean(S.field)||"—"}
-Tema: ${clean(S.theme)||"—"}
-Local/escala: ${clean(S.place)||"—"}
-
-1) Problema
-${clean(S.problem)||"—"}
-
-2) Pergunta científica
-${question}
-
-3) Variáveis
-Y (resposta): ${clean(S.yVar)||"—"}
-X (explicativa): ${clean(S.xVar)||"—"}
-Intervenção: ${clean(S.intervention)||"—"}
-Unidade amostral: ${clean(S.unit)||"—"}
-Desenho: ${clean(S.design)||"—"}
-Direção esperada: ${dirLabel}
-
-4) Hipótese (SE… ENTÃO…)
-${hypFinal}
-
-Mecanismo
-${clean(S.mechanism)||"—"}
-
-5) Magnitude esperada (para o gráfico hipotético)
-${mag.mode==="groups"
-  ? `• Dois grupos: média A = ${mag.meanA}; média B = ${mag.meanB}` + (mag.ratio ? `; razão B/A ≈ ${mag.ratio.toFixed(2)}x` : "")
-  : `• Gradiente: base (X=0) = ${mag.baseY}; inclinação (ΔY de X 0→1) = ${mag.slopeY}`
+/* ── MARCAR ETAPAS ── */
+function marcarEtapas(S){
+  const ok={
+    1:tx(S.problem).length>=20&&tx(S.theme).length>=3,
+    2:tx(S.xVar).length>=3&&tx(S.yVar).length>=3,
+    3:tx(S.hypUser).length>=10||tx(S.mechanism).length>=10,
+    4:tx(S.methods).length>=15,
+    5:true,
+    6:tx(S.schedule).length>=15,
+    7:tx(S.wherePresent).length>=3
+  };
+  document.querySelectorAll('.etapa-item').forEach(el=>{const n=Number(el.dataset.s);el.classList.toggle('ok',ok[n]===true)});
+  return ok;
+}
+function atualizarProgresso(S){
+  const ok=marcarEtapas(S);
+  const done=Object.values(ok).filter(Boolean).length;
+  const pct=Math.round(done/7*100);
+  $('progFill').style.width=pct+'%';
+  $('progPct').textContent=pct+'%';
 }
 
-6) Método (resumo)
-${clean(S.methods)||"—"}
+/* ── CONSTRUTORES ── */
+function construirPergunta(S){
+  const local=tx(S.place)||'o local de estudo';
+  const y=tx(S.yVar)||'Y (variável resposta)';
+  const x=tx(S.xVar)||'X (variável explicativa)';
+  const d=tx(S.design);
+  if(d.includes('Antes vs Depois')){const i=tx(S.intervention)||'uma intervenção';return`Em ${local}, ${i} altera ${y} ao longo do tempo (antes vs depois) em função de ${x}?`}
+  if(d.includes('Comparação')) return`Em ${local}, ${y} difere entre grupos com diferentes níveis de ${x}?`;
+  if(d.includes('Gradiente'))  return`Em ${local}, como ${y} varia ao longo de um gradiente de ${x}?`;
+  if(d.includes('Série temporal')) return`Em ${local}, ${y} apresenta tendência associada a variações em ${x} ao longo do tempo?`;
+  if(d.includes('Experimental')) return`Em ${local}, um tratamento que modifica ${x} causa mudança em ${y} comparado ao controle?`;
+  return`Em ${local}, qual é a relação entre ${x} e ${y}?`;
+}
 
-7) Limitações & riscos
-${clean(S.limits)||"—"}
+function construirHipAuto(S){
+  const y=tx(S.yVar)||'Y';
+  const x=tx(S.xVar)||'X';
+  const local=tx(S.place)||'o local de estudo';
+  const dir=tx(S.effectDir);
+  const mec=tx(S.mechanism)||(tx(S.intervention)?`devido a "${tx(S.intervention)}"` : 'por um mecanismo plausível');
+  if(dir==='up')    return`SE ${x} aumentar em ${local}, ENTÃO ${y} aumentará, PORQUE ${mec}.`;
+  if(dir==='down')  return`SE ${x} aumentar em ${local}, ENTÃO ${y} diminuirá, PORQUE ${mec}.`;
+  if(dir==='curve') return`SE ${x} aumentar em ${local}, ENTÃO ${y} mudará de forma não-linear (limiar ou ótimo), PORQUE ${mec}.`;
+  return`SE ${x} variar em ${local}, ENTÃO ${y} não mudará de forma detectável (hipótese nula).`;
+}
 
-8) Cronograma
-Início: ${clean(S.startDate)||"—"} | Duração: ${clean(S.durationWeeks)||"—"} semanas
-${clean(S.schedule)||"—"}
+function construirAlts(S){
+  const local=tx(S.place)||'o local de estudo';
+  const y=tx(S.yVar)||'Y';
+  const x=tx(S.xVar)||'X';
+  const interv=tx(S.intervention);
+  const mec=tx(S.mechanism)||'o mecanismo';
+  return[
+    `(Efeito) Em ${local}, qual é o efeito de ${x} sobre ${y}?`,
+    `(Mecanismo) Em ${local}, o efeito de ${x} em ${y} ocorre via ${mec}?`,
+    `(Decisão) Em ${local}, ${interv||'uma intervenção'} altera ${y} comparado a área sem intervenção?`
+  ];
+}
 
-9) Apresentação/Divulgação
-Plano: ${clean(S.wherePresent)||"—"}
-Local (congresso/periódico): ${clean(S.venueName)||"—"}
-Link: ${clean(S.venueLink)||"—"}
+/* ── RUBRICA ── */
+function calcularRubrica(S){
+  const itens=[
+    {label:'Problema bem contextualizado',ok:tx(S.problem).length>=40,pts:2},
+    {label:'Local e escala definidos',ok:tx(S.place).length>=3,pts:1},
+    {label:'Variáveis X e Y nomeadas com clareza',ok:tx(S.xVar).length>=3&&tx(S.yVar).length>=3,pts:2},
+    {label:'Delineamento escolhido',ok:tx(S.design).length>=3,pts:1},
+    {label:'Hipótese SE… ENTÃO… estruturada',ok:tx(S.hypUser).toUpperCase().includes('SE')&&tx(S.hypUser).toUpperCase().includes('ENTO'),pts:2},
+    {label:'Mecanismo causal explicado',ok:tx(S.mechanism).length>=10,pts:1},
+    {label:'Método descrito com detalhes',ok:tx(S.methods).length>=25,pts:2},
+    {label:'Limitações identificadas',ok:tx(S.limits).length>=15,pts:1},
+    {label:'Cronograma elaborado',ok:tx(S.schedule).length>=20,pts:1}
+  ];
+  const total=itens.reduce((a,i)=>a+i.pts,0);
+  const score=itens.reduce((a,i)=>a+(i.ok?i.pts:0),0);
+  return{itens,total,score};
+}
 
-Gerado em: ${nowLabel()}
-`;
-    $("outText").textContent = txt;
+function renderizarRubrica(S){
+  const{itens,total,score}=calcularRubrica(S);
+  const pct=Math.round(score/total*100);
+  const nivel=score>=12?'Excelente':score>=8?'Bom':score>=5?'Em desenvolvimento':'Iniciante';
+  let html=`<div class="rub-meter"><div class="rub-score">${score}/${total}</div><div><div class="rub-nivel">${nivel}</div><div class="rub-sub">${pct}% de maturidade científica</div></div></div><div class="rub-barra"><div class="rub-fill" style="width:${pct}%"></div></div><div class="rub-itens">`;
+  itens.forEach(it=>{html+=`<div class="rub-item ${it.ok?'ok':'nao'}"><div class="rub-dot ${it.ok?'ok':'nao'}"></div><div class="rub-txt">${it.label}</div><div class="rub-pts">+${it.pts}</div></div>`});
+  html+='</div>';
+  $('rubrica-conteudo').innerHTML=html;
+}
 
-    drawChart(S, mag);
-    buildMind(S, question, hypFinal);
-    drawMind();
-
-    markSteps(S);
-    saveAuto();
-    toast("Saídas geradas.", 900);
+/* ── MAGNITUDE ── */
+function calcularMag(S){
+  const mt=tx(S.magType),dir=tx(S.effectDir);
+  let mA=parseFloat(S.meanA),mB=parseFloat(S.meanB),ratio=parseFloat(S.ratioBA),baseY=parseFloat(S.baseY),slopeY=parseFloat(S.slopeY);
+  if(mt==='auto'||mt===''){
+    if(dir==='up'){if(isNaN(mA))mA=10;if(isNaN(mB))mB=20;return{t:'groups',mA,mB}}
+    if(dir==='down'){if(isNaN(mA))mA=20;if(isNaN(mB))mB=10;return{t:'groups',mA,mB}}
+    if(dir==='curve')return{t:'curve'};if(dir==='null')return{t:'null'};
+    if(isNaN(mA))mA=10;if(isNaN(mB))mB=10;return{t:'groups',mA,mB};
   }
+  if(mt==='groups'){if(!isNaN(mA)&&!isNaN(ratio)&&isNaN(mB))mB=mA*ratio;if(isNaN(mA))mA=10;if(isNaN(mB))mB=20;return{t:'groups',mA,mB}}
+  if(mt==='slope'){if(isNaN(baseY))baseY=20;if(isNaN(slopeY))slopeY=-2;return{t:'slope',baseY,slopeY}}
+  return{t:'groups',mA:10,mB:20};
+}
 
-  // ========= Chart =========
-  function drawChart(S, mag){
-    const c = $("chart");
-    const ctx = c.getContext("2d");
-    const W = c.width, H = c.height;
-    ctx.clearRect(0,0,W,H);
-    ctx.fillStyle="#fff"; ctx.fillRect(0,0,W,H);
+/* ── GRÁFICO ── */
+function desenharGrafico(S,mag){
+  const cv=$('chart'),ctx=cv.getContext('2d'),W=cv.width,H=cv.height;
+  ctx.clearRect(0,0,W,H);
+  const C={bg:'#FFFFFF',bord:'#E4E9E5',t:'#111814',t3:'#566860',t4:'#8FA89C',v:'#165C36',vm:'#1E7A47',vl:'#2EAD63',az:'#0F4C8A',azm:'#1566B3'};
+  ctx.fillStyle=C.bg;ctx.beginPath();ctx.roundRect(0,0,W,H,12);ctx.fill();
+  const pad={l:72,r:28,t:28,b:68},PW=W-pad.l-pad.r,PH=H-pad.t-pad.b,pl=pad.l,pt=pad.t;
+  const xLbl=tx(S.xVar)||'X',yLbl=tx(S.yVar)||'Y',design=tx(S.design);
 
-    const padL=70, padR=22, padT=24, padB=56;
-    const plotW=W-padL-padR, plotH=H-padT-padB;
+  function gH(y,lbl){
+    ctx.strokeStyle=C.bord;ctx.lineWidth=1;ctx.setLineDash([4,4]);
+    ctx.beginPath();ctx.moveTo(pl,pt+y);ctx.lineTo(pl+PW,pt+y);ctx.stroke();
+    ctx.setLineDash([]);ctx.fillStyle=C.t4;ctx.font='12px Inter,system-ui';ctx.textAlign='right';ctx.fillText(lbl,pl-10,pt+y+4);
+  }
+  function xL(x,lbl){ctx.fillStyle=C.t4;ctx.font='12px Inter,system-ui';ctx.textAlign='center';ctx.fillText(lbl,pl+x,pt+PH+22)}
 
-    // grid
-    ctx.strokeStyle="rgba(14,42,27,.10)";
-    ctx.lineWidth=1;
-    for(let i=0;i<=5;i++){
-      const y=padT+(plotH*i/5);
-      ctx.beginPath(); ctx.moveTo(padL,y); ctx.lineTo(padL+plotW,y); ctx.stroke();
-    }
-    for(let i=0;i<=6;i++){
-      const x=padL+(plotW*i/6);
-      ctx.beginPath(); ctx.moveTo(x,padT); ctx.lineTo(x,padT+plotH); ctx.stroke();
-    }
+  ctx.strokeStyle=C.bord;ctx.lineWidth=1.5;ctx.setLineDash([]);
+  ctx.beginPath();ctx.moveTo(pl,pt);ctx.lineTo(pl,pt+PH);ctx.lineTo(pl+PW,pt+PH);ctx.stroke();
+  ctx.fillStyle=C.t3;ctx.font='600 13px Inter,system-ui';ctx.textAlign='center';
+  ctx.fillText(xLbl.slice(0,44),pl+PW/2,H-8);
+  ctx.save();ctx.translate(18,pt+PH/2);ctx.rotate(-Math.PI/2);ctx.fillText(yLbl.slice(0,44),0,0);ctx.restore();
 
-    // axes
-    ctx.strokeStyle="rgba(14,42,27,.28)";
-    ctx.lineWidth=2;
-    ctx.beginPath();
-    ctx.moveTo(padL,padT);
-    ctx.lineTo(padL,padT+plotH);
-    ctx.lineTo(padL+plotW,padT+plotH);
+  if(mag.t==='groups'){
+    const mA=mag.mA??10,mB=mag.mB??20,maxY=Math.max(mA,mB)*1.4;
+    for(let i=0;i<=5;i++)gH(PH-(i/5*maxY/maxY*PH)-0,(maxY/5*i).toFixed(1));
+    const bw=PW*.18,bx1=pl+PW*.22,bx2=pl+PW*.58;
+    const bh1=(mA/maxY)*PH,bh2=(mB/maxY)*PH,by1=pt+PH-bh1,by2=pt+PH-bh2;
+    const gA=ctx.createLinearGradient(0,by1,0,pt+PH);gA.addColorStop(0,C.vl);gA.addColorStop(1,C.v);
+    ctx.fillStyle=gA;ctx.beginPath();ctx.roundRect(bx1,by1,bw,bh1,[6,6,0,0]);ctx.fill();
+    const gB=ctx.createLinearGradient(0,by2,0,pt+PH);gB.addColorStop(0,C.azm);gB.addColorStop(1,C.az);
+    ctx.fillStyle=gB;ctx.beginPath();ctx.roundRect(bx2,by2,bw,bh2,[6,6,0,0]);ctx.fill();
+    [[bx1+bw/2,by1,bh1],[bx2+bw/2,by2,bh2]].forEach(([bx,bY,bh])=>{
+      const eH=bh*.1;ctx.strokeStyle=C.t3;ctx.lineWidth=2;
+      ctx.beginPath();ctx.moveTo(bx,bY);ctx.lineTo(bx,bY-eH);ctx.moveTo(bx-8,bY-eH);ctx.lineTo(bx+8,bY-eH);ctx.stroke();
+    });
+    ctx.fillStyle=C.t;ctx.font='600 13px Inter,system-ui';ctx.textAlign='center';
+    ctx.fillText(mA.toFixed(1),bx1+bw/2,by1-10);ctx.fillText(mB.toFixed(1),bx2+bw/2,by2-10);
+    const gAl=design.includes('Gradiente')?'Baixo X':'Grupo A';
+    const gBl=design.includes('Gradiente')?'Alto X':'Grupo B';
+    xL(bx1-pl+bw/2,gAl);xL(bx2-pl+bw/2,gBl);
+  } else if(mag.t==='slope'){
+    const bY=mag.baseY??20,sY=mag.slopeY??-2,eY=bY+sY;
+    const minY=Math.min(bY,eY)*.85,maxY=Math.max(bY,eY)*1.2,range=maxY-minY;
+    for(let i=0;i<=5;i++){const v=minY+(range/5*i);gH(PH-((v-minY)/range)*PH,v.toFixed(1))}
+    for(let i=0;i<=4;i++)xL((PW/4)*i,`X${i}`);
+    const bw2=range*.06/range*PH;
+    ctx.fillStyle='rgba(22,92,54,.08)';ctx.beginPath();
+    ctx.moveTo(pl,pt+PH-((bY-minY)/range)*PH+bw2);ctx.lineTo(pl+PW,pt+PH-((eY-minY)/range)*PH+bw2);
+    ctx.lineTo(pl+PW,pt+PH-((eY-minY)/range)*PH-bw2);ctx.lineTo(pl,pt+PH-((bY-minY)/range)*PH-bw2);
+    ctx.closePath();ctx.fill();
+    ctx.strokeStyle=C.v;ctx.lineWidth=2.5;ctx.setLineDash([]);
+    ctx.beginPath();ctx.moveTo(pl,pt+PH-((bY-minY)/range)*PH);ctx.lineTo(pl+PW,pt+PH-((eY-minY)/range)*PH);ctx.stroke();
+    [[pl,bY],[pl+PW,eY]].forEach(([x,v])=>{
+      const y=pt+PH-((v-minY)/range)*PH;
+      ctx.fillStyle='#fff';ctx.beginPath();ctx.arc(x,y,7,0,Math.PI*2);ctx.fill();
+      ctx.strokeStyle=C.v;ctx.lineWidth=2.5;ctx.beginPath();ctx.arc(x,y,7,0,Math.PI*2);ctx.stroke();
+    });
+  } else if(mag.t==='curve'){
+    for(let i=0;i<=5;i++)gH(PH/5*i,(5-i)*6+'');
+    for(let i=0;i<=4;i++)xL((PW/4)*i,`X${i}`);
+    ctx.strokeStyle=C.v;ctx.lineWidth=2.5;ctx.beginPath();
+    for(let i=0;i<=60;i++){const t=i/60,x=pl+t*PW,y=pt+PH-(Math.sin(t*Math.PI)*PH*.72+PH*.08);i===0?ctx.moveTo(x,y):ctx.lineTo(x,y)}
     ctx.stroke();
-
-    // title
-    ctx.fillStyle="rgba(11,31,20,.92)";
-    ctx.font="900 14px system-ui";
-    ctx.fillText("Resultado esperado (hipotético por magnitude)", padL, 18);
-
-    const xLab = safeLine(S.xVar)||"X";
-    const yLab = safeLine(S.yVar)||"Y";
-    ctx.fillStyle="rgba(47,74,59,.92)";
-    ctx.font="900 12px system-ui";
-    ctx.fillText(yLab, 10, padT+14);
-    ctx.fillText(xLab, padL+plotW-ctx.measureText(xLab).width, H-16);
-
-    const design = clean(S.design);
-    const dir = clean(S.effectDir);
-
-    const px = (x)=> padL + x*plotW;
-    const pyScale = (y, yMin, yMax)=> {
-      const t = (y - yMin) / (yMax - yMin || 1);
-      return padT + (1 - t) * plotH;
-    };
-
-    if(mag.mode==="groups" && (design.includes("Comparação") || design.includes("Antes vs Depois"))){
-      const A = mag.meanA, B = mag.meanB;
-      const yMin = Math.min(A,B) - Math.abs(Math.max(A,B)*0.35) - 0.01;
-      const yMax = Math.max(A,B) + Math.abs(Math.max(A,B)*0.35) + 0.01;
-
-      const barW = plotW*0.22;
-      const labels = design.includes("Antes vs Depois") ? ["Antes","Depois"] : ["Grupo A","Grupo B"];
-      const vals = [A,B];
-
-      for(let i=0;i<2;i++){
-        const x = (i===0) ? padL+plotW*0.22 : padL+plotW*0.62;
-        const y = pyScale(vals[i], yMin, yMax);
-        const base = pyScale(yMin, yMin, yMax);
-
-        ctx.fillStyle = (i===0) ? "rgba(11,111,191,.25)" : "rgba(14,122,58,.25)";
-        ctx.fillRect(x, y, barW, base - y);
-        ctx.strokeStyle="rgba(14,42,27,.22)";
-        ctx.strokeRect(x, y, barW, base - y);
-
-        ctx.fillStyle="rgba(11,31,20,.80)";
-        ctx.beginPath(); ctx.arc(x+barW/2, y, 4.5, 0, Math.PI*2); ctx.fill();
-
-        ctx.fillStyle="rgba(47,74,59,.92)";
-        ctx.font="900 12px system-ui";
-        ctx.fillText(labels[i], x, padT+plotH+24);
-
-        ctx.font="900 12px system-ui";
-        ctx.fillText(String(vals[i]), x, y-8);
-      }
-
-      // annotation
-      ctx.fillStyle="rgba(47,74,59,.92)";
-      ctx.font="800 12px system-ui";
-      const ratioText = mag.ratio ? `Razão B/A ≈ ${mag.ratio.toFixed(2)}x` : "";
-      ctx.fillText(ratioText, padL, H-10);
-      return;
-    }
-
-    // slope / curve / null
-    const n=18;
-    const xs=[...Array(n)].map((_,i)=>i/(n-1));
-
-    // build y based on magnitude
-    let ys=[];
-    if(dir==="null"){
-      const base = isFinite(mag.baseY)?mag.baseY:15;
-      ys = xs.map(()=>base);
-    } else if(dir==="curve"){
-      const base = isFinite(mag.baseY)?mag.baseY:15;
-      const amp = Math.max(1, Math.abs(isFinite(mag.slopeY)?mag.slopeY:3)); // use slope magnitude as amplitude proxy
-      ys = xs.map(x=> base + amp * Math.exp(-Math.pow((x-0.55)/0.22,2)));
-    } else {
-      const base = isFinite(mag.baseY)?mag.baseY:15;
-      const slope = isFinite(mag.slopeY)?mag.slopeY: (dir==="down"?-3:3);
-      ys = xs.map(x=> base + slope * x);
-    }
-
-    const yMin = Math.min(...ys) - Math.max(1, Math.abs(Math.max(...ys))*0.15);
-    const yMax = Math.max(...ys) + Math.max(1, Math.abs(Math.max(...ys))*0.15);
-
-    // line
-    ctx.strokeStyle="rgba(14,122,58,.85)";
-    ctx.lineWidth=3;
-    ctx.beginPath();
-    xs.forEach((x,i)=>{
-      const X=px(x), Y=pyScale(ys[i], yMin, yMax);
-      if(i===0) ctx.moveTo(X,Y); else ctx.lineTo(X,Y);
-    });
-    ctx.stroke();
-
-    // points
-    ctx.fillStyle="rgba(14,122,58,.90)";
-    xs.forEach((x,i)=>{
-      const X=px(x), Y=pyScale(ys[i], yMin, yMax);
-      ctx.beginPath(); ctx.arc(X,Y,4,0,Math.PI*2); ctx.fill();
-    });
-
-    ctx.fillStyle="rgba(47,74,59,.90)";
-    ctx.font="800 12px system-ui";
-    ctx.fillText(`Base ≈ ${Math.round((ys[0]+Number.EPSILON)*100)/100} | ΔY(0→1) ≈ ${Math.round(((ys[ys.length-1]-ys[0])+Number.EPSILON)*100)/100}`, padL, H-10);
+  } else {
+    const mid=PH/2;gH(mid,'0');gH(0,'10');
+    for(let i=0;i<=4;i++)xL((PW/4)*i,`X${i}`);
+    ctx.strokeStyle=C.t4;ctx.lineWidth=2;ctx.setLineDash([8,4]);
+    ctx.beginPath();ctx.moveTo(pl,pt+mid);ctx.lineTo(pl+PW,pt+mid);ctx.stroke();ctx.setLineDash([]);
   }
+  ctx.fillStyle=C.t4;ctx.font='11px Inter,system-ui';ctx.textAlign='right';
+  ctx.fillText('Ernandes Sobreira — Lab Científico',W-10,H-6);
+}
 
-  // ========= Mind Map =========
-  const mind = { nodes:[], edges:[], dragging:null, offX:0, offY:0 };
+/* ── MAPA MENTAL ── */
+const mapa={nos:[],arestas:[],arr:null,ox:0,oy:0};
 
-  function truncateLines(text, maxLines, maxChars){
-    const lines = text.split("\n").flatMap(line=>{
-      const out=[];
-      let s=line;
-      while(s.length>maxChars){
-        out.push(s.slice(0,maxChars-1)+"…");
-        s=s.slice(maxChars-1);
-      }
-      out.push(s);
-      return out;
-    });
-    if(lines.length<=maxLines) return lines.join("\n");
-    return lines.slice(0,maxLines-1).join("\n")+"\n…";
+function construirMapa(S){
+  const tema=tx(S.theme)||'Tema do Projeto';
+  const x=tx(S.xVar)||'X';const y=tx(S.yVar)||'Y';
+  const local=tx(S.place)||'local';
+  const cx=480,cy=260,R=160;
+  function cortar(s,max){
+    s=s.slice(0,max);const pal=s.split(' ');const lin=[];let cur='';
+    pal.forEach(p=>{if((cur+' '+p).trim().length>16){lin.push(cur.trim());cur=p}else cur+=' '+p});
+    if(cur.trim())lin.push(cur.trim());return lin.slice(0,3).join('\n');
   }
+  mapa.nos=[
+    {id:'c',x:cx,y:cy,label:cortar(tema,28),cor:'#165C36',txt:'#fff',r:56,bold:true},
+    {id:'q',x:cx,y:cy-R-50,label:'Pergunta',cor:'#0F4C8A',txt:'#fff',r:40},
+    {id:'x',x:cx-R-60,y:cy-20,label:'X: '+x.slice(0,14),cor:'#EAF4EE',txt:'#165C36',r:40,borda:'#1E7A47'},
+    {id:'y',x:cx+R+60,y:cy-20,label:'Y: '+y.slice(0,14),cor:'#EAF1FB',txt:'#0F4C8A',r:40,borda:'#1566B3'},
+    {id:'m',x:cx-R-20,y:cy+R+30,label:'Mecanismo',cor:'#FEF6EB',txt:'#8A4B00',r:38,borda:'#8A4B00'},
+    {id:'mt',x:cx+R+20,y:cy+R+30,label:'Método',cor:'#EAF4EE',txt:'#165C36',r:36,borda:'#1E7A47'},
+    {id:'pl',x:cx,y:cy+R+90,label:'Local: '+local.slice(0,12),cor:'#F7F8F6',txt:'#566860',r:34,borda:'#C8D6CC'},
+  ];
+  mapa.arestas=[{de:'c',pa:'q'},{de:'c',pa:'x'},{de:'c',pa:'y'},{de:'c',pa:'m'},{de:'c',pa:'mt'},{de:'c',pa:'pl'},{de:'x',pa:'m'},{de:'y',pa:'m'}];
+}
 
-  function buildMind(S, question, hyp){
-    const theme = clean(S.theme) || "TEMA";
-    mind.nodes = [
-      {id:"C", x:490,y:220,w:260,h:92, color: "rgba(14,122,58,.18)", title:"TEMA", text: theme},
-      {id:"P", x:210,y:110,w:280,h:92, color: "rgba(178,30,43,.14)", title:"PROBLEMA", text: clean(S.problem)||"—"},
-      {id:"Q", x:790,y:110,w:280,h:92, color: "rgba(11,111,191,.14)", title:"PERGUNTA", text: question},
-      {id:"V", x:210,y:320,w:280,h:92, color: "rgba(197,90,17,.14)", title:"VARIÁVEIS", text: `Y: ${clean(S.yVar)||"—"}\nX: ${clean(S.xVar)||"—"}`},
-      {id:"H", x:790,y:320,w:280,h:92, color: "rgba(14,122,58,.14)", title:"HIPÓTESE", text: hyp},
-      {id:"M", x:210,y:490,w:280,h:92, color: "rgba(11,31,20,.08)", title:"MÉTODO", text: clean(S.methods)||"—"},
-      {id:"L", x:790,y:490,w:280,h:92, color: "rgba(11,31,20,.08)", title:"CRONOGRAMA", text: clean(S.schedule)||"—"},
-    ];
-    mind.nodes.forEach(n=> n.text = truncateLines(n.text, 5, 46));
-    mind.edges = [["C","P"],["C","Q"],["C","V"],["C","H"],["C","M"],["C","L"],["Q","H"],["V","H"]];
-  }
-
-  function roundRect(ctx, x,y,w,h,r,fill,stroke){
-    ctx.beginPath();
-    ctx.moveTo(x+r,y);
-    ctx.arcTo(x+w,y,x+w,y+h,r);
-    ctx.arcTo(x+w,y+h,x,y+h,r);
-    ctx.arcTo(x,y+h,x,y,r);
-    ctx.arcTo(x,y,x+w,y,r);
-    ctx.closePath();
-    ctx.fillStyle=fill; ctx.fill();
-    ctx.strokeStyle=stroke; ctx.lineWidth=2; ctx.stroke();
-  }
-
-  function drawMind(){
-    const c = $("mind");
-    const ctx = c.getContext("2d");
-    const W=c.width, H=c.height;
-    ctx.clearRect(0,0,W,H);
-    ctx.fillStyle="#fff"; ctx.fillRect(0,0,W,H);
-
-    if(mind.nodes.length===0){
-      const S=getState();
-      buildMind(S, buildQuestion(S), buildHypothesisAuto(S));
-    }
-
-    // edges
-    ctx.strokeStyle="rgba(14,42,27,.18)";
-    ctx.lineWidth=2;
-    mind.edges.forEach(([a,b])=>{
-      const A=mind.nodes.find(n=>n.id===a);
-      const B=mind.nodes.find(n=>n.id===b);
-      if(!A||!B) return;
-      ctx.beginPath();
-      ctx.moveTo(A.x,A.y);
-      ctx.lineTo(B.x,B.y);
-      ctx.stroke();
-    });
-
-    // nodes
-    mind.nodes.forEach(n=>{
-      const x=n.x-n.w/2, y=n.y-n.h/2;
-      roundRect(ctx, x,y,n.w,n.h,16,n.color,"rgba(14,42,27,.22)");
-      ctx.fillStyle="rgba(11,31,20,.92)";
-      ctx.font="1000 12px system-ui";
-      ctx.fillText(n.title, x+12, y+18);
-
-      ctx.fillStyle="rgba(47,74,59,.92)";
-      ctx.font="800 12px system-ui";
-      const lines=n.text.split("\n");
-      let yy=y+38;
-      for(let i=0;i<lines.length;i++){
-        ctx.fillText(lines[i], x+12, yy);
-        yy += 15;
-        if(yy > y+n.h-10) break;
-      }
-    });
-
-    ctx.fillStyle="rgba(47,74,59,.85)";
-    ctx.font="900 12px system-ui";
-    ctx.fillText("Mapa mental • arraste caixas • exporte PNG", 14, H-14);
-  }
-
-  // drag
-  const mindCanvas=$("mind");
-  function getPos(evt){
-    const r=mindCanvas.getBoundingClientRect();
-    const sx=mindCanvas.width/r.width;
-    const sy=mindCanvas.height/r.height;
-    return {x:(evt.clientX-r.left)*sx, y:(evt.clientY-r.top)*sy};
-  }
-  function hitNode(mx,my){
-    for(let i=mind.nodes.length-1;i>=0;i--){
-      const n=mind.nodes[i];
-      const x=n.x-n.w/2, y=n.y-n.h/2;
-      if(mx>=x && mx<=x+n.w && my>=y && my<=y+n.h) return n;
-    }
-    return null;
-  }
-  mindCanvas.addEventListener("pointerdown",(e)=>{
-    const p=getPos(e);
-    const n=hitNode(p.x,p.y);
-    if(!n) return;
-    mind.dragging=n;
-    mind.offX=p.x-n.x; mind.offY=p.y-n.y;
-    mindCanvas.setPointerCapture(e.pointerId);
+function desenharMapa(){
+  const cv=$('mind'),ctx=cv.getContext('2d'),W=cv.width,H=cv.height;
+  ctx.clearRect(0,0,W,H);
+  ctx.fillStyle='#F7F8F6';ctx.beginPath();ctx.roundRect(0,0,W,H,12);ctx.fill();
+  ctx.strokeStyle='rgba(200,214,204,.35)';ctx.lineWidth=1;
+  for(let x=0;x<W;x+=40){ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,H);ctx.stroke()}
+  for(let y=0;y<H;y+=40){ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(W,y);ctx.stroke()}
+  mapa.arestas.forEach(a=>{
+    const de=mapa.nos.find(n=>n.id===a.de),pa=mapa.nos.find(n=>n.id===a.pa);
+    if(!de||!pa)return;
+    ctx.strokeStyle='rgba(22,92,54,.18)';ctx.lineWidth=1.5;ctx.setLineDash([]);
+    ctx.beginPath();ctx.moveTo(de.x,de.y);ctx.lineTo(pa.x,pa.y);ctx.stroke();
   });
-  mindCanvas.addEventListener("pointermove",(e)=>{
-    if(!mind.dragging) return;
-    const p=getPos(e);
-    mind.dragging.x = Math.max(mind.dragging.w/2+8, Math.min(mindCanvas.width-mind.dragging.w/2-8, p.x-mind.offX));
-    mind.dragging.y = Math.max(mind.dragging.h/2+8, Math.min(mindCanvas.height-mind.dragging.h/2-28, p.y-mind.offY));
-    drawMind();
+  mapa.nos.forEach(n=>{
+    ctx.shadowColor='rgba(10,30,15,.12)';ctx.shadowBlur=12;ctx.shadowOffsetY=3;
+    ctx.fillStyle=n.cor;ctx.beginPath();ctx.ellipse(n.x,n.y,n.r,n.r*.6,0,0,Math.PI*2);ctx.fill();
+    if(n.borda){ctx.shadowBlur=0;ctx.shadowOffsetY=0;ctx.strokeStyle=n.borda;ctx.lineWidth=1.5;ctx.beginPath();ctx.ellipse(n.x,n.y,n.r,n.r*.6,0,0,Math.PI*2);ctx.stroke()}
+    ctx.shadowBlur=0;ctx.shadowOffsetY=0;
+    ctx.fillStyle=n.txt;ctx.font=(n.bold?'600 ':'500 ')+'11px Inter,system-ui';ctx.textAlign='center';ctx.textBaseline='middle';
+    (n.label||'').split('\n').forEach((l,i,arr)=>ctx.fillText(l,n.x,n.y+(i-(arr.length-1)/2)*14));
   });
-  mindCanvas.addEventListener("pointerup",()=> mind.dragging=null);
+  ctx.fillStyle='rgba(143,168,156,.5)';ctx.font='10px Inter,system-ui';ctx.textAlign='right';ctx.textBaseline='alphabetic';
+  ctx.fillText('Ernandes Sobreira — Lab Científico',W-10,H-8);
+}
 
-  // ========= Plans =========
-  function loadPlans(){
-    const raw = localStorage.getItem(PLANS_KEY);
-    let list = [];
-    try{ list = raw ? JSON.parse(raw) : []; } catch { list=[]; }
-    return Array.isArray(list) ? list : [];
+function mapaXY(e,cv){
+  const r=cv.getBoundingClientRect(),sx=cv.width/r.width,sy=cv.height/r.height;
+  const cx=e.touches?e.touches[0].clientX:e.clientX,cy=e.touches?e.touches[0].clientY:e.clientY;
+  return{x:(cx-r.left)*sx,y:(cy-r.top)*sy};
+}
+function achaNó(mx,my){return mapa.nos.slice().reverse().find(n=>{const dx=mx-n.x,dy=my-n.y;return(dx*dx)/(n.r*n.r)+(dy*dy)/((n.r*.6)*(n.r*.6))<=1})||null}
+
+$('mind').addEventListener('mousedown',e=>{const{x,y}=mapaXY(e,$('mind'));const n=achaNó(x,y);if(n){mapa.arr=n;mapa.ox=x-n.x;mapa.oy=y-n.y;e.preventDefault()}});
+$('mind').addEventListener('mousemove',e=>{if(!mapa.arr)return;const{x,y}=mapaXY(e,$('mind'));mapa.arr.x=x-mapa.ox;mapa.arr.y=y-mapa.oy;desenharMapa()});
+$('mind').addEventListener('mouseup',()=>mapa.arr=null);
+$('mind').addEventListener('touchstart',e=>{const{x,y}=mapaXY(e,$('mind'));const n=achaNó(x,y);if(n){mapa.arr=n;mapa.ox=x-n.x;mapa.oy=y-n.y;e.preventDefault()}},{passive:false});
+$('mind').addEventListener('touchmove',e=>{if(!mapa.arr)return;const{x,y}=mapaXY(e,$('mind'));mapa.arr.x=x-mapa.ox;mapa.arr.y=y-mapa.oy;desenharMapa();e.preventDefault()},{passive:false});
+$('mind').addEventListener('touchend',()=>mapa.arr=null);
+
+/* ── GERAR ── */
+function gerar(){
+  const S=getState(),q=construirPergunta(S),hAuto=construirHipAuto(S),hUser=tx(S.hypUser),dir=tx(S.effectDir),design=tx(S.design);
+  $('kPergunta').textContent=q;
+  $('chipDelin').textContent='Delineamento: '+design.split('(')[0].trim();
+  $('chipDir').textContent=dir==='up'?'X → Y aumenta':dir==='down'?'X → Y diminui':dir==='curve'?'Curva não-linear':'Hipótese nula';
+  const viavel=(tx(S.methods).length>15&&tx(S.place).length>2)?'Viável':'Verificar';
+  $('chipViab').textContent='Viabilidade: '+viavel;
+  $('kHip').textContent=hAuto;
+  if(hUser.length>10){$('kHipUser').style.display='block';$('kHipUser').textContent='Sua versão: '+hUser}
+  else $('kHipUser').style.display='none';
+  renderizarRubrica(S);
+  const mag=calcularMag(S);
+  desenharGrafico(S,mag);
+  construirMapa(S);
+  desenharMapa();
+  $('textoSaida').textContent=construirTexto(S,q,hAuto);
+  const cronStr=tx(S.schedule);
+  if(cronStr.length>10){
+    $('cardCronograma').style.display='';
+    const linhas=cronStr.split('\n').filter(l=>l.trim());
+    $('timelineConteudo').innerHTML=linhas.map((l,i)=>{
+      const p=l.split(':');const sem=p[0]?.trim()||`Atividade ${i+1}`;const desc=p.slice(1).join(':').trim()||l;
+      return`<div class="tl-item"><div class="tl-dot">${i+1}</div><div><div class="tl-sem">${sem}</div><div class="tl-txt">${desc}</div></div></div>`;
+    }).join('');
   }
-  function savePlans(list){
-    localStorage.setItem(PLANS_KEY, JSON.stringify(list));
-  }
-  function refreshPlanSelect(){
-    const sel = $("planSelect");
-    const list = loadPlans();
-    sel.innerHTML = "";
-    if(list.length===0){
-      const opt=document.createElement("option");
-      opt.value=""; opt.textContent="(sem planos salvos)";
-      sel.appendChild(opt);
-      return;
-    }
-    list.forEach((p,i)=>{
-      const opt=document.createElement("option");
-      opt.value=String(i);
-      opt.textContent = `${p.name} — ${p.atLabel}`;
-      sel.appendChild(opt);
-    });
-  }
+  marcarEtapas(S);atualizarProgresso(S);salvarAuto();
+  toast('Saídas geradas com sucesso.',1200);
+}
+window.gerar=gerar;
 
-  $("btnSavePlan").addEventListener("click", ()=>{
-    const name = clean($("planName").value) || `${clean($("theme").value)||"Plano"} — ${nowLabel()}`;
-    const data = getState();
-    const list = loadPlans();
-    list.unshift({name, data, at: Date.now(), atLabel: nowLabel()});
-    savePlans(list.slice(0,60));
-    refreshPlanSelect();
-    toast("Plano salvo.", 900);
-  });
+/* ── TEXTO ── */
+function construirTexto(S,q,hAuto){
+  const sep='─'.repeat(54),hUser=tx(S.hypUser);
+  const L=[
+    'PROJETO DE PESQUISA — LAB CIENTÍFICO',
+    `Gerado em: ${nowStr()} | Ernandes Sobreira — UNEMAT`,sep,'',
+    `ALUNO(A): ${tx(S.student)||'—'}`,`TEMA: ${tx(S.theme)||'—'}`,
+    `ÁREA: ${tx(S.field)||'—'} | LOCAL: ${tx(S.place)||'—'}`,'',
+    'PROBLEMA:',tx(S.problem)||'—','','PERGUNTA CIENTÍFICA:',q,'',
+    'HIPÓTESE (automática):',hAuto,
+  ];
+  if(hUser.length>5)L.push('','HIPÓTESE (sua versão):',hUser);
+  L.push('','VARIÁVEIS:',
+    `X (explicativa): ${tx(S.xVar)||'—'}`,`Y (resposta): ${tx(S.yVar)||'—'}`,
+    `Delineamento: ${tx(S.design)||'—'}`,`Direção do efeito: ${tx(S.effectDir)||'—'}`,
+    `Unidade amostral: ${tx(S.unit)||'—'}`);
+  if(tx(S.intervention))L.push(`Intervenção: ${tx(S.intervention)}`);
+  L.push('','MECANISMO:',tx(S.mechanism)||'—','','MÉTODO:',tx(S.methods)||'—');
+  if(tx(S.limits))   L.push('','LIMITAÇÕES:',tx(S.limits));
+  if(tx(S.schedule)) L.push('','CRONOGRAMA:',tx(S.schedule));
+  L.push('','PUBLICAÇÃO:',
+    `Destino: ${tx(S.wherePresent)||'—'}`,
+    tx(S.venueName)?`Venue: ${tx(S.venueName)}`:'',
+    tx(S.venueLink) ?`Link: ${tx(S.venueLink)}` :'',
+    '',sep,
+    'Idealizado por Ernandes Sobreira | UNEMAT Cáceres-MT',
+    'ernandes.sobreira@unemat.br | Lattes: 7461346615427709');
+  return L.filter(l=>l!==undefined).join('\n');
+}
 
-  $("btnLoadPlan").addEventListener("click", ()=>{
-    const idx = $("planSelect").value;
-    const list = loadPlans();
-    if(idx==="" || !list[Number(idx)]) return;
-    setState(list[Number(idx)].data);
-    render();
-    toast("Plano carregado.", 900);
-  });
+/* ── ALTERNATIVAS ── */
+function gerarAlternativas(){
+  const S=getState(),alt=construirAlts(S);
+  $('cardAlts').style.display='';
+  $('altsCorpo').innerHTML=alt.map(a=>`<div class="alt-q">${a}</div>`).join('');
+  toast('Perguntas alternativas geradas.',1000);
+}
+window.gerarAlternativas=gerarAlternativas;
 
-  $("btnDupPlan").addEventListener("click", ()=>{
-    const idx = $("planSelect").value;
-    const list = loadPlans();
-    if(idx==="" || !list[Number(idx)]) return;
-    const p = list[Number(idx)];
-    list.unshift({name: p.name + " (cópia)", data: p.data, at: Date.now(), atLabel: nowLabel()});
-    savePlans(list.slice(0,60));
-    refreshPlanSelect();
-    toast("Plano duplicado.", 900);
-  });
+/* ── CRONOGRAMA ── */
+function gerarCronograma(){
+  const ini=$('startDate').value;
+  const sem=parseInt($('durationWeeks').value||'12',10);
+  const linhas=[
+    'Semana 1: delimitar problema + pergunta (rascunho)',
+    'Semana 2: revisão bibliográfica (mapa de conceitos + 10 fontes)',
+    'Semana 3: definir X/Y + desenho amostral + critérios',
+    'Semana 4: piloto / teste do método',
+    'Semana 5-7: coleta ou extração de dados',
+    'Semana 8: organização (planilhas) + checagem de qualidade',
+    'Semana 9: análises (estatística e figuras)',
+    'Semana 10: interpretação + discussão',
+    'Semana 11: redação (IMRaD/TCC) + revisão',
+    'Semana 12: apresentação (slides ou pôster) + ajustes finais'
+  ];
+  const n=Math.max(4,Math.min(sem,12));
+  $('schedule').value=`Início: ${ini||'—'} | Duração: ${sem} semanas\n`+linhas.slice(0,n).join('\n');
+  salvarAuto();toast('Cronograma gerado.',900);
+}
+window.gerarCronograma=gerarCronograma;
 
-  $("btnDeletePlan").addEventListener("click", ()=>{
-    const idx = $("planSelect").value;
-    const list = loadPlans();
-    if(idx==="" || !list[Number(idx)]) return;
-    if(!confirm("Excluir este plano?")) return;
-    list.splice(Number(idx),1);
-    savePlans(list);
-    refreshPlanSelect();
-    toast("Plano excluído.", 900);
-  });
+/* ── PLANOS ── */
+function lerPlanos(){try{return JSON.parse(localStorage.getItem(PLAN_KEY)||'[]')}catch{return[]}}
+function gravarPlanos(p){localStorage.setItem(PLAN_KEY,JSON.stringify(p.slice(0,60)))}
+function atualizarSelectPlanos(){
+  const lista=lerPlanos(),sel=$('planSelect');
+  sel.innerHTML=lista.length?lista.map((p,i)=>`<option value="${i}">${p.nome} — ${p.dataStr}</option>`).join(''):'<option value="">Nenhum plano salvo</option>';
+}
+function salvarPlano(){const nome=($('planName').value||'').trim()||`Plano ${nowStr()}`;const lista=lerPlanos();lista.unshift({nome,dados:getState(),ts:Date.now(),dataStr:nowStr()});gravarPlanos(lista);atualizarSelectPlanos();toast('Plano salvo.',900)}
+function carregarPlano(){const idx=$('planSelect').value;const lista=lerPlanos();if(idx===''||!lista[Number(idx)])return;setState(lista[Number(idx)].dados);gerar();toast('Plano carregado.',900)}
+function duplicarPlano(){const idx=$('planSelect').value;const lista=lerPlanos();if(idx===''||!lista[Number(idx)])return;const p=lista[Number(idx)];lista.unshift({nome:p.nome+' (cópia)',dados:p.dados,ts:Date.now(),dataStr:nowStr()});gravarPlanos(lista);atualizarSelectPlanos();toast('Plano duplicado.',900)}
+function excluirPlano(){const idx=$('planSelect').value;const lista=lerPlanos();if(idx===''||!lista[Number(idx)])return;if(!confirm('Excluir este plano?'))return;lista.splice(Number(idx),1);gravarPlanos(lista);atualizarSelectPlanos();toast('Plano excluído.',900)}
+window.salvarPlano=salvarPlano;window.carregarPlano=carregarPlano;window.duplicarPlano=duplicarPlano;window.excluirPlano=excluirPlano;
 
-  // ========= Schedule generator =========
-  function genSchedule(){
-    const start = $("startDate").value;
-    const weeks = parseInt($("durationWeeks").value || "12", 10);
-    const lines = [
-      `Semana 1: delimitar problema + pergunta (rascunho)`,
-      `Semana 2: revisão bibliográfica (mapa de conceitos + 10 fontes)`,
-      `Semana 3: definir X/Y + desenho amostral + critérios`,
-      `Semana 4: piloto / teste do método`,
-      `Semana 5-7: coleta/extração de dados`,
-      `Semana 8: organização (planilhas) + checagem de qualidade`,
-      `Semana 9: análises (estatística/figuras)`,
-      `Semana 10: interpretação + discussão`,
-      `Semana 11: redação (IMRaD/TCC) + revisão`,
-      `Semana 12: apresentação (slides/pôster) + ajustes finais`
-    ];
-    const trimmed = lines.slice(0, Math.max(4, Math.min(weeks, 12)));
-    $("schedule").value =
-      `Início: ${start || "—"} | Duração: ${weeks || "—"} semanas\n` +
-      trimmed.join("\n");
-    saveAuto();
-    toast("Cronograma gerado.", 900);
-  }
-  $("btnGenSchedule").addEventListener("click", genSchedule);
+/* ── EXPORTAÇÕES ── */
+function nomeBase(){
+  const nm=(tx($('student').value)||'aluno').toLowerCase().replace(/[^a-z0-9]+/gi,'_').slice(0,20);
+  const th=(tx($('theme').value)||'tema').toLowerCase().replace(/[^a-z0-9]+/gi,'_').slice(0,26);
+  return`${nm}_${th}`;
+}
+function baixarBlob(nome,mime,conteudo){
+  try{const blob=conteudo instanceof Blob?conteudo:new Blob([conteudo],{type:mime});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=nome;a.rel='noopener';document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1200);return true}catch{return false}
+}
+function abrirBlob(mime,conteudo){const blob=conteudo instanceof Blob?conteudo:new Blob([conteudo],{type:mime});const url=URL.createObjectURL(blob);window.open(url,'_blank','noopener,noreferrer');setTimeout(()=>URL.revokeObjectURL(url),8000)}
 
-  // ========= Export robust =========
-  function getTXT(){
-    render();
-    return $("outText").textContent || "";
-  }
+async function exportarTXT(){gerar();const txt=$('textoSaida').textContent,nome=`projeto_${nomeBase()}.txt`;if(!baixarBlob(nome,'text/plain;charset=utf-8',txt))abrirBlob('text/plain;charset=utf-8',txt);toast('TXT exportado.',900)}
+async function exportarPNG(){gerar();const blob=await new Promise(res=>$('chart').toBlob(b=>res(b),'image/png',1));if(!blob){toast('Falha ao gerar PNG.',1200);return}const nome=`grafico_${nomeBase()}.png`;if(!baixarBlob(nome,'image/png',blob))abrirBlob('image/png',blob);toast('Gráfico exportado.',900)}
+async function exportarPNGMapa(){gerar();const blob=await new Promise(res=>$('mind').toBlob(b=>res(b),'image/png',1));if(!blob){toast('Falha.',1200);return}const nome=`mapa_${nomeBase()}.png`;if(!baixarBlob(nome,'image/png',blob))abrirBlob('image/png',blob);toast('Mapa exportado.',900)}
+window.exportarTXT=exportarTXT;window.exportarPNG=exportarPNG;window.exportarPNGMapa=exportarPNGMapa;
 
-  function blobDownload(filename, mime, contentOrBlob){
-    try{
-      const blob = contentOrBlob instanceof Blob ? contentOrBlob : new Blob([contentOrBlob], {type:mime});
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement("a");
-      a.href = url;
-      a.download = filename;
-      a.rel = "noopener";
-      document.body.appendChild(a);
-      a.click();
-      a.remove();
-      setTimeout(()=>URL.revokeObjectURL(url), 1200);
-      return true;
-    } catch {
-      return false;
-    }
-  }
-
-  function openInNewTab(mime, content){
-    const blob = content instanceof Blob ? content : new Blob([content], {type:mime});
-    const url = URL.createObjectURL(blob);
-    window.open(url, "_blank", "noopener,noreferrer");
-    setTimeout(()=>URL.revokeObjectURL(url), 8000);
-  }
-
-  async function shareFileFallback(filename, mime, content){
-    // Try Web Share (Android works often)
-    try{
-      if(!navigator.share) return false;
-      const blob = content instanceof Blob ? content : new Blob([content], {type:mime});
-      const file = new File([blob], filename, {type:mime});
-      if(navigator.canShare && !navigator.canShare({files:[file]})) return false;
-      await navigator.share({files:[file], title:filename, text:"Export do Lab de Perguntas"});
-      return true;
-    } catch {
-      return false;
-    }
-  }
-
-  function safeNameBase(){
-    const nm = (clean($("student").value)||"aluno").toLowerCase().replace(/[^a-z0-9]+/gi,"_").slice(0,20);
-    const th = (clean($("theme").value)||"tema").toLowerCase().replace(/[^a-z0-9]+/gi,"_").slice(0,26);
-    return `${nm}_${th}`;
-  }
-
-  $("btnTXT").addEventListener("click", async ()=>{
-    const base = safeNameBase();
-    const filename = `ideia_${base}.txt`;
-    const txt = getTXT();
-    const ok = blobDownload(filename, "text/plain;charset=utf-8", txt);
-    if(ok){ toast("TXT exportado.", 900); return; }
-
-    const shared = await shareFileFallback(filename, "text/plain;charset=utf-8", txt);
-    if(shared){ toast("TXT compartilhado.", 900); return; }
-
-    openInNewTab("text/plain;charset=utf-8", txt);
-    toast("Abrindo TXT (salve manualmente).", 1200);
-  });
-
-  $("btnOpenTXT").addEventListener("click", ()=>{
-    const txt = getTXT();
-    openInNewTab("text/plain;charset=utf-8", txt);
-    toast("TXT aberto em nova aba.", 900);
-  });
-
-  function getMindPNGBlob(){
-    render();
-    const c = $("mind");
-    // toBlob async wrapper
-    return new Promise((resolve)=>{
-      c.toBlob((b)=>resolve(b), "image/png", 1.0);
-    });
-  }
-
-  $("btnPNG").addEventListener("click", async ()=>{
-    const base = safeNameBase();
-    const filename = `mapa_mental_${base}.png`;
-    const blob = await getMindPNGBlob();
-    if(!blob){ toast("Falha ao gerar PNG.", 1200); return; }
-
-    const ok = blobDownload(filename, "image/png", blob);
-    if(ok){ toast("PNG exportado.", 900); return; }
-
-    const shared = await shareFileFallback(filename, "image/png", blob);
-    if(shared){ toast("PNG compartilhado.", 900); return; }
-
-    openInNewTab("image/png", blob);
-    toast("Abrindo PNG (salve/compartilhe).", 1200);
-  });
-
-  $("btnOpenPNG").addEventListener("click", async ()=>{
-    const blob = await getMindPNGBlob();
-    if(!blob){ toast("Falha ao gerar PNG.", 1200); return; }
-    openInNewTab("image/png", blob);
-    toast("PNG aberto em nova aba.", 900);
-  });
-
-  $("btnAlt").addEventListener("click", ()=>{
-    const S=getState();
-    const alts = buildAltQuestions(S);
-    $("outText").textContent = ( $("outText").textContent || "" ) + "\n\n--- 3 PERGUNTAS ALTERNATIVAS ---\n" + alts + "\n";
-    toast("Alternativas adicionadas.", 1000);
-  });
-
-  $("btnClear").addEventListener("click", ()=>{
-    if(!confirm("Limpar tudo? Isso apaga o auto-salvamento (não apaga planos salvos).")) return;
-    localStorage.removeItem(STORAGE_KEY);
-    fields.forEach(id=>$(id).value="");
-    $("outText").textContent = "Clique em “Gerar saídas”.";
-    $("kQuestion").textContent="—";
-    $("kHyp").textContent="—";
-    $("kHyp2").textContent="";
-    mind.nodes=[]; mind.edges=[];
-    drawChart(getState(), computeMagnitude(getState()));
-    drawMind();
-    toast("Limpo.", 900);
-  });
-
-  // ========= Initial draw + render =========
-  function drawInitial(){
-    const S=getState();
-    drawChart(S, computeMagnitude(S));
-    buildMind(S, buildQuestion(S), buildHypothesisAuto(S));
-    drawMind();
-  }
-
-  $("btnGenerate").addEventListener("click", render);
-
-  function saveAuto(){
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(getState()));
-  }
-  function loadAuto(){
-    const raw = localStorage.getItem(STORAGE_KEY);
-    if(!raw) return;
-    try{ setState(JSON.parse(raw)); } catch {}
-  }
-
-  // step marks
-  function markSteps(S){
-    const ok1 = clean(S.problem).length >= 20 && clean(S.theme).length >= 3;
-    const ok2 = clean(S.xVar).length >= 3 && clean(S.yVar).length >= 3;
-    const ok3 = clean(S.hypUser).length >= 10 || clean(S.mechanism).length >= 10;
-    const ok4 = clean(S.methods).length >= 15;
-    const ok6 = clean(S.schedule).length >= 15;
-    const ok7 = clean(S.wherePresent).length >= 3;
-    const map = {1:ok1, 2:ok2, 3:ok3, 4:ok4, 5:true, 6:ok6, 7:ok7};
-    document.querySelectorAll(".step").forEach(s=>{
-      const n = s.dataset.step;
-      if(map[n]) s.classList.add("good"); else s.classList.remove("good");
-    });
-  }
-
-  // ========= Boot =========
-  function boot(){
-    $("profOnlyRubric").style.display = "none";
-    setMode("ALUNO");
-
-    loadAuto();
-    refreshPlanSelect();
-
-    // If no date set, set today
-    if(!$("startDate").value){
-      const d=new Date();
-      const iso = new Date(d.getTime()-d.getTimezoneOffset()*60000).toISOString().slice(0,10);
-      $("startDate").value = iso;
-    }
-    if(!$("durationWeeks").value) $("durationWeeks").value = "12";
-
-    drawInitial();
-
-    const hasSomething = fields.some(id => clean($(id).value).length>0);
-    if(hasSomething) render();
-  }
-
-  boot();
-
-  // Keep step marks on typing
-  fields.forEach(id=>{
-    $(id).addEventListener("input", ()=> markSteps(getState()));
-    $(id).addEventListener("change", ()=> markSteps(getState()));
-  });
-
-})();
+/* ── BOOT ── */
+function desenharInicial(){const S=getState();desenharGrafico(S,calcularMag(S));construirMapa(S);desenharMapa()}
+irEtapa(1);
 </script>
 </body>
 </html>
