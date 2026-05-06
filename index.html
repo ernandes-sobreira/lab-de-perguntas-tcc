@@ -348,6 +348,23 @@ canvas{display:block;width:100%;height:auto}
 .btn-troca.verde:hover{background:var(--verde-m)}
 .btn-troca.azul{background:var(--azul);color:#fff}
 .btn-troca.azul:hover{background:var(--azul-m)}
+
+/* EDITOR DE TEXTO */
+.editor-wrap{background:#fff;border:2px solid var(--verde-m);border-radius:var(--r2);overflow:hidden;margin-top:8px}
+.editor-topo{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:18px 24px;background:var(--verde-s);border-bottom:2px solid var(--verde-m)}
+.editor-topo-esq{display:flex;align-items:center;gap:14px}
+.editor-ico{font-size:28px}
+.editor-titulo{font-size:16px;font-weight:700;color:var(--ink);margin-bottom:2px}
+.editor-sub{font-size:13px;color:var(--ink3);font-weight:300}
+.editor-acoes{display:flex;gap:10px;flex-shrink:0}
+.btn-editor-sec{padding:10px 18px;border:2px solid var(--verde-m);border-radius:var(--r);background:#fff;color:var(--verde);font-size:14px;font-weight:600;font-family:var(--sans);cursor:pointer;transition:var(--t)}
+.btn-editor-sec:hover{background:var(--verde-t)}
+.btn-editor-pri{padding:10px 22px;border:none;border-radius:var(--r);background:var(--verde);color:#fff;font-size:14px;font-weight:600;font-family:var(--sans);cursor:pointer;transition:var(--t)}
+.btn-editor-pri:hover{background:var(--verde-m)}
+.editor-area{display:block;width:100%;border:none;outline:none;resize:none;padding:28px 32px;font-family:'Courier New',monospace;font-size:14px;line-height:1.85;color:var(--ink);background:#FAFCFA;min-height:520px;tab-size:2}
+.editor-area:focus{background:#fff}
+.editor-rodape{display:flex;justify-content:space-between;align-items:center;padding:10px 24px;background:var(--sur);border-top:1px solid var(--bord)}
+.editor-cont{font-size:12px;color:var(--ink4);font-weight:500}
 </style>
 </head>
 <body>
@@ -879,9 +896,30 @@ canvas{display:block;width:100%;height:auto}
         </div>
       </div>
 
-      <!-- TEXTO OCULTO para exportação TXT -->
-      <div class="txt-saida-hidden" id="textoSaida"></div>
-      <div class="txt-saida-hidden" id="cardCronogramaHidden"></div>
+      <!-- EDITOR DE TEXTO COMPLETO -->
+      <div class="editor-wrap" id="editorWrap" style="display:none">
+        <div class="editor-topo">
+          <div class="editor-topo-esq">
+            <span class="editor-ico">📝</span>
+            <div>
+              <div class="editor-titulo">Texto completo do projeto</div>
+              <div class="editor-sub">Edite à vontade antes de exportar. As alterações aqui não afetam os campos acima.</div>
+            </div>
+          </div>
+          <div class="editor-acoes">
+            <button class="btn-editor-sec" onclick="regenerarTexto()">↺ Regenerar do formulário</button>
+            <button class="btn-editor-pri" onclick="exportarTXT()">↓ Baixar TXT</button>
+          </div>
+        </div>
+        <textarea id="textoSaida" class="editor-area" spellcheck="true" placeholder="O texto do projeto aparece aqui após clicar em Gerar saídas..."></textarea>
+        <div class="editor-rodape">
+          <span id="editorContagem" class="editor-cont">0 caracteres</span>
+          <span style="color:var(--ink4);font-size:12px">Edições aqui não são salvas automaticamente — use ↓ Baixar TXT para guardar.</span>
+        </div>
+      </div>
+
+      <!-- OCULTO auxiliar -->
+      <div style="display:none" id="cardCronogramaHidden"></div>
 
       <div class="app-footer">
         Idealizado por <a href="https://ernandes-sobreira.github.io/meu-mundo/" target="_blank" rel="noopener">Ernandes Sobreira</a> — UNEMAT, Cáceres-MT
@@ -1367,8 +1405,14 @@ function gerar(){
     show('cardPublicacao','');
   } else show('cardPublicacao',false);
 
-  /* ── Texto oculto para exportação ── */
-  txt('textoSaida', construirTexto(S,q,hAuto));
+  /* ── Editor de texto completo ── */
+  const textoCompleto=construirTexto(S,q,hAuto);
+  const ta=$('textoSaida');
+  if(ta){
+    ta.value=textoCompleto;
+    atualizarContagem();
+  }
+  show('editorWrap','');
 
   atualizarProgresso(S);salvarAuto();
   document.querySelector('.saidas-wrap')?.scrollIntoView({behavior:'smooth',block:'start'});
@@ -1475,6 +1519,31 @@ function excluirPlano(){
 }
 window.salvarPlano=salvarPlano;window.carregarPlano=carregarPlano;window.duplicarPlano=duplicarPlano;window.excluirPlano=excluirPlano;
 
+
+/* EDITOR */
+function atualizarContagem(){
+  const ta=$('textoSaida');
+  const el=$('editorContagem');
+  if(!ta||!el)return;
+  const n=ta.value.length;
+  const linhas=ta.value.split('\n').length;
+  el.textContent=n.toLocaleString('pt-BR')+' caracteres · '+linhas+' linhas';
+}
+
+function regenerarTexto(){
+  const S=getState();
+  const q=construirPergunta(S),hAuto=construirHipAuto(S);
+  const ta=$('textoSaida');
+  if(ta){
+    ta.value=construirTexto(S,q,hAuto);
+    atualizarContagem();
+    toast('Texto regenerado do formulário.',1200);
+  }
+}
+window.regenerarTexto=regenerarTexto;
+
+document.addEventListener('input',function(e){if(e.target.id==='textoSaida')atualizarContagem();});
+
 /* EXPORTAÇÕES */
 function nomeBase(){
   const nm=(tx($('student')?.value||'aluno')).toLowerCase().replace(/[^a-z0-9]+/gi,'_').slice(0,20);
@@ -1498,7 +1567,7 @@ function abrirBlob(mime,conteudo){
 }
 async function exportarTXT(){
   gerar();
-  const txt=$('textoSaida').textContent;
+  const txt=$('textoSaida').value||$('textoSaida').textContent||'';
   const nome=`projeto_${nomeBase()}.txt`;
   if(!baixarBlob(nome,'text/plain;charset=utf-8',txt)) abrirBlob('text/plain;charset=utf-8',txt);
   toast('TXT exportado.',900);
