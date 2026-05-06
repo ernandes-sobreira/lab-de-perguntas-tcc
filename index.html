@@ -6,32 +6,18 @@
 <title>Lab Científico — Ernandes Sobreira</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
-:root {
-  --bg:      #FFFFFF;
-  --sur:     #F7F8F6;
-  --bord:    #E4E9E5;
-  --bord2:   #C8D6CC;
-  --ink:     #0A1209;
-  --ink2:    #162B1E;
-  --ink3:    #2C4A3A;
-  --ink4:    #4A7060;
-  --ink5:    #C2D3CB;
-  --verde:   #165C36;
-  --verde-m: #1E7A47;
-  --verde-s: #EAF4EE;
-  --verde-t: #F3FAF6;
-  --azul:    #0F4C8A;
-  --azul-m:  #1566B3;
-  --azul-s:  #EAF1FB;
-  --ambar:   #8A4B00;
-  --ambar-s: #FEF6EB;
-  --r:       10px;
-  --r2:      16px;
-  --sans:    'Inter', system-ui, sans-serif;
-  --serif:   'Lora', Georgia, serif;
-  --t:       200ms ease;
+:root{
+  --bg:#FFFFFF;--sur:#F7F8F6;--bord:#E4E9E5;--bord2:#C8D6CC;
+  --ink:#0A1209;--ink2:#162B1E;--ink3:#2C4A3A;--ink4:#4A7060;--ink5:#8AB09A;
+  --verde:#165C36;--verde-m:#1E7A47;--verde-s:#EAF4EE;--verde-t:#F3FAF6;
+  --azul:#0F4C8A;--azul-m:#1566B3;--azul-s:#EAF1FB;
+  --ambar:#8A4B00;--ambar-s:#FEF6EB;
+  --r:10px;--r2:16px;
+  --sans:'Inter',system-ui,sans-serif;
+  --serif:'Lora',Georgia,serif;
+  --t:200ms ease;
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
@@ -41,18 +27,27 @@ body{font-family:var(--sans);color:var(--ink);background:var(--bg);line-height:1
 #toast{position:fixed;bottom:28px;left:50%;transform:translateX(-50%) translateY(6px);background:var(--ink);color:#fff;padding:10px 24px;border-radius:999px;font-size:14px;font-weight:500;opacity:0;pointer-events:none;transition:var(--t);z-index:9999}
 #toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 
-/* ══════════════════ TELA INICIAL ══════════════════ */
-#tela-inicio{min-height:100vh;display:flex;flex-direction:column;background:var(--bg)}
+/* TOOLTIP */
+.tip{position:relative;display:inline-flex;align-items:center}
+.tip-btn{width:22px;height:22px;border-radius:50%;background:var(--verde-m);color:#fff;border:none;font-size:13px;font-weight:700;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;margin-left:8px;transition:var(--t)}
+.tip-btn:hover{background:var(--verde)}
+.tip-box{display:none;position:absolute;left:30px;top:50%;transform:translateY(-50%);background:#0A1F10;color:#E8F5EE;font-size:14px;font-weight:400;line-height:1.65;padding:14px 18px;border-radius:10px;width:300px;z-index:9000;box-shadow:0 6px 24px rgba(0,0,0,.3);pointer-events:none}
+.tip-box::before{content:'';position:absolute;left:-8px;top:50%;transform:translateY(-50%);border:8px solid transparent;border-right-color:#0A1F10;border-left:0}
+.tip-btn:focus+.tip-box,.tip-btn.aberto+.tip-box{display:block}
 
-/* NAV */
+/* LABEL COM TOOLTIP */
+.flabel{display:flex;align-items:center;font-size:16px;font-weight:700;color:var(--ink);margin-bottom:11px}
+.flabel .sub{font-size:13px;font-weight:400;color:var(--ink4);margin-left:8px}
+
+/* ══ TELA INICIAL ══ */
+#tela-inicio{min-height:100vh;display:flex;flex-direction:column;background:var(--bg)}
 .nav{display:flex;align-items:center;justify-content:space-between;padding:20px 48px;border-bottom:1px solid var(--bord)}
 .nav-logo{display:flex;align-items:center;gap:10px;font-family:var(--serif);font-size:17px;color:var(--ink)}
 .nav-logo-ico{width:32px;height:32px;background:var(--verde);border-radius:8px;display:flex;align-items:center;justify-content:center}
 .nav-logo-ico svg{width:16px;height:16px}
-.btn-nav{padding:9px 22px;background:var(--verde);color:#fff;border:none;border-radius:var(--r);font-size:14px;font-weight:600;font-family:var(--sans);cursor:pointer;transition:var(--t)}
+.btn-nav{padding:11px 24px;background:var(--verde);color:#fff;border:none;border-radius:var(--r);font-size:15px;font-weight:600;font-family:var(--sans);cursor:pointer;transition:var(--t)}
 .btn-nav:hover{background:var(--verde-m)}
 
-/* HERO */
 .hero{max-width:820px;margin:0 auto;padding:80px 48px 64px;width:100%}
 .hero-tag{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:600;letter-spacing:.8px;text-transform:uppercase;color:var(--verde);margin-bottom:28px}
 .hero-tag span{width:8px;height:8px;border-radius:50%;background:var(--verde);animation:blink 2.4s ease-in-out infinite}
@@ -63,7 +58,6 @@ body{font-family:var(--sans);color:var(--ink);background:var(--bg);line-height:1
 .btn-hero{display:inline-flex;align-items:center;gap:10px;padding:16px 32px;background:var(--verde);color:#fff;border:none;border-radius:var(--r);font-size:16px;font-weight:600;font-family:var(--sans);cursor:pointer;transition:var(--t);width:fit-content;margin-bottom:64px}
 .btn-hero:hover{background:var(--verde-m);transform:translateY(-1px)}
 
-/* SOBRE */
 .sobre{border-top:1px solid var(--bord);padding:56px 0 0}
 .sobre-tag{font-size:11px;font-weight:600;letter-spacing:1.2px;text-transform:uppercase;color:var(--ink4);margin-bottom:20px}
 .sobre h2{font-family:var(--serif);font-size:26px;color:var(--ink);margin-bottom:20px;line-height:1.3}
@@ -74,7 +68,6 @@ body{font-family:var(--sans);color:var(--ink);background:var(--bg);line-height:1
 .sobre-card h3{font-family:var(--serif);font-size:16px;color:var(--ink);margin-bottom:8px}
 .sobre-card p{font-size:14px;color:var(--ink3);line-height:1.6;font-weight:300}
 
-/* MODOS */
 .modos{padding:56px 0;border-top:1px solid var(--bord)}
 .modos h2{font-family:var(--serif);font-size:26px;color:var(--ink);margin-bottom:28px}
 .modos-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
@@ -90,7 +83,6 @@ body{font-family:var(--sans);color:var(--ink);background:var(--bg);line-height:1
 .modo-lista li{font-size:13.5px;color:var(--ink2);padding-left:18px;position:relative;line-height:1.5}
 .modo-lista li::before{content:'→';position:absolute;left:0;color:var(--ink4);font-size:12px}
 
-/* AUTOR */
 .autor{background:var(--sur);border-top:1px solid var(--bord);padding:40px 48px;display:flex;align-items:center;gap:28px}
 .autor-av{width:56px;height:56px;border-radius:50%;background:var(--verde);display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-size:18px;color:#fff;font-weight:600;flex-shrink:0}
 .autor-nome{font-family:var(--serif);font-size:17px;color:var(--ink);margin-bottom:4px}
@@ -99,18 +91,15 @@ body{font-family:var(--sans);color:var(--ink);background:var(--bg);line-height:1
 .autor-link{padding:8px 16px;border:1.5px solid var(--bord2);border-radius:999px;font-size:13px;font-weight:500;color:var(--ink3);text-decoration:none;transition:var(--t)}
 .autor-link:hover{border-color:var(--verde);color:var(--verde);background:var(--verde-t)}
 
-/* ══════════════════ APP ══════════════════ */
+/* ══ APP ══ */
 #tela-app{display:none;min-height:100vh;background:var(--bg)}
 
-/* APP BAR */
-.app-bar{position:fixed;top:0;left:0;right:0;height:64px;background:rgba(255,255,255,.97);border-bottom:1px solid var(--bord);display:flex;align-items:center;padding:0 28px;gap:16px;z-index:100;backdrop-filter:blur(8px)}
+.app-bar{position:sticky;top:0;left:0;right:0;height:60px;background:rgba(255,255,255,.97);border-bottom:1px solid var(--bord);display:flex;align-items:center;padding:0 32px;gap:16px;z-index:100;backdrop-filter:blur(8px)}
 .app-bar-logo{display:flex;align-items:center;gap:10px;font-family:var(--serif);font-size:15px;color:var(--ink);cursor:pointer;flex-shrink:0}
 .app-bar-logo .ico{width:28px;height:28px;background:var(--verde);border-radius:7px;display:flex;align-items:center;justify-content:center}
 .app-bar-logo .ico svg{width:14px;height:14px}
 .app-bar-tema{flex:1;font-size:15px;font-weight:500;color:var(--ink3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;padding:0 12px}
 .app-bar-dir{display:flex;align-items:center;gap:10px;flex-shrink:0}
-
-/* Toggle modo */
 .modo-toggle{display:flex;align-items:center;gap:8px;padding:7px 14px;border:1.5px solid var(--bord2);border-radius:999px;cursor:pointer;transition:var(--t);background:var(--bg)}
 .modo-toggle:hover{border-color:var(--verde)}
 .tog-track{width:40px;height:22px;border-radius:999px;background:var(--bord);position:relative;transition:var(--t)}
@@ -119,66 +108,58 @@ body{font-family:var(--sans);color:var(--ink);background:var(--bg);line-height:1
 .tog-track.on .tog-knob{transform:translateX(18px)}
 .modo-nome{font-size:13px;font-weight:700;color:var(--ink3);min-width:80px}
 .modo-nome.prof{color:var(--azul)}
-
-.btn-gerar{display:flex;align-items:center;gap:8px;padding:9px 20px;background:var(--verde);color:#fff;border:none;border-radius:var(--r);font-size:14px;font-weight:600;font-family:var(--sans);cursor:pointer;transition:var(--t)}
+.btn-gerar{display:flex;align-items:center;gap:8px;padding:10px 22px;background:var(--verde);color:#fff;border:none;border-radius:var(--r);font-size:15px;font-weight:600;font-family:var(--sans);cursor:pointer;transition:var(--t)}
 .btn-gerar:hover{background:var(--verde-m)}
-.btn-bare{padding:8px 14px;border:1.5px solid var(--bord2);border-radius:var(--r);font-size:13px;font-weight:500;color:var(--ink3);background:var(--bg);cursor:pointer;font-family:var(--sans);transition:var(--t);white-space:nowrap}
+.btn-bare{padding:9px 16px;border:1.5px solid var(--bord2);border-radius:var(--r);font-size:14px;font-weight:500;color:var(--ink3);background:var(--bg);cursor:pointer;font-family:var(--sans);transition:var(--t);white-space:nowrap}
 .btn-bare:hover{border-color:var(--verde);color:var(--verde);background:var(--verde-t)}
 
-/* LAYOUT */
-.app-layout{display:grid;grid-template-columns:460px 1fr;margin-top:64px;min-height:calc(100vh - 64px)}
+/* LAYOUT VERTICAL */
+.app-corpo{max-width:1100px;margin:0 auto;padding:0 40px 60px;width:100%}
 
-/* ─── ESQUERDO ─── */
-.pan-esq{background:#F0F4F1;border-right:1px solid var(--bord);display:flex;flex-direction:column;height:calc(100vh - 64px);position:sticky;top:64px;overflow:hidden}
-
-/* Progresso + etapas */
-.etapas-nav{padding:14px 16px 0;flex-shrink:0}
+/* PROGRESSO + ETAPAS */
+.prog-wrap{padding:24px 0 20px;border-bottom:2px solid var(--verde);margin-bottom:0}
 .prog-linha{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
 .prog-txt{font-size:12px;font-weight:600;color:var(--ink4);text-transform:uppercase;letter-spacing:.6px}
-.prog-pct{font-size:14px;font-weight:600;color:var(--verde)}
-.prog-barra{height:4px;background:var(--bord);border-radius:999px;overflow:hidden;margin-bottom:12px}
+.prog-pct{font-size:15px;font-weight:700;color:var(--verde)}
+.prog-barra{height:5px;background:var(--bord);border-radius:999px;overflow:hidden;margin-bottom:16px}
 .prog-fill{height:100%;background:var(--verde);border-radius:999px;transition:width .5s ease}
-
-.etapas-lista{display:flex;gap:4px;flex-wrap:wrap;flex-direction:row}
-.etapa-item{display:flex;align-items:center;gap:6px;padding:6px 10px;border-radius:999px;cursor:pointer;transition:var(--t);border:1.5px solid transparent}
-.etapa-item:hover{background:var(--bord)}
+.etapas-lista{display:flex;gap:6px;flex-wrap:wrap}
+.etapa-item{display:flex;align-items:center;gap:6px;padding:7px 14px;border-radius:999px;cursor:pointer;transition:var(--t);border:2px solid var(--bord2);background:var(--bg)}
+.etapa-item:hover{border-color:var(--verde-m);background:var(--verde-t)}
 .etapa-item.ativa{background:var(--verde);border-color:var(--verde)}
-.etapa-num{width:22px;height:22px;border-radius:50%;border:1.5px solid var(--bord2);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:var(--ink4);flex-shrink:0;transition:var(--t)}
-.etapa-item.ativa .etapa-num{background:rgba(255,255,255,.25);border-color:rgba(255,255,255,.4);color:#fff}
-.etapa-item.ok    .etapa-num{background:var(--verde-s);border-color:var(--verde-m);color:var(--verde)}
-.etapa-nome{font-size:13px;font-weight:500;color:#2C4A3A}
+.etapa-item.ok{border-color:var(--verde-m);background:var(--verde-s)}
+.etapa-num{width:22px;height:22px;border-radius:50%;border:1.5px solid rgba(0,0,0,.1);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:var(--ink4);flex-shrink:0}
+.etapa-item.ativa .etapa-num{background:rgba(255,255,255,.2);border-color:rgba(255,255,255,.3);color:#fff}
+.etapa-item.ok .etapa-num{color:var(--verde);border-color:var(--verde-m);background:rgba(255,255,255,.6)}
+.etapa-nome{font-size:13.5px;font-weight:500;color:var(--ink3)}
 .etapa-item.ativa .etapa-nome{color:#fff;font-weight:600}
-.etapa-item.ok    .etapa-nome{color:var(--ink2)}
-.etapa-check{font-size:12px;color:var(--verde);opacity:0;transition:var(--t)}
-.etapa-item.ok .etapa-check{opacity:1}
+.etapa-item.ok .etapa-nome{color:var(--verde)}
 
-/* Formulário */
-.form-scroll{flex:1;overflow-y:auto;padding:0 20px 24px}
-.form-scroll::-webkit-scrollbar{width:4px}
-.form-scroll::-webkit-scrollbar-thumb{background:var(--bord2);border-radius:999px}
+/* FORMULÁRIO */
+.form-area{background:#F0F5F2;border:3px solid var(--verde);border-top:none;border-radius:0 0 var(--r2) var(--r2);padding:36px 40px 28px}
+.ep-panel{display:none}
+.ep-panel.ativo{display:block}
+.ep-header{margin-bottom:28px}
+.ep-num{font-size:11px;font-weight:700;color:var(--ink4);letter-spacing:1px;text-transform:uppercase;margin-bottom:6px}
+.ep-titulo{font-family:var(--serif);font-size:26px;color:var(--ink);margin-bottom:8px;line-height:1.2}
+.ep-desc{font-size:15px;color:var(--ink3);line-height:1.6;font-weight:300}
 
-.etapa-panel{display:none}
-.etapa-panel.ativo{display:block}
+/* GRADE DO FORMULÁRIO */
+.fg{margin-bottom:26px}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:18px}
 
-.p-header{padding-top:16px;margin-bottom:16px}
-.p-num{font-size:11px;font-weight:600;color:var(--ink4);letter-spacing:.8px;text-transform:uppercase;margin-bottom:6px}
-.p-titulo{font-family:var(--serif);font-size:20px;color:var(--ink);margin-bottom:6px;line-height:1.2}
-.p-desc{font-size:13px;color:var(--ink3);line-height:1.5;font-weight:300}
-
-/* Grupos de formulário — letras grandes */
-.fg{margin-bottom:18px}
-.fg label{display:block;font-size:15px;font-weight:700;color:#0A1F10;margin-bottom:10px;letter-spacing:.1px}
-.fg label span{display:block;font-size:12px;font-weight:400;color:var(--ink4);margin-top:2px}
-
+/* CAMPOS */
 .fg input,
 .fg select{
+  display:block;
   width:100%;
-  border:3px solid #1E7A47;
+  border:3px solid var(--verde-m);
   border-radius:12px;
-  padding:14px 18px;
-  font-size:16px;
+  padding:18px 22px;
+  font-size:18px;
   font-family:var(--sans);
-  color:#0A1F10;
+  color:var(--ink);
   background:#E8F5EE;
   outline:none;
   transition:var(--t);
@@ -186,122 +167,109 @@ body{font-family:var(--sans);color:var(--ink);background:var(--bg);line-height:1
   font-weight:500;
   box-shadow:0 2px 8px rgba(22,92,54,.10);
 }
-
 .fg textarea{
+  display:block;
   width:100%;
-  border:3px solid #1E7A47;
+  border:3px solid var(--verde-m);
   border-radius:12px;
-  padding:18px 20px;
-  font-size:17px;
+  padding:22px 24px;
+  font-size:18px;
   font-family:var(--sans);
-  color:#0A1F10;
+  color:var(--ink);
   background:#E8F5EE;
   outline:none;
   transition:var(--t);
   resize:vertical;
-  line-height:1.75;
-  min-height:160px;
+  line-height:1.8;
+  min-height:240px;
   font-weight:500;
   box-shadow:0 2px 8px rgba(22,92,54,.10);
 }
-
 .fg input:focus,.fg select:focus,.fg textarea:focus{
-  border-color:#0A5C2E;
-  background:#D2EDDB;
-  box-shadow:0 0 0 5px rgba(22,92,54,.22),0 2px 12px rgba(22,92,54,.15);
+  border-color:var(--verde);
+  background:#D4EDD9;
+  box-shadow:0 0 0 5px rgba(22,92,54,.18),0 2px 12px rgba(22,92,54,.14);
 }
-.fg input::placeholder,.fg textarea::placeholder{color:#5A8A6A;font-weight:400}
+.fg input::placeholder,.fg textarea::placeholder{color:#6A9A7A;font-weight:400}
 
 .fg select{
   appearance:none;
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16' fill='none'%3E%3Cpath d='M4 6l4 4 4-4' stroke='%238FA89C' stroke-width='1.8' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 16 16' fill='none'%3E%3Cpath d='M4 6l4 4 4-4' stroke='%231E7A47' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E");
   background-repeat:no-repeat;
-  background-position:right 14px center;
-  padding-right:40px;
+  background-position:right 18px center;
+  padding-right:48px;
   cursor:pointer;
 }
 
-.row2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
-
-.dica{padding:12px 14px;background:var(--verde-t);border-left:3px solid var(--verde);border-radius:0 var(--r) var(--r) 0;font-size:14px;color:var(--ink3);line-height:1.6;margin-bottom:20px}
+.dica{padding:14px 18px;background:rgba(22,92,54,.08);border-left:4px solid var(--verde);border-radius:0 var(--r) var(--r) 0;font-size:15px;color:var(--ink2);line-height:1.65;margin-bottom:24px;font-weight:400}
 .dica strong{color:var(--verde)}
 
-/* Nav etapas */
-.etapa-nav{display:flex;gap:8px;padding:10px 16px;border-top:1px solid var(--bord);background:var(--bg);flex-shrink:0}
-.btn-etapa{flex:1;padding:9px;border:1.5px solid var(--bord2);border-radius:var(--r);font-size:14px;font-weight:600;font-family:var(--sans);cursor:pointer;transition:var(--t);background:var(--bg);color:var(--ink3)}
+/* PERGUNTA AO VIVO */
+.pergunta-live{background:var(--verde);color:#fff;border-radius:14px;padding:20px 26px;margin-top:8px}
+.pergunta-live-label{font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;opacity:.7;margin-bottom:10px}
+#perguntaLiveTxt{font-family:var(--serif);font-size:18px;line-height:1.6;font-style:italic}
+
+/* NAV ETAPAS */
+.etapa-nav{display:flex;justify-content:space-between;align-items:center;padding:20px 0 0;gap:16px}
+.btn-etapa{padding:13px 36px;border:2px solid var(--bord2);border-radius:var(--r);font-size:15px;font-weight:600;font-family:var(--sans);cursor:pointer;transition:var(--t);background:var(--bg);color:var(--ink3)}
 .btn-etapa:hover:not(:disabled){border-color:var(--verde);color:var(--verde)}
 .btn-etapa:disabled{opacity:.35;cursor:not-allowed}
-.btn-etapa.avan{background:var(--verde);color:#fff;border-color:var(--verde)}
+.btn-etapa.avan{background:var(--verde);color:#fff;border-color:var(--verde);padding:13px 48px}
 .btn-etapa.avan:hover{background:var(--verde-m);border-color:var(--verde-m)}
 
-/* Planos */
-.planos-area{padding:10px 16px;border-top:1px solid var(--bord);flex-shrink:0}
-.planos-titulo{font-size:11px;font-weight:600;color:var(--ink4);text-transform:uppercase;letter-spacing:.8px;margin-bottom:10px}
-.planos-row{display:flex;gap:8px;margin-bottom:8px}
-.planos-row input{flex:1;padding:9px 12px;font-size:14px;border:1.5px solid var(--bord2);border-radius:var(--r);background:var(--bg);color:var(--ink);font-family:var(--sans);outline:none}
-.planos-row input:focus{border-color:var(--verde)}
-.planos-row select{flex:1;padding:9px 12px;font-size:14px;border:1.5px solid var(--bord2);border-radius:var(--r);background:var(--bg);color:var(--ink);font-family:var(--sans);outline:none}
-.btn-plano{padding:9px 12px;border:1.5px solid var(--bord2);border-radius:var(--r);font-size:13px;font-weight:600;font-family:var(--sans);cursor:pointer;background:var(--bg);color:var(--ink3);transition:var(--t);white-space:nowrap}
+/* PLANOS */
+.planos-wrap{display:flex;align-items:center;gap:12px;flex-wrap:wrap;padding:14px 0;border-top:1px solid var(--bord2);margin-top:14px}
+.planos-label{font-size:11px;font-weight:700;color:var(--ink4);text-transform:uppercase;letter-spacing:.8px;white-space:nowrap}
+.planos-aviso{font-size:12px;color:var(--ambar);background:var(--ambar-s);border:1px solid #D4A020;border-radius:999px;padding:3px 12px;cursor:help;white-space:nowrap}
+.planos-wrap input{flex:1;min-width:120px;padding:10px 14px;font-size:14px;border:1.5px solid var(--bord2);border-radius:var(--r);background:var(--bg);color:var(--ink);font-family:var(--sans);outline:none}
+.planos-wrap input:focus{border-color:var(--verde)}
+.planos-wrap select{flex:1;min-width:140px;padding:10px 14px;font-size:14px;border:1.5px solid var(--bord2);border-radius:var(--r);background:var(--bg);color:var(--ink);font-family:var(--sans);outline:none}
+.btn-plano{padding:9px 14px;border:1.5px solid var(--bord2);border-radius:var(--r);font-size:13px;font-weight:600;font-family:var(--sans);cursor:pointer;background:var(--bg);color:var(--ink3);transition:var(--t);white-space:nowrap}
 .btn-plano:hover{border-color:var(--verde);color:var(--verde)}
 .btn-plano.perigo:hover{border-color:#8A1A22;color:#8A1A22}
 
-/* Rubrica */
-#sec-rubrica{display:none;border-top:1px solid var(--bord);padding:16px 20px}
-
-/* ─── DIREITO ─── */
-.pan-dir{padding:36px 40px;overflow-y:auto;display:flex;flex-direction:column;gap:28px}
-
-.sec-titulo{font-size:11px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--ink4);margin-bottom:16px;display:flex;align-items:center;gap:12px}
-.sec-titulo::after{content:'';flex:1;height:1px;background:var(--bord)}
-
-.card-saida{background:var(--bg);border:1px solid var(--bord);border-radius:var(--r2);overflow:hidden}
-.card-topo{display:flex;align-items:center;justify-content:space-between;padding:16px 22px;border-bottom:1px solid var(--bord)}
-.card-label{font-size:12px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:var(--ink4)}
-.card-acao{font-size:13px;font-weight:600;color:var(--azul-m);cursor:pointer;padding:4px 10px;border-radius:999px;transition:var(--t)}
-.card-acao:hover{background:var(--azul-s)}
-.card-corpo{padding:22px}
-
-/* Pergunta */
-.pergunta-txt{font-family:var(--serif);font-size:19px;line-height:1.55;color:var(--ink);margin-bottom:18px}
-.chips{display:flex;gap:8px;flex-wrap:wrap}
-.chip{padding:5px 14px;border-radius:999px;font-size:13px;font-weight:600}
-.chip-v{background:var(--verde-s);color:var(--verde)}
-.chip-a{background:var(--azul-s);color:var(--azul)}
-.chip-am{background:var(--ambar-s);color:var(--ambar)}
-
-/* Hipótese */
-.hip-auto{font-size:16px;line-height:1.75;color:var(--ink2);padding:18px 20px;background:var(--verde-t);border-left:4px solid var(--verde);border-radius:0 var(--r) var(--r) 0;margin-bottom:14px;font-style:italic}
-.hip-user{font-size:15px;line-height:1.7;color:var(--ink3);padding:14px 18px;background:var(--azul-s);border-left:3px solid var(--azul-m);border-radius:0 var(--r) var(--r) 0}
-
-/* Rubrica */
-.rub-meter{display:flex;align-items:center;gap:20px;padding:18px 20px;background:var(--verde-t);border-radius:var(--r);margin-bottom:16px}
-.rub-score{font-family:var(--serif);font-size:42px;font-weight:600;color:var(--verde);line-height:1}
-.rub-nivel{font-size:16px;font-weight:600;color:var(--ink);margin-bottom:4px}
+/* RUBRICA */
+#sec-rubrica{display:none;padding:20px 0 0}
+.rub-meter{display:flex;align-items:center;gap:20px;padding:18px 22px;background:var(--verde-t);border-radius:var(--r);margin-bottom:14px;border:1px solid var(--verde-s)}
+.rub-score{font-family:var(--serif);font-size:44px;font-weight:600;color:var(--verde);line-height:1}
+.rub-nivel{font-size:17px;font-weight:600;color:var(--ink);margin-bottom:4px}
 .rub-sub{font-size:13px;color:var(--ink3)}
-.rub-barra{height:6px;background:var(--bord);border-radius:999px;overflow:hidden;margin-bottom:16px}
+.rub-barra{height:6px;background:var(--bord);border-radius:999px;overflow:hidden;margin-bottom:14px}
 .rub-fill{height:100%;background:var(--verde);border-radius:999px;transition:width .6s ease}
-.rub-itens{display:flex;flex-direction:column;gap:8px}
+.rub-itens{display:grid;grid-template-columns:1fr 1fr;gap:8px}
 .rub-item{display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:var(--r);border:1px solid var(--bord);background:var(--sur)}
 .rub-item.ok{background:var(--verde-t);border-color:rgba(22,92,54,.15)}
 .rub-item.nao{background:var(--ambar-s);border-color:rgba(138,75,0,.12)}
 .rub-dot{width:9px;height:9px;border-radius:50%;flex-shrink:0}
 .rub-dot.ok{background:var(--verde-m)}
 .rub-dot.nao{background:var(--ambar)}
-.rub-txt{font-size:14px;color:var(--ink2);flex:1}
+.rub-txt{font-size:13px;color:var(--ink2);flex:1}
 .rub-pts{font-size:12px;font-weight:700;color:var(--ink4)}
 
-/* Texto */
+/* SAÍDAS */
+.saidas-wrap{padding-top:36px}
+.sec-titulo{font-size:11px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--ink4);margin-bottom:18px;display:flex;align-items:center;gap:12px}
+.sec-titulo::after{content:'';flex:1;height:1px;background:var(--bord)}
+.saidas-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:24px}
+.saida-full{margin-bottom:24px}
+.card-saida{background:var(--bg);border:1px solid var(--bord);border-radius:var(--r2);overflow:hidden}
+.card-topo{display:flex;align-items:center;justify-content:space-between;padding:16px 22px;border-bottom:1px solid var(--bord)}
+.card-label{font-size:11.5px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:var(--ink4)}
+.card-acao{font-size:13px;font-weight:600;color:var(--azul-m);cursor:pointer;padding:4px 10px;border-radius:999px;transition:var(--t)}
+.card-acao:hover{background:var(--azul-s)}
+.card-corpo{padding:22px}
+.pergunta-txt{font-family:var(--serif);font-size:19px;line-height:1.6;color:var(--ink);margin-bottom:18px}
+.chips{display:flex;gap:8px;flex-wrap:wrap}
+.chip{padding:5px 14px;border-radius:999px;font-size:13px;font-weight:600}
+.chip-v{background:var(--verde-s);color:var(--verde)}
+.chip-a{background:var(--azul-s);color:var(--azul)}
+.chip-am{background:var(--ambar-s);color:var(--ambar)}
+.hip-auto{font-size:16px;line-height:1.75;color:var(--ink2);padding:18px 20px;background:var(--verde-t);border-left:4px solid var(--verde);border-radius:0 var(--r) var(--r) 0;margin-bottom:14px;font-style:italic}
+.hip-user{font-size:15px;line-height:1.7;color:var(--ink3);padding:14px 18px;background:var(--azul-s);border-left:3px solid var(--azul-m);border-radius:0 var(--r) var(--r) 0}
+.alt-q{padding:14px 16px;background:var(--azul-s);border-left:3px solid var(--azul-m);border-radius:0 var(--r) var(--r) 0;font-size:15px;color:var(--ink2);line-height:1.65;margin-bottom:10px}
 .txt-saida{font-family:'Courier New',monospace;font-size:13px;line-height:1.75;color:var(--ink2);white-space:pre-wrap;background:var(--sur);padding:18px 20px;border-radius:var(--r);max-height:380px;overflow-y:auto;border:1px solid var(--bord)}
-
-/* Canvas */
 .canvas-wrap{border:1px solid var(--bord);border-radius:var(--r);overflow:hidden;background:var(--bg)}
 canvas{display:block;width:100%;height:auto}
-
-/* Alt */
-.alt-q{padding:14px 16px;background:var(--azul-s);border-left:3px solid var(--azul-m);border-radius:0 var(--r) var(--r) 0;font-size:15px;color:var(--ink2);line-height:1.65;margin-bottom:10px}
-
-/* Timeline */
 .timeline{display:flex;flex-direction:column;gap:0}
 .tl-item{display:flex;gap:16px;padding:10px 0;position:relative}
 .tl-item:not(:last-child)::before{content:'';position:absolute;left:11px;top:38px;bottom:-10px;width:1px;background:var(--bord)}
@@ -309,161 +277,102 @@ canvas{display:block;width:100%;height:auto}
 .tl-sem{font-size:11px;font-weight:700;color:var(--ink4);text-transform:uppercase;letter-spacing:.4px}
 .tl-txt{font-size:14px;color:var(--ink2);margin-top:2px;line-height:1.5}
 
-/* Footer */
-.app-footer{text-align:center;padding:28px;font-size:13px;color:var(--ink4);border-top:1px solid var(--bord)}
+.app-footer{text-align:center;padding:32px;font-size:13px;color:var(--ink4);border-top:1px solid var(--bord);margin-top:20px}
 .app-footer a{color:var(--verde);font-weight:600;text-decoration:none}
 
-/* ─── RESPONSIVO ─── */
 @media(max-width:900px){
-  .app-layout{grid-template-columns:1fr}
-  .pan-esq{height:auto;position:static}
-  .pan-dir{padding:24px 20px}
-  .sobre-cards{grid-template-columns:1fr}
-  .modos-grid{grid-template-columns:1fr}
-  .nav{padding:16px 24px}
-  .hero{padding:48px 24px 40px}
-  .autor{padding:28px 24px;flex-wrap:wrap}
-  .autor-links{margin-left:0}
-  .row2{grid-template-columns:1fr}
-  .row3{grid-template-columns:1fr}
+  .sobre-cards,.modos-grid,.saidas-grid,.rub-itens{grid-template-columns:1fr}
+  .nav,.hero,.autor{padding-left:24px;padding-right:24px}
+  .app-corpo{padding-left:20px;padding-right:20px}
+  .form-area{padding:24px 20px}
+  .row2,.row3{grid-template-columns:1fr}
   .app-bar-tema{display:none}
 }
 </style>
 </head>
 <body>
-
 <div id="toast"></div>
 
-<!-- ══════════════════════ TELA INICIAL ══════════════════════ -->
+<!-- ════════════ TELA INICIAL ════════════ -->
 <div id="tela-inicio">
-
   <nav class="nav">
     <div class="nav-logo">
-      <div class="nav-logo-ico">
-        <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.2" stroke-linecap="round">
-          <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
-        </svg>
-      </div>
+      <div class="nav-logo-ico"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.2" stroke-linecap="round"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div>
       Lab Científico
     </div>
     <button class="btn-nav" onclick="abrirApp()">Abrir o laboratório →</button>
   </nav>
 
   <div class="hero">
-
-    <div class="hero-tag"><span></span> Educação científica e climática</div>
-
+    <div class="hero-tag"><span></span> Educação científica</div>
     <h1>Do problema à <em>hipótese</em> científica.</h1>
-
-    <p class="hero-desc">
-      Uma ferramenta de orientação criada por um pesquisador do Pantanal para ajudar alunos e professores a estruturar projetos de pesquisa com rigor, clareza e autonomia.
-    </p>
-
+    <p class="hero-desc">Uma ferramenta de orientação criada por um pesquisador do Pantanal para ajudar alunos e professores a estruturar projetos de pesquisa com rigor, clareza e autonomia.</p>
     <button class="btn-hero" onclick="abrirApp()">
       Iniciar meu projeto de pesquisa
       <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
     </button>
 
-    <!-- O QUE É -->
     <div class="sobre">
       <div class="sobre-tag">O que é esta plataforma?</div>
       <h2>Um laboratório para construir pensamento científico</h2>
-      <p>
-        O <strong>Lab Científico</strong> é uma ferramenta educacional desenvolvida por Ernandes Sobreira Oliveira Junior — biólogo, doutor e professor da UNEMAT — para orientar a construção de projetos de pesquisa científica. Do problema inicial até a hipótese testável, o método, o cronograma e o plano de publicação.
-      </p>
-      <p>
-        A plataforma foi desenhada para uso em sala de aula, em orientações de TCC e em disciplinas de metodologia científica. Ela guia o aluno passo a passo, evita o bloqueio diante de uma folha em branco e ajuda o professor a identificar onde o projeto ainda precisa amadurecer.
-      </p>
-      <p>
-        Cada etapa ensina um conceito central da ciência: variável, hipótese, mecanismo causal, delineamento, magnitude do efeito. Sem transformar isso em um formulário burocrático.
-      </p>
-
+      <p>O <strong>Lab Científico</strong> é uma ferramenta educacional desenvolvida por Ernandes Sobreira Oliveira Junior para orientar a construção de projetos de pesquisa — do problema inicial até a hipótese testável, o método, o cronograma e o plano de publicação.</p>
+      <p>A plataforma guia o aluno passo a passo, evita o bloqueio diante de uma folha em branco e ajuda o professor a identificar onde o projeto ainda precisa amadurecer. Cada campo tem um botão de ajuda <strong>?</strong> que explica o que escrever.</p>
       <div class="sobre-cards">
-        <div class="sobre-card">
-          <div class="sobre-card-ico">🔬</div>
-          <h3>Para alunos de TCC</h3>
-          <p>Sete etapas guiadas levam do problema à hipótese completa, com geração automática de pergunta científica e mapa mental.</p>
-        </div>
-        <div class="sobre-card">
-          <div class="sobre-card-ico">👩‍🏫</div>
-          <h3>Para professores e orientadores</h3>
-          <p>Modo Professor ativa rubrica automática de maturidade científica, com pontuação por critério e feedback estruturado.</p>
-        </div>
-        <div class="sobre-card">
-          <div class="sobre-card-ico">🌿</div>
-          <h3>Contexto Pantanal e clima</h3>
-          <p>Desenvolvido com foco em educação climática e recursos hídricos, mas aplicável a qualquer área científica.</p>
-        </div>
+        <div class="sobre-card"><div class="sobre-card-ico">🔬</div><h3>Para alunos de TCC</h3><p>Sete etapas guiadas levam do problema à hipótese completa, com geração automática da pergunta científica e mapa mental.</p></div>
+        <div class="sobre-card"><div class="sobre-card-ico">👩‍🏫</div><h3>Para professores e orientadores</h3><p>Modo Professor ativa rubrica automática de maturidade científica com pontuação por critério e nível (Iniciante a Excelente).</p></div>
+        <div class="sobre-card"><div class="sobre-card-ico">🌿</div><h3>Pantanal e clima</h3><p>Desenvolvido com foco em educação climática e recursos hídricos, mas aplicável a qualquer área científica.</p></div>
       </div>
     </div>
 
-    <!-- MODOS -->
     <div class="modos">
       <h2>Dois modos, uma plataforma</h2>
       <div class="modos-grid">
-
         <div class="modo-card aluno">
           <div class="modo-badge aluno">🎓 Modo Aluno</div>
           <h3>Para quem está construindo o projeto</h3>
-          <p>O aluno é guiado por sete etapas sequenciais, com dicas contextuais em cada campo.</p>
+          <p>Sete etapas sequenciais com dicas contextuais em cada campo.</p>
           <ul class="modo-lista">
             <li>Progresso visual por etapa concluída</li>
-            <li>Geração automática da pergunta científica</li>
-            <li>Hipótese SE… ENTÃO… PORQUE estruturada</li>
-            <li>Gráfico hipotético por magnitude</li>
+            <li>Pergunta científica gerada ao vivo enquanto digita</li>
+            <li>Hipótese SE… ENTÃO… PORQUE automática</li>
+            <li>Gráfico hipotético por magnitude (barras, gradiente, dispersão)</li>
             <li>Mapa mental interativo e arrastável</li>
             <li>Exportação em TXT e PNG</li>
           </ul>
         </div>
-
         <div class="modo-card prof">
           <div class="modo-badge prof">👩‍🏫 Modo Professor</div>
           <h3>Para quem está orientando e avaliando</h3>
-          <p>O professor acessa todas as funções do aluno mais uma camada de avaliação pedagógica automática.</p>
+          <p>Todas as funções do aluno mais avaliação pedagógica automática.</p>
           <ul class="modo-lista">
             <li>Rubrica de maturidade científica com pontuação</li>
-            <li>Avaliação por critério: problema, variáveis, hipótese, método, cronograma</li>
+            <li>Avaliação por critério: problema, variáveis, hipótese, método</li>
             <li>Nível automático: Iniciante até Excelente</li>
             <li>Destaque visual das lacunas a melhorar</li>
-            <li>Visão completa do projeto do aluno</li>
-            <li>Útil em orientações presenciais e a distância</li>
           </ul>
         </div>
-
       </div>
     </div>
+  </div>
 
-  </div><!-- /hero -->
-
-  <!-- AUTOR -->
   <div class="autor">
     <div class="autor-av">ES</div>
     <div>
       <div class="autor-nome">Ernandes Sobreira Oliveira Junior</div>
-      <div class="autor-role">
-        Biólogo · Professor UNEMAT Cáceres-MT · Doutor pela Radboud University (Holanda)<br>
-        Pesquisador do Pantanal Norte · mais de 100 artigos publicados · mais de 100 bancas orientadas
-      </div>
+      <div class="autor-role">Biólogo · Professor UNEMAT Cáceres-MT · Doutor pela Radboud University (Holanda)<br>Pesquisador do Pantanal Norte · mais de 100 artigos publicados · mais de 100 bancas orientadas</div>
     </div>
     <div class="autor-links">
       <a class="autor-link" href="https://ernandes-sobreira.github.io/meu-mundo/" target="_blank" rel="noopener">CV Online</a>
-      <a class="autor-link" href="http://lattes.cnpq.br/7461346615427709"           target="_blank" rel="noopener">Lattes CNPq</a>
+      <a class="autor-link" href="http://lattes.cnpq.br/7461346615427709" target="_blank" rel="noopener">Lattes CNPq</a>
     </div>
   </div>
+</div>
 
-</div><!-- /tela-inicio -->
-
-
-<!-- ══════════════════════ APP ══════════════════════ -->
+<!-- ════════════ APP ════════════ -->
 <div id="tela-app">
-
   <div class="app-bar">
     <div class="app-bar-logo" onclick="voltarInicio()">
-      <div class="ico">
-        <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.2" stroke-linecap="round">
-          <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
-        </svg>
-      </div>
+      <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.2" stroke-linecap="round"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div>
       Lab Científico
     </div>
     <div class="app-bar-tema" id="barTema">Novo projeto</div>
@@ -472,386 +381,380 @@ canvas{display:block;width:100%;height:auto}
         <div class="tog-track" id="togTrack"><div class="tog-knob"></div></div>
         <span class="modo-nome" id="modoNome">ALUNO</span>
       </div>
-      <button class="btn-gerar" onclick="gerar()">
-        <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M2 8l3 3 9-9"/></svg>
-        Gerar saídas
-      </button>
+      <button class="btn-gerar" onclick="gerar()">✓ Gerar saídas</button>
       <button class="btn-bare" onclick="exportarTXT()">↓ TXT</button>
       <button class="btn-bare" onclick="exportarPNG()">↓ PNG</button>
     </div>
   </div>
 
-  <div class="app-layout">
+  <div class="app-corpo">
 
-    <!-- ─── ESQUERDO ─── -->
-    <div class="pan-esq">
+    <!-- PROGRESSO + ETAPAS -->
+    <div class="prog-wrap">
+      <div class="prog-linha">
+        <span class="prog-txt">Progresso</span>
+        <span class="prog-pct" id="progPct">0%</span>
+      </div>
+      <div class="prog-barra"><div class="prog-fill" id="progFill" style="width:0%"></div></div>
+      <div class="etapas-lista" id="etapasList">
+        <div class="etapa-item ativa" data-s="1" onclick="irEtapa(1)"><div class="etapa-num">1</div><div class="etapa-nome">Problema e Contexto</div></div>
+        <div class="etapa-item" data-s="2" onclick="irEtapa(2)"><div class="etapa-num">2</div><div class="etapa-nome">Variáveis e Desenho</div></div>
+        <div class="etapa-item" data-s="3" onclick="irEtapa(3)"><div class="etapa-num">3</div><div class="etapa-nome">Hipótese e Mecanismo</div></div>
+        <div class="etapa-item" data-s="4" onclick="irEtapa(4)"><div class="etapa-num">4</div><div class="etapa-nome">Método e Limitações</div></div>
+        <div class="etapa-item" data-s="5" onclick="irEtapa(5)"><div class="etapa-num">5</div><div class="etapa-nome">Magnitude do Efeito</div></div>
+        <div class="etapa-item" data-s="6" onclick="irEtapa(6)"><div class="etapa-num">6</div><div class="etapa-nome">Cronograma</div></div>
+        <div class="etapa-item" data-s="7" onclick="irEtapa(7)"><div class="etapa-num">7</div><div class="etapa-nome">Plano de Publicação</div></div>
+      </div>
+    </div>
 
-      <div class="etapas-nav">
-        <div class="prog-linha">
-          <span class="prog-txt">Progresso</span>
-          <span class="prog-pct" id="progPct">0%</span>
+    <!-- FORMULÁRIO -->
+    <div class="form-area">
+
+      <!-- EP 1 -->
+      <div class="ep-panel ativo" id="ep1">
+        <div class="ep-header">
+          <div class="ep-num">Etapa 01 de 07</div>
+          <div class="ep-titulo">Problema e Contexto</div>
+          <div class="ep-desc">Defina o que motiva a pesquisa. Um bom problema tem contexto, escala e impacto claro. Quanto mais você escrever, melhor será a pergunta gerada.</div>
         </div>
-        <div class="prog-barra"><div class="prog-fill" id="progFill" style="width:0%"></div></div>
+        <div class="row2">
+          <div class="fg">
+            <div class="flabel">Aluno(a) / Pesquisador(a)<div class="tip"><button class="tip-btn" type="button">?</button><div class="tip-box">Nome completo do aluno ou pesquisador. Aparece no cabeçalho do texto exportado e nos planos salvos para identificação.</div></div></div>
+            <input id="student" type="text" placeholder="Ex.: Ana Souza"/>
+          </div>
+          <div class="fg">
+            <div class="flabel">Turma / Ano de ingresso<div class="tip"><button class="tip-btn" type="button">?</button><div class="tip-box">Identifica a turma ou ano letivo. Útil para diferenciar planos quando vários alunos usam o sistema no mesmo computador.</div></div></div>
+            <input id="turma" type="text" placeholder="Ex.: Turma 2026 / Mestrado 2024"/>
+          </div>
+        </div>
+        <div class="row2">
+          <div class="fg">
+            <div class="flabel">Orientador(a)<div class="tip"><button class="tip-btn" type="button">?</button><div class="tip-box">Professor ou pesquisador responsável pela orientação principal. Assina a aprovação do TCC, dissertação ou artigo.</div></div></div>
+            <input id="advisor" type="text" placeholder="Ex.: Prof. Dr. Ernandes Sobreira"/>
+          </div>
+          <div class="fg">
+            <div class="flabel">Coorientador(a)<span class="sub">opcional</span><div class="tip"><button class="tip-btn" type="button">?</button><div class="tip-box">Pesquisador que apoia a orientação, geralmente com expertise no método ou ecossistema estudado. Pode ser de outra instituição.</div></div></div>
+            <input id="coadvisor" type="text" placeholder="Ex.: Dra. Maria Silva — UFMT"/>
+          </div>
+        </div>
+        <div class="fg">
+          <div class="flabel">Tema da pesquisa<div class="tip"><button class="tip-btn" type="button">?</button><div class="tip-box">Uma linha objetiva que resume o assunto. O tema é mais amplo que a pergunta. Ex.: "Impacto do desmatamento na temperatura urbana em Cáceres-MT".</div></div></div>
+          <input id="theme" type="text" placeholder="Ex.: Soluções baseadas na natureza e calor urbano em Cáceres-MT"/>
+        </div>
+        <div class="fg">
+          <div class="flabel">Local de pesquisa<div class="tip"><button class="tip-btn" type="button">?</button><div class="tip-box">Onde a pesquisa será realizada. Seja específico — cidade, bacia, unidade de conservação, escola, etc. Isso entra diretamente na pergunta científica gerada automaticamente.</div></div></div>
+          <input id="place" type="text" placeholder="Ex.: Cáceres-MT / Bacia do Rio Paraguai / ESEC Taiamã"/>
+        </div>
+        <div class="fg">
+          <div class="flabel">Problema real<div class="tip"><button class="tip-btn" type="button">?</button><div class="tip-box">Descreva o problema que motivou a pesquisa. Um bom problema responde: (1) quem sofre, (2) onde acontece, (3) por que acontece, (4) quais as consequências. Escreva sem pressa — este é o campo mais importante da Etapa 1.</div></div></div>
+          <textarea id="problem" placeholder="Descreva o contexto: quem sofre com o problema, onde ele acontece, quais são as consequências e por que é urgente estudar isso agora."></textarea>
+        </div>
+        <div class="fg">
+          <div class="flabel">Área do conhecimento<div class="tip"><button class="tip-btn" type="button">?</button><div class="tip-box">Área principal à qual a pesquisa está vinculada. Ajuda a contextualizar o projeto no programa de pós-graduação ou na disciplina de TCC.</div></div></div>
+          <select id="field">
+            <option>Ciências Ambientais</option><option>Ecologia</option><option>Saúde e Ambiente</option>
+            <option>Hidrologia</option><option>Geografia</option><option>Engenharia e Planejamento</option>
+            <option>Educação e Extensão</option><option>Outra</option>
+          </select>
+        </div>
+      </div>
 
-        <div class="etapas-lista" id="etapasList">
-          <div class="etapa-item ativa" data-s="1" onclick="irEtapa(1)">
-            <div class="etapa-num">1</div><div class="etapa-nome">Problema e Contexto</div><span class="etapa-check">✓</span>
+      <!-- EP 2 -->
+      <div class="ep-panel" id="ep2">
+        <div class="ep-header">
+          <div class="ep-num">Etapa 02 de 07</div>
+          <div class="ep-titulo">Variáveis e Desenho</div>
+          <div class="ep-desc">Toda hipótese liga uma causa (X) a um efeito (Y). Defina cada uma com precisão — elas entram diretamente na pergunta científica gerada abaixo.</div>
+        </div>
+        <div class="dica"><strong>X</strong> é o que você mede como causa. <strong>Y</strong> é o que você observa como resposta. Ex.: X = cobertura arbórea (%), Y = temperatura do ar (°C).</div>
+        <div class="fg">
+          <div class="flabel">Variável resposta — Y<div class="tip"><button class="tip-btn" type="button">?</button><div class="tip-box">Y é o que você quer explicar — o "resultado". Deve ser mensurável. Ex.: temperatura do ar (°C), biomassa (g), número de espécies, taxa de mortalidade (por 100.000 hab).</div></div></div>
+          <input id="yVar" type="text" placeholder="Ex.: temperatura do ar (°C) / número de espécies de peixes"/>
+        </div>
+        <div class="fg">
+          <div class="flabel">Variável explicativa — X<div class="tip"><button class="tip-btn" type="button">?</button><div class="tip-box">X é o que você acredita que causa mudança em Y. Ex.: cobertura arbórea (%), concentração de fósforo total (mg/L), temperatura da água (°C).</div></div></div>
+          <input id="xVar" type="text" placeholder="Ex.: cobertura arbórea (%) / concentração de fósforo total (mg/L)"/>
+        </div>
+        <div class="row2">
+          <div class="fg">
+            <div class="flabel">Delineamento<div class="tip"><button class="tip-btn" type="button">?</button><div class="tip-box">Como você organiza a comparação: entre grupos (ex.: com e sem árvores), antes e depois de uma intervenção, ao longo de um gradiente crescente de X, ou em série temporal.</div></div></div>
+            <select id="design">
+              <option>Comparação (2 ou mais grupos)</option>
+              <option>Antes vs Depois (intervenção)</option>
+              <option>Gradiente (níveis crescentes)</option>
+              <option>Série temporal (ao longo do tempo)</option>
+              <option>Experimental (controle vs tratamento)</option>
+            </select>
           </div>
-          <div class="etapa-item" data-s="2" onclick="irEtapa(2)">
-            <div class="etapa-num">2</div><div class="etapa-nome">Variáveis e Desenho</div><span class="etapa-check">✓</span>
+          <div class="fg">
+            <div class="flabel">Direção do efeito esperado<div class="tip"><button class="tip-btn" type="button">?</button><div class="tip-box">Qual a direção que você espera? Se X aumenta, Y sobe ou desce? Há um ponto ótimo ou limiar? Ou você acha que não haverá efeito detectável (hipótese nula)?</div></div></div>
+            <select id="effectDir">
+              <option value="up">X aumenta → Y aumenta</option>
+              <option value="down">X aumenta → Y diminui</option>
+              <option value="curve">Curva (ótimo ou limiar)</option>
+              <option value="null">Sem efeito (hipótese nula)</option>
+            </select>
           </div>
-          <div class="etapa-item" data-s="3" onclick="irEtapa(3)">
-            <div class="etapa-num">3</div><div class="etapa-nome">Hipótese e Mecanismo</div><span class="etapa-check">✓</span>
+        </div>
+        <div class="row2">
+          <div class="fg">
+            <div class="flabel">Intervenção / Solução<span class="sub">se houver</span><div class="tip"><button class="tip-btn" type="button">?</button><div class="tip-box">Se a pesquisa avalia uma solução aplicada (plantio de árvores, instalação de telhado verde, criação de refúgio climático), descreva aqui. Entra na pergunta gerada automaticamente.</div></div></div>
+            <input id="intervention" type="text" placeholder="Ex.: plantio de árvores nativas / instalação de telhado verde"/>
           </div>
-          <div class="etapa-item" data-s="4" onclick="irEtapa(4)">
-            <div class="etapa-num">4</div><div class="etapa-nome">Método e Limitações</div><span class="etapa-check">✓</span>
+          <div class="fg">
+            <div class="flabel">Unidade amostral<div class="tip"><button class="tip-btn" type="button">?</button><div class="tip-box">O que você vai amostrar individualmente. Ex.: pontos de medição de temperatura, quadrículas de 10×10m, indivíduos de uma espécie, municípios, bacias hidrográficas.</div></div></div>
+            <input id="unit" type="text" placeholder="Ex.: pontos de medição / quadrículas / municípios"/>
           </div>
-          <div class="etapa-item" data-s="5" onclick="irEtapa(5)">
-            <div class="etapa-num">5</div><div class="etapa-nome">Magnitude do Efeito</div><span class="etapa-check">✓</span>
+        </div>
+        <div class="pergunta-live">
+          <div class="pergunta-live-label">Pergunta científica — gerada automaticamente enquanto você digita</div>
+          <div id="perguntaLiveTxt">Preencha X, Y e o local para ver sua pergunta aparecer aqui.</div>
+        </div>
+      </div>
+
+      <!-- EP 3 -->
+      <div class="ep-panel" id="ep3">
+        <div class="ep-header">
+          <div class="ep-num">Etapa 03 de 07</div>
+          <div class="ep-titulo">Hipótese e Mecanismo</div>
+          <div class="ep-desc">A hipótese é a peça central do projeto. Ela precisa ser falsificável e ter um mecanismo causal claro.</div>
+        </div>
+        <div class="dica"><strong>Mecanismo</strong> é o processo biológico, físico ou químico que explica POR QUE X afeta Y. Sem mecanismo, a hipótese é apenas correlação.</div>
+        <div class="fg">
+          <div class="flabel">Mecanismo causal<div class="tip"><button class="tip-btn" type="button">?</button><div class="tip-box">Explique o processo: por que X causa mudança em Y? Use conceitos da sua área (termodinâmica, ecologia, epidemiologia...). Ex.: "a sombra das árvores reduz a radiação solar incidente na superfície, diminuindo a temperatura do ar por condução".</div></div></div>
+          <textarea id="mechanism" placeholder="Explique o processo: por que X causa mudança em Y? Use conceitos da sua área. Quanto mais detalhado, melhor."></textarea>
+        </div>
+        <div class="fg">
+          <div class="flabel">Hipótese — SE… ENTÃO… PORQUE<div class="tip"><button class="tip-btn" type="button">?</button><div class="tip-box">A hipótese completa tem três partes: SE (o que muda em X), ENTÃO (o que acontece com Y), PORQUE (o mecanismo). Ex.: SE a cobertura arbórea aumentar 10%, ENTÃO a temperatura cairá 1,5°C, PORQUE a sombra reduz a radiação incidente. Você pode deixar o sistema gerar e editar aqui.</div></div></div>
+          <textarea id="hypUser" placeholder="SE [X mudar], ENTÃO [Y mudará], PORQUE [mecanismo].&#10;&#10;Ex.: SE a cobertura arbórea aumentar em 10%, ENTÃO a temperatura máxima do ar diminuirá 1,5°C, PORQUE sombra e evapotranspiração reduzem o saldo de radiação."></textarea>
+        </div>
+      </div>
+
+      <!-- EP 4 -->
+      <div class="ep-panel" id="ep4">
+        <div class="ep-header">
+          <div class="ep-num">Etapa 04 de 07</div>
+          <div class="ep-titulo">Método e Limitações</div>
+          <div class="ep-desc">Descreva como vai testar a hipótese. Seja específico sobre coleta, análise e o que pode dar errado.</div>
+        </div>
+        <div class="fg">
+          <div class="flabel">Como você vai medir?<div class="tip"><button class="tip-btn" type="button">?</button><div class="tip-box">Descreva o protocolo de coleta, os instrumentos ou fontes de dados, e a análise estatística planejada. Quanto mais específico, mais útil para a banca e o orientador.</div></div></div>
+          <textarea id="methods" placeholder="Ex.: sensores iButton em 15 pontos ao longo de gradiente de cobertura arbórea; correlação de Spearman; NDVI via Google Earth Engine para estimar cobertura (%)."></textarea>
+        </div>
+        <div class="fg">
+          <div class="flabel">Limitações e Riscos<div class="tip"><button class="tip-btn" type="button">?</button><div class="tip-box">Liste o que pode comprometer a pesquisa: acesso restrito a áreas, custo de equipamentos, clima, tempo curto do semestre, falta de dados históricos, etc. Reconhecer limitações demonstra maturidade científica.</div></div></div>
+          <textarea id="limits" placeholder="Ex.: acesso limitado a certas áreas; sazonalidade das chuvas pode confundir o efeito de X; custo de sensores; tempo reduzido do semestre."></textarea>
+        </div>
+      </div>
+
+      <!-- EP 5 -->
+      <div class="ep-panel" id="ep5">
+        <div class="ep-header">
+          <div class="ep-num">Etapa 05 de 07</div>
+          <div class="ep-titulo">Magnitude do Efeito</div>
+          <div class="ep-desc">Quantifique o efeito esperado. Mesmo estimativas grosseiras são mais informativas do que nenhuma — isso diferencia uma hipótese de uma suposição vaga.</div>
+        </div>
+        <div class="fg">
+          <div class="flabel">Tipo de gráfico hipotético<div class="tip"><button class="tip-btn" type="button">?</button><div class="tip-box">O gráfico hipotético mostra como você ESPERA que os dados fiquem — não são dados reais, é uma previsão visual. Barras = comparação de grupos. Gradiente = relação linear. Dispersão = nuvem de pontos individuais. Curva = ponto ótimo.</div></div></div>
+          <select id="magType">
+            <option value="auto">Automático (baseado no delineamento)</option>
+            <option value="groups">Barras (dois grupos A vs B)</option>
+            <option value="slope">Gradiente (linha de tendência)</option>
+            <option value="scatter">Dispersão (nuvem de pontos)</option>
+          </select>
+        </div>
+        <div class="row3">
+          <div class="fg">
+            <div class="flabel">Média Grupo A<div class="tip"><button class="tip-btn" type="button">?</button><div class="tip-box">Valor médio esperado de Y no grupo de referência (sem intervenção, baixo X, controle). Ex.: temperatura média em áreas sem arborização = 34°C.</div></div></div>
+            <input id="meanA" type="number" step="0.1" placeholder="Ex.: 34"/>
           </div>
-          <div class="etapa-item" data-s="6" onclick="irEtapa(6)">
-            <div class="etapa-num">6</div><div class="etapa-nome">Cronograma</div><span class="etapa-check">✓</span>
+          <div class="fg">
+            <div class="flabel">Razão B/A<div class="tip"><button class="tip-btn" type="button">?</button><div class="tip-box">Quanto B é em relação a A? Ex.: 0.9 significa que B é 10% menor que A. Útil quando você não sabe o valor absoluto de B. Se preencher B diretamente, pode deixar este campo em branco.</div></div></div>
+            <input id="ratioBA" type="number" step="0.1" placeholder="Ex.: 0.9"/>
           </div>
-          <div class="etapa-item" data-s="7" onclick="irEtapa(7)">
-            <div class="etapa-num">7</div><div class="etapa-nome">Plano de Publicação</div><span class="etapa-check">✓</span>
+          <div class="fg">
+            <div class="flabel">Média Grupo B<div class="tip"><button class="tip-btn" type="button">?</button><div class="tip-box">Valor médio esperado de Y no grupo com intervenção ou alto X. Ex.: temperatura em áreas arborizadas = 31°C. Se preencher a Razão B/A acima, este campo é calculado automaticamente.</div></div></div>
+            <input id="meanB" type="number" step="0.1" placeholder="Ex.: 31"/>
+          </div>
+        </div>
+        <div class="row2">
+          <div class="fg">
+            <div class="flabel">Base Y (quando X é zero)<div class="tip"><button class="tip-btn" type="button">?</button><div class="tip-box">Para gráficos de gradiente ou regressão: qual o valor de Y quando X vale zero (ou no ponto inicial do gradiente)? Ex.: temperatura = 36°C quando cobertura arbórea = 0%.</div></div></div>
+            <input id="baseY" type="number" step="0.1" placeholder="Ex.: 36"/>
+          </div>
+          <div class="fg">
+            <div class="flabel">Inclinação (quanto Y muda por 1 unidade de X)<div class="tip"><button class="tip-btn" type="button">?</button><div class="tip-box">Para cada 1 unidade que X aumenta, quanto Y muda? Use valor negativo se Y cai quando X sobe. Ex.: −0.5 significa que a temperatura cai 0,5°C para cada 1% a mais de cobertura arbórea.</div></div></div>
+            <input id="slopeY" type="number" step="0.1" placeholder="Ex.: -0.5"/>
           </div>
         </div>
       </div>
 
-      <!-- FORMULÁRIO -->
-      <div class="form-scroll" id="formScroll">
-
-        <!-- ETAPA 1 -->
-        <div class="etapa-panel ativo" id="ep1">
-          <div class="p-header">
-            <div class="p-num">Etapa 01 de 07</div>
-            <div class="p-titulo">Problema e Contexto</div>
-            <div class="p-desc">Defina o que motiva a pesquisa. Um bom problema tem contexto, escala e impacto claro.</div>
-          </div>
-          <div class="fg">
-            <label>Aluno(a) / Turma <span>Opcional — para identificar o plano</span></label>
-            <input id="student" type="text" placeholder="Ex.: Ana Souza — Turma 2026"/>
-          </div>
-          <div class="fg">
-            <label>Tema da pesquisa <span>Uma linha objetiva</span></label>
-            <input id="theme" type="text" placeholder="Ex.: Soluções baseadas na natureza e calor urbano"/>
-          </div>
-          <div class="fg">
-            <label>Problema real <span>Quem sofre? Onde? Por que importa?</span></label>
-            <textarea id="problem" placeholder="Descreva o contexto, quem é afetado, as consequências e por que o problema merece ser estudado agora."></textarea>
-          </div>
-          <div class="row2">
-            <div class="fg">
-              <label>Local / Escala</label>
-              <input id="place" type="text" placeholder="Ex.: Cáceres-MT"/>
-            </div>
-            <div class="fg">
-              <label>Área</label>
-              <select id="field">
-                <option>Ciências Ambientais</option>
-                <option>Ecologia</option>
-                <option>Saúde e Ambiente</option>
-                <option>Hidrologia</option>
-                <option>Geografia</option>
-                <option>Engenharia e Planejamento</option>
-                <option>Educação e Extensão</option>
-                <option>Outra</option>
-              </select>
-            </div>
-          </div>
+      <!-- EP 6 -->
+      <div class="ep-panel" id="ep6">
+        <div class="ep-header">
+          <div class="ep-num">Etapa 06 de 07</div>
+          <div class="ep-titulo">Cronograma</div>
+          <div class="ep-desc">Um cronograma realista é sinal de maturidade científica.</div>
         </div>
-
-        <!-- ETAPA 2 -->
-        <div class="etapa-panel" id="ep2">
-          <div class="p-header">
-            <div class="p-num">Etapa 02 de 07</div>
-            <div class="p-titulo">Variáveis e Desenho</div>
-            <div class="p-desc">Toda hipótese liga uma causa (X) a um efeito (Y). Defina cada uma com precisão.</div>
-          </div>
-          <div class="dica"><strong>X</strong> é o que você manipula ou mede como causa. <strong>Y</strong> é o que você observa como resposta.</div>
-          <div class="fg">
-            <label>Variável resposta — Y <span>O que você vai medir como resultado?</span></label>
-            <input id="yVar" type="text" placeholder="Ex.: temperatura do ar (°C) / mortalidade por calor"/>
-          </div>
-          <div class="fg">
-            <label>Variável explicativa — X <span>O que você acredita que causa mudança em Y?</span></label>
-            <input id="xVar" type="text" placeholder="Ex.: cobertura arbórea (%) / presença de parque urbano"/>
-          </div>
-          <div class="row2">
-            <div class="fg">
-              <label>Delineamento</label>
-              <select id="design">
-                <option>Comparação (2 ou mais grupos)</option>
-                <option>Antes vs Depois (intervenção)</option>
-                <option>Gradiente (níveis crescentes)</option>
-                <option>Série temporal (ao longo do tempo)</option>
-                <option>Experimental (controle vs tratamento)</option>
-              </select>
-            </div>
-            <div class="fg">
-              <label>Direção do efeito</label>
-              <select id="effectDir">
-                <option value="up">X aumenta → Y aumenta</option>
-                <option value="down">X aumenta → Y diminui</option>
-                <option value="curve">Curva (ótimo ou limiar)</option>
-                <option value="null">Sem efeito (hipótese nula)</option>
-              </select>
-            </div>
-          </div>
-          <div class="fg">
-            <label>Intervenção / Solução <span>Se houver uma ação humana no centro da pesquisa</span></label>
-            <input id="intervention" type="text" placeholder="Ex.: plantio de árvores / telhado verde / refúgio climático"/>
-          </div>
-          <div class="fg">
-            <label>Unidade amostral</label>
-            <input id="unit" type="text" placeholder="Ex.: pontos de medição / quadras / indivíduos / bacias"/>
-          </div>
+        <div class="row2">
+          <div class="fg"><div class="flabel">Data de início<div class="tip"><button class="tip-btn" type="button">?</button><div class="tip-box">Data em que a pesquisa terá início efetivo — geralmente o primeiro dia do semestre ou da coleta de dados.</div></div></div><input id="startDate" type="date"/></div>
+          <div class="fg"><div class="flabel">Duração (semanas)<div class="tip"><button class="tip-btn" type="button">?</button><div class="tip-box">Quantas semanas de trabalho serão necessárias. Um TCC de graduação costuma ter 12 a 20 semanas. Um projeto de IC ou mestrado pode ter 24 ou mais.</div></div></div><input id="durationWeeks" type="number" min="4" step="1" placeholder="Ex.: 12"/></div>
         </div>
-
-        <!-- ETAPA 3 -->
-        <div class="etapa-panel" id="ep3">
-          <div class="p-header">
-            <div class="p-num">Etapa 03 de 07</div>
-            <div class="p-titulo">Hipótese e Mecanismo</div>
-            <div class="p-desc">A hipótese é a peça central do projeto. Ela deve ser falsificável e ter mecanismo causal claro.</div>
-          </div>
-          <div class="dica"><strong>Mecanismo</strong> é o processo biológico, físico ou químico que explica por que X afeta Y. Sem mecanismo, a hipótese é apenas uma esperança.</div>
-          <div class="fg">
-            <label>Mecanismo <span>Por que X afeta Y? Explique o processo.</span></label>
-            <textarea id="mechanism" placeholder="Ex.: a sombra reduz a radiação solar incidente; a evapotranspiração resfria o ar por latência; grupos vulneráveis têm menos acesso a áreas verdes."></textarea>
-          </div>
-          <div class="fg">
-            <label>Hipótese principal — SE… ENTÃO… PORQUE <span>Escreva na estrutura completa ou deixe gerar automaticamente</span></label>
-            <textarea id="hypUser" placeholder="SE [X mudar], ENTÃO [Y mudará], PORQUE [mecanismo].&#10;&#10;Ex.: SE a cobertura arbórea aumentar em 10%, ENTÃO a temperatura máxima do ar diminuirá em 1,5°C, PORQUE sombra e evapotranspiração reduzem o saldo de radiação."></textarea>
-          </div>
+        <button class="btn-bare" style="margin-bottom:20px;width:100%;padding:14px;font-size:15px" onclick="gerarCronograma()">Gerar cronograma automático</button>
+        <div class="fg">
+          <div class="flabel">Cronograma<span class="sub">edite livremente — uma atividade por linha</span></div>
+          <textarea id="schedule" style="min-height:200px" placeholder="Semana 1: delimitar problema + pergunta&#10;Semana 2: revisão bibliográfica..."></textarea>
         </div>
+      </div>
 
-        <!-- ETAPA 4 -->
-        <div class="etapa-panel" id="ep4">
-          <div class="p-header">
-            <div class="p-num">Etapa 04 de 07</div>
-            <div class="p-titulo">Método e Limitações</div>
-            <div class="p-desc">Descreva como vai testar a hipótese. Seja específico sobre coleta, análise e o que pode dar errado.</div>
-          </div>
-          <div class="fg">
-            <label>Como você vai medir? <span>Protocolo, instrumentos, dados utilizados</span></label>
-            <textarea id="methods" placeholder="Ex.: sensores iButton em 15 pontos ao longo de gradiente de cobertura arbórea; análise de correlação de Spearman; NDVI via Google Earth Engine."></textarea>
-          </div>
-          <div class="fg">
-            <label>Limitações e Riscos <span>Seja honesto — orientadores valorizam isso</span></label>
-            <textarea id="limits" placeholder="Ex.: acesso limitado a certas áreas; sazonalidade das chuvas pode confundir o efeito de X; custo de sensores; tempo reduzido do semestre."></textarea>
-          </div>
+      <!-- EP 7 -->
+      <div class="ep-panel" id="ep7">
+        <div class="ep-header">
+          <div class="ep-num">Etapa 07 de 07</div>
+          <div class="ep-titulo">Plano de Publicação</div>
+          <div class="ep-desc">Definir onde publicar desde o início orienta o nível de rigor e a profundidade da pesquisa.</div>
         </div>
-
-        <!-- ETAPA 5 -->
-        <div class="etapa-panel" id="ep5">
-          <div class="p-header">
-            <div class="p-num">Etapa 05 de 07</div>
-            <div class="p-titulo">Magnitude do Efeito</div>
-            <div class="p-desc">Quantifique o efeito esperado. Mesmo estimativas grosseiras são mais informativas do que nenhuma.</div>
-          </div>
-          <div class="fg">
-            <label>Tipo de gráfico</label>
-            <select id="magType">
-              <option value="auto">Automático (baseado no delineamento)</option>
-              <option value="groups">Dois grupos (A vs B)</option>
-              <option value="slope">Gradiente (base e inclinação)</option>
-            </select>
-          </div>
-          <div class="row3">
-            <div class="fg"><label>Média Grupo A</label><input id="meanA" type="number" step="0.1" placeholder="Ex.: 10"/></div>
-            <div class="fg"><label>Razão B/A</label><input id="ratioBA" type="number" step="0.1" placeholder="Ex.: 2"/></div>
-            <div class="fg"><label>Média Grupo B</label><input id="meanB" type="number" step="0.1" placeholder="Ex.: 20"/></div>
-          </div>
-          <div class="row2">
-            <div class="fg"><label>Base Y (X = 0)</label><input id="baseY" type="number" step="0.1" placeholder="Ex.: 32"/></div>
-            <div class="fg"><label>Inclinação (ΔY por unidade X)</label><input id="slopeY" type="number" step="0.1" placeholder="Ex.: -0,5"/></div>
-          </div>
+        <div class="fg">
+          <div class="flabel">Destino dos resultados<div class="tip"><button class="tip-btn" type="button">?</button><div class="tip-box">Onde você planeja divulgar os resultados? Artigos em periódicos exigem mais rigor metodológico e detalhamento estatístico do que um TCC simples. Definir isso desde o início orienta a qualidade do projeto.</div></div></div>
+          <select id="wherePresent">
+            <option value="Somente TCC">Somente no TCC</option>
+            <option value="Congresso científico">Congresso científico</option>
+            <option value="Artigo em periódico">Artigo em periódico</option>
+            <option value="TCC e Congresso">TCC e Congresso</option>
+            <option value="TCC e Artigo">TCC e Artigo</option>
+            <option value="TCC, Congresso e Artigo">TCC, Congresso e Artigo</option>
+          </select>
         </div>
-
-        <!-- ETAPA 6 -->
-        <div class="etapa-panel" id="ep6">
-          <div class="p-header">
-            <div class="p-num">Etapa 06 de 07</div>
-            <div class="p-titulo">Cronograma</div>
-            <div class="p-desc">Um cronograma realista é sinal de maturidade científica. Organize as etapas no tempo.</div>
-          </div>
-          <div class="row2">
-            <div class="fg"><label>Data de início</label><input id="startDate" type="date"/></div>
-            <div class="fg"><label>Duração (semanas)</label><input id="durationWeeks" type="number" min="4" step="1" placeholder="Ex.: 12"/></div>
-          </div>
-          <button class="btn-bare" style="margin-bottom:16px;width:100%;padding:12px;font-size:15px" onclick="gerarCronograma()">Gerar cronograma automático</button>
-          <div class="fg">
-            <label>Cronograma <span>Edite livremente — uma atividade por linha</span></label>
-            <textarea id="schedule" style="min-height:180px" placeholder="Semana 1: delimitar problema + pergunta&#10;Semana 2: revisão bibliográfica..."></textarea>
-          </div>
+        <div class="fg">
+          <div class="flabel">Nome do congresso ou periódico<div class="tip"><button class="tip-btn" type="button">?</button><div class="tip-box">Nome específico do evento ou revista. Ex.: Congresso Brasileiro de Ecologia, Ecological Indicators, Acta Limnologica Brasiliensia. Pesquise o Qualis da sua área.</div></div></div>
+          <input id="venueName" type="text" placeholder="Ex.: Congresso Brasileiro de Ecologia / Ecological Indicators"/>
         </div>
-
-        <!-- ETAPA 7 -->
-        <div class="etapa-panel" id="ep7">
-          <div class="p-header">
-            <div class="p-num">Etapa 07 de 07</div>
-            <div class="p-titulo">Plano de Publicação</div>
-            <div class="p-desc">Definir onde publicar desde o início orienta o nível de rigor e a profundidade da pesquisa.</div>
-          </div>
-          <div class="fg">
-            <label>Destino dos resultados</label>
-            <select id="wherePresent">
-              <option value="Somente TCC">Somente no TCC</option>
-              <option value="Congresso científico">Congresso científico</option>
-              <option value="Artigo em periódico">Artigo em periódico</option>
-              <option value="TCC e Congresso">TCC e Congresso</option>
-              <option value="TCC e Artigo">TCC e Artigo</option>
-              <option value="TCC, Congresso e Artigo">TCC, Congresso e Artigo</option>
-            </select>
-          </div>
-          <div class="fg">
-            <label>Nome do congresso ou periódico</label>
-            <input id="venueName" type="text" placeholder="Ex.: Congresso Brasileiro de Ecologia / Ecological Indicators"/>
-          </div>
-          <div class="fg">
-            <label>Link do evento ou revista</label>
-            <input id="venueLink" type="text" placeholder="https://..."/>
-          </div>
-          <div style="margin-top:12px;padding:18px;background:var(--verde-t);border-radius:var(--r);text-align:center">
-            <p style="font-size:15px;color:var(--ink3);line-height:1.65;margin-bottom:14px">Você completou todas as etapas!<br>Clique em <strong>Gerar saídas</strong> para ver o resultado.</p>
-            <button class="btn-gerar" onclick="gerar()" style="width:100%;justify-content:center;font-size:16px;padding:13px">Gerar saídas do projeto</button>
-          </div>
+        <div class="fg">
+          <div class="flabel">Link do evento ou revista<div class="tip"><button class="tip-btn" type="button">?</button><div class="tip-box">URL da página do congresso ou da revista científica. Facilita o acesso às normas de submissão quando chegar a hora de escrever o artigo.</div></div></div>
+          <input id="venueLink" type="text" placeholder="https://..."/>
         </div>
+        <div style="margin-top:16px;padding:20px;background:var(--verde-t);border-radius:var(--r);text-align:center">
+          <p style="font-size:16px;color:var(--ink3);line-height:1.65;margin-bottom:16px">Você completou todas as etapas!<br>Clique em <strong>Gerar saídas</strong> para ver o resultado completo.</p>
+          <button class="btn-gerar" onclick="gerar()" style="width:100%;justify-content:center;font-size:17px;padding:16px">✓ Gerar saídas do projeto</button>
+        </div>
+      </div>
 
-      </div><!-- /form-scroll -->
-
-      <!-- Nav etapas -->
+      <!-- NAV ETAPAS -->
       <div class="etapa-nav">
         <button class="btn-etapa" id="btnVoltar" onclick="navEtapa(-1)" disabled>← Anterior</button>
         <button class="btn-etapa avan" id="btnAvancar" onclick="navEtapa(1)">Próxima →</button>
       </div>
 
-      <!-- Planos -->
-      <div class="planos-area">
-        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
-          <span class="planos-titulo" style="margin-bottom:0">Planos salvos</span>
-          <span style="font-size:11px;color:#8A4B00;background:#FEF6EB;border:1px solid #DDA020;border-radius:999px;padding:3px 10px;cursor:help" title="Os planos ficam salvos APENAS neste navegador, neste equipamento (localStorage). Para não perder seus dados, exporte o arquivo TXT regularmente.">⚠️ só neste PC/navegador</span>
-        </div>
-        <div class="planos-row">
-          <input id="planName" placeholder="Nome do plano..."/>
-          <button class="btn-plano" onclick="salvarPlano()">Salvar</button>
-        </div>
-        <div class="planos-row">
-          <select id="planSelect"></select>
-          <button class="btn-plano" onclick="carregarPlano()">Carregar</button>
-          <button class="btn-plano" onclick="duplicarPlano()">Copiar</button>
-          <button class="btn-plano perigo" onclick="excluirPlano()">Excluir</button>
-        </div>
+      <!-- PLANOS -->
+      <div class="planos-wrap">
+        <span class="planos-label">Planos salvos</span>
+        <span class="planos-aviso" title="Os planos ficam salvos APENAS neste navegador, neste equipamento (localStorage). Para não perder, exporte o TXT regularmente.">⚠️ só neste PC/navegador</span>
+        <input id="planName" placeholder="Nome do plano..."/>
+        <button class="btn-plano" onclick="salvarPlano()">Salvar</button>
+        <select id="planSelect"></select>
+        <button class="btn-plano" onclick="carregarPlano()">Carregar</button>
+        <button class="btn-plano" onclick="duplicarPlano()">Copiar</button>
+        <button class="btn-plano perigo" onclick="excluirPlano()">Excluir</button>
       </div>
 
-      <!-- Rubrica Professor -->
+      <!-- RUBRICA -->
       <div id="sec-rubrica">
-        <div class="planos-titulo" style="color:var(--azul)">Rubrica — Modo Professor</div>
+        <div style="font-size:13px;font-weight:700;color:var(--azul);text-transform:uppercase;letter-spacing:.8px;margin-bottom:12px">Rubrica — Modo Professor</div>
         <div id="rubrica-conteudo"></div>
       </div>
 
-    </div><!-- /pan-esq -->
+    </div><!-- /form-area -->
 
-    <!-- ─── DIREITO ─── -->
-    <div class="pan-dir">
+    <!-- SAÍDAS -->
+    <div class="saidas-wrap">
 
       <div class="sec-titulo">Pergunta e Hipótese</div>
-
-      <div class="card-saida">
-        <div class="card-topo">
-          <span class="card-label">Pergunta Científica</span>
-          <span class="card-acao" onclick="gerarAlternativas()">+ 3 alternativas</span>
+      <div class="saidas-grid">
+        <div class="card-saida">
+          <div class="card-topo"><span class="card-label">Pergunta Científica</span><span class="card-acao" onclick="gerarAlternativas()">+ 3 alternativas</span></div>
+          <div class="card-corpo">
+            <div class="pergunta-txt" id="kPergunta">Preencha as etapas e clique em "Gerar saídas".</div>
+            <div class="chips">
+              <span class="chip chip-v" id="chipDelin">Delineamento: —</span>
+              <span class="chip chip-a" id="chipDir">Direção: —</span>
+              <span class="chip chip-am" id="chipViab">Viabilidade: —</span>
+            </div>
+          </div>
         </div>
-        <div class="card-corpo">
-          <div class="pergunta-txt" id="kPergunta">Preencha as etapas e clique em "Gerar saídas".</div>
-          <div class="chips">
-            <span class="chip chip-v" id="chipDelin">Delineamento: —</span>
-            <span class="chip chip-a" id="chipDir">Direção: —</span>
-            <span class="chip chip-am" id="chipViab">Viabilidade: —</span>
+        <div class="card-saida">
+          <div class="card-topo"><span class="card-label">Hipótese SE… ENTÃO… PORQUE</span></div>
+          <div class="card-corpo">
+            <div class="hip-auto" id="kHip">Aguardando dados...</div>
+            <div class="hip-user" id="kHipUser" style="display:none"></div>
           </div>
         </div>
       </div>
 
-      <div class="card-saida">
-        <div class="card-topo"><span class="card-label">Hipótese SE… ENTÃO… PORQUE</span></div>
-        <div class="card-corpo">
-          <div class="hip-auto" id="kHip">Aguardando dados...</div>
-          <div class="hip-user" id="kHipUser" style="display:none"></div>
-        </div>
-      </div>
-
-      <div class="card-saida" id="cardAlts" style="display:none">
-        <div class="card-topo">
-          <span class="card-label">Perguntas Alternativas</span>
-          <span class="card-acao" onclick="document.getElementById('cardAlts').style.display='none'">Fechar</span>
-        </div>
+      <div class="card-saida saida-full" id="cardAlts" style="display:none">
+        <div class="card-topo"><span class="card-label">Perguntas Alternativas</span><span class="card-acao" onclick="document.getElementById('cardAlts').style.display='none'">Fechar</span></div>
         <div class="card-corpo" id="altsCorpo"></div>
       </div>
 
       <div class="sec-titulo">Visualizações</div>
-
-      <div class="card-saida">
-        <div class="card-topo">
-          <span class="card-label">Gráfico Hipotético por Magnitude</span>
-          <span class="card-acao" onclick="exportarPNG()">↓ PNG</span>
+      <div class="saidas-grid">
+        <div class="card-saida">
+          <div class="card-topo"><span class="card-label">Gráfico Hipotético</span><span class="card-acao" onclick="exportarPNG()">↓ PNG</span></div>
+          <div class="card-corpo" style="padding:14px"><div class="canvas-wrap"><canvas id="chart" width="860" height="380"></canvas></div></div>
         </div>
-        <div class="card-corpo" style="padding:14px">
-          <div class="canvas-wrap"><canvas id="chart" width="960" height="380"></canvas></div>
-          <p style="font-size:13px;color:var(--ink4);margin-top:10px">Gráfico hipotético baseado nos valores de magnitude definidos na Etapa 5.</p>
-        </div>
-      </div>
-
-      <div class="card-saida">
-        <div class="card-topo">
-          <span class="card-label">Mapa Mental — Estrutura do Projeto</span>
-          <span class="card-acao" onclick="exportarPNGMapa()">↓ PNG</span>
-        </div>
-        <div class="card-corpo" style="padding:14px">
-          <div class="canvas-wrap"><canvas id="mind" width="960" height="520"></canvas></div>
-          <p style="font-size:13px;color:var(--ink4);margin-top:10px">Arraste os nós para reorganizar. Use "↓ PNG" para exportar.</p>
+        <div class="card-saida">
+          <div class="card-topo"><span class="card-label">Mapa Mental</span><span class="card-acao" onclick="exportarPNGMapa()">↓ PNG</span></div>
+          <div class="card-corpo" style="padding:14px"><div class="canvas-wrap"><canvas id="mind" width="860" height="460"></canvas></div>
+            <p style="font-size:12px;color:var(--ink4);margin-top:8px">Arraste os nós para reorganizar.</p>
+          </div>
         </div>
       </div>
 
       <div class="sec-titulo">Texto e Cronograma</div>
-
-      <div class="card-saida">
-        <div class="card-topo">
-          <span class="card-label">Texto do Projeto (para o orientador)</span>
-          <span class="card-acao" onclick="exportarTXT()">↓ TXT</span>
+      <div class="saidas-grid">
+        <div class="card-saida">
+          <div class="card-topo"><span class="card-label">Texto do Projeto</span><span class="card-acao" onclick="exportarTXT()">↓ TXT</span></div>
+          <div class="card-corpo"><div class="txt-saida" id="textoSaida">Clique em "Gerar saídas".</div></div>
         </div>
-        <div class="card-corpo">
-          <div class="txt-saida" id="textoSaida">Clique em "Gerar saídas" para ver o texto estruturado do projeto.</div>
+        <div class="card-saida" id="cardCronograma" style="display:none">
+          <div class="card-topo"><span class="card-label">Cronograma Visual</span></div>
+          <div class="card-corpo"><div class="timeline" id="timelineConteudo"></div></div>
         </div>
-      </div>
-
-      <div class="card-saida" id="cardCronograma" style="display:none">
-        <div class="card-topo"><span class="card-label">Cronograma Visual</span></div>
-        <div class="card-corpo"><div class="timeline" id="timelineConteudo"></div></div>
       </div>
 
       <div class="app-footer">
-        Idealizado por <a href="https://ernandes-sobreira.github.io/meu-mundo/" target="_blank" rel="noopener">Ernandes Sobreira</a> — UNEMAT, Cáceres-MT · Educação climática e orientação científica
+        Idealizado por <a href="https://ernandes-sobreira.github.io/meu-mundo/" target="_blank" rel="noopener">Ernandes Sobreira</a> — UNEMAT, Cáceres-MT
       </div>
+    </div>
 
-    </div><!-- /pan-dir -->
-
-  </div><!-- /app-layout -->
+  </div><!-- /app-corpo -->
 </div><!-- /tela-app -->
 
 <script>
 'use strict';
 const $=id=>document.getElementById(id);
 const tx=s=>(s||'').trim().replace(/\s+/g,' ');
+const SAVE_KEY='labcient6_auto';
+const PLAN_KEY='labcient6_plans';
 
-const SAVE_KEY='labcient5_auto';
-const PLAN_KEY='labcient5_plans';
+function nowStr(){const d=new Date(),p=n=>String(n).padStart(2,'0');return`${d.getFullYear()}-${p(d.getMonth()+1)}-${p(d.getDate())} ${p(d.getHours())}:${p(d.getMinutes())}`;}
 
-function nowStr(){const d=new Date(),p=n=>String(n).padStart(2,'0');return`${d.getFullYear()}-${p(d.getMonth()+1)}-${p(d.getDate())} ${p(d.getHours())}:${p(d.getMinutes())}`}
+/* TOAST */
+function toast(msg,ms=1800){const el=$('toast');el.textContent=msg;el.classList.add('show');clearTimeout(el._t);el._t=setTimeout(()=>el.classList.remove('show'),ms);}
 
-function toast(msg,ms=1800){const el=$('toast');el.textContent=msg;el.classList.add('show');clearTimeout(el._t);el._t=setTimeout(()=>el.classList.remove('show'),ms)}
+/* TOOLTIP — clique mobile */
+document.addEventListener('click',e=>{
+  if(e.target.classList.contains('tip-btn')){
+    const box=e.target.nextElementSibling;
+    const aberto=e.target.classList.contains('aberto');
+    document.querySelectorAll('.tip-btn.aberto').forEach(b=>{b.classList.remove('aberto');b.nextElementSibling.style.display='none';});
+    if(!aberto){e.target.classList.add('aberto');box.style.display='block';}
+    e.stopPropagation();
+  } else {
+    document.querySelectorAll('.tip-btn.aberto').forEach(b=>{b.classList.remove('aberto');b.nextElementSibling.style.display='none';});
+  }
+});
 
-/* ── NAVEGAÇÃO DE TELAS ── */
+/* NAVEGAÇÃO */
 function abrirApp(){
   $('tela-inicio').style.display='none';
   $('tela-app').style.display='block';
@@ -862,59 +765,71 @@ function abrirApp(){
   if(!$('startDate').value) $('startDate').value=new Date(d-d.getTimezoneOffset()*60000).toISOString().slice(0,10);
   if(!$('durationWeeks').value) $('durationWeeks').value='12';
   desenharInicial();
-  const temDados=campos.some(id=>tx($(id).value).length>0);
+  const temDados=campos.some(id=>{const el=$(id);return el&&tx(el.value).length>0;});
   if(temDados) gerar();
   marcarEtapas(getState());
   atualizarProgresso(getState());
+  irEtapa(etapaAtual);
 }
-function voltarInicio(){$('tela-app').style.display='none';$('tela-inicio').style.display='block';document.title='Lab Científico — Ernandes Sobreira'}
-
+function voltarInicio(){$('tela-app').style.display='none';$('tela-inicio').style.display='block';document.title='Lab Científico — Ernandes Sobreira';}
 window.abrirApp=abrirApp;
 window.voltarInicio=voltarInicio;
 
-/* ── MODO ── */
+/* MODO */
 let modo='ALUNO';
 function alternarModo(){
   modo=modo==='ALUNO'?'PROFESSOR':'ALUNO';
   const track=$('togTrack'),nomeEl=$('modoNome');
-  if(modo==='PROFESSOR'){track.classList.add('on');nomeEl.textContent='PROFESSOR';nomeEl.classList.add('prof');$('sec-rubrica').style.display='block'}
-  else{track.classList.remove('on');nomeEl.textContent='ALUNO';nomeEl.classList.remove('prof');$('sec-rubrica').style.display='none'}
+  if(modo==='PROFESSOR'){track.classList.add('on');nomeEl.textContent='PROFESSOR';nomeEl.classList.add('prof');$('sec-rubrica').style.display='block';}
+  else{track.classList.remove('on');nomeEl.textContent='ALUNO';nomeEl.classList.remove('prof');$('sec-rubrica').style.display='none';}
   salvarAuto();toast(`Modo ${modo} ativado.`,900);
 }
 window.alternarModo=alternarModo;
 
-/* ── ETAPAS ── */
+/* ETAPAS */
 let etapaAtual=1;
 function irEtapa(n){
   n=Number(n);etapaAtual=n;
   document.querySelectorAll('.etapa-item').forEach(el=>el.classList.remove('ativa'));
-  document.querySelectorAll('.etapa-panel').forEach(el=>el.classList.remove('ativo'));
-  document.querySelector(`.etapa-item[data-s="${n}"]`)?.classList.add('ativa');
-  $(`ep${n}`)?.classList.add('ativo');
+  document.querySelectorAll('.ep-panel').forEach(el=>el.classList.remove('ativo'));
+  const itEl=document.querySelector(`.etapa-item[data-s="${n}"]`);
+  if(itEl) itEl.classList.add('ativa');
+  const epEl=$(`ep${n}`);
+  if(epEl) epEl.classList.add('ativo');
   $('btnVoltar').disabled=(n===1);
   $('btnAvancar').textContent=n===7?'Gerar saídas ✓':'Próxima →';
-  $('formScroll').scrollTop=0;
   salvarAuto();
+  window.scrollTo({top:0,behavior:'smooth'});
 }
-function navEtapa(dir){const p=etapaAtual+dir;if(p===8){gerar();return}if(p<1||p>7)return;irEtapa(p)}
-window.irEtapa=irEtapa;window.navEtapa=navEtapa;
+function navEtapa(dir){const p=etapaAtual+dir;if(p===8){gerar();return;}if(p<1||p>7)return;irEtapa(p);}
+window.irEtapa=irEtapa;
+window.navEtapa=navEtapa;
 
-/* ── CAMPOS ── */
-const campos=['student','theme','problem','place','field','yVar','xVar','design','effectDir','intervention','unit','mechanism','hypUser','methods','limits','magType','meanA','ratioBA','meanB','baseY','slopeY','startDate','durationWeeks','schedule','wherePresent','venueName','venueLink'];
+/* CAMPOS */
+const campos=['student','turma','advisor','coadvisor','theme','problem','place','field','yVar','xVar','design','effectDir','intervention','unit','mechanism','hypUser','methods','limits','magType','meanA','ratioBA','meanB','baseY','slopeY','startDate','durationWeeks','schedule','wherePresent','venueName','venueLink'];
 
-function getState(){const s={modo,etapa:etapaAtual};campos.forEach(id=>{s[id]=$(id)?.value??''});return s}
-function setState(s){if(!s)return;campos.forEach(id=>{if($(id))$(id).value=s[id]??''});if(s.modo&&s.modo!==modo)alternarModo();irEtapa(s.etapa||1)}
-function salvarAuto(){try{localStorage.setItem(SAVE_KEY,JSON.stringify(getState()))}catch{}}
-function carregarAuto(){const raw=localStorage.getItem(SAVE_KEY);if(!raw)return;try{setState(JSON.parse(raw))}catch{}}
+function getState(){const s={modo,etapa:etapaAtual};campos.forEach(id=>{const el=$(id);s[id]=el?el.value:'';});return s;}
+function setState(s){if(!s)return;campos.forEach(id=>{const el=$(id);if(el)el.value=s[id]??'';});if(s.modo&&s.modo!==modo)alternarModo();irEtapa(s.etapa||1);}
+function salvarAuto(){try{localStorage.setItem(SAVE_KEY,JSON.stringify(getState()));}catch(e){}}
+function carregarAuto(){try{const raw=localStorage.getItem(SAVE_KEY);if(raw)setState(JSON.parse(raw));}catch(e){}}
 
 campos.forEach(id=>{
-  $(id)?.addEventListener('input',()=>{salvarAuto();marcarEtapas(getState());atualizarProgresso(getState());atualizarBarTema()});
-  $(id)?.addEventListener('change',()=>{salvarAuto();marcarEtapas(getState());atualizarProgresso(getState())});
+  const el=$(id);if(!el)return;
+  el.addEventListener('input',()=>{salvarAuto();marcarEtapas(getState());atualizarProgresso(getState());atualizarBarTema();atualizarPerguntaLive();});
+  el.addEventListener('change',()=>{salvarAuto();marcarEtapas(getState());atualizarProgresso(getState());});
 });
 
-function atualizarBarTema(){const t=tx($('theme').value);$('barTema').textContent=t||'Novo projeto'}
+function atualizarBarTema(){const t=tx($('theme')?.value||'');$('barTema').textContent=t||'Novo projeto';}
 
-/* ── MARCAR ETAPAS ── */
+/* PERGUNTA AO VIVO */
+function atualizarPerguntaLive(){
+  const el=$('perguntaLiveTxt');
+  if(!el)return;
+  const S=getState();
+  el.textContent=construirPergunta(S);
+}
+
+/* MARCAR ETAPAS */
 function marcarEtapas(S){
   const ok={
     1:tx(S.problem).length>=20&&tx(S.theme).length>=3,
@@ -925,7 +840,10 @@ function marcarEtapas(S){
     6:tx(S.schedule).length>=15,
     7:tx(S.wherePresent).length>=3
   };
-  document.querySelectorAll('.etapa-item').forEach(el=>{const n=Number(el.dataset.s);el.classList.toggle('ok',ok[n]===true)});
+  document.querySelectorAll('.etapa-item').forEach(el=>{
+    const n=Number(el.dataset.s);
+    el.classList.toggle('ok',!!ok[n]);
+  });
   return ok;
 }
 function atualizarProgresso(S){
@@ -936,13 +854,13 @@ function atualizarProgresso(S){
   $('progPct').textContent=pct+'%';
 }
 
-/* ── CONSTRUTORES ── */
+/* CONSTRUTORES */
 function construirPergunta(S){
   const local=tx(S.place)||'o local de estudo';
   const y=tx(S.yVar)||'Y (variável resposta)';
   const x=tx(S.xVar)||'X (variável explicativa)';
   const d=tx(S.design);
-  if(d.includes('Antes vs Depois')){const i=tx(S.intervention)||'uma intervenção';return`Em ${local}, ${i} altera ${y} ao longo do tempo (antes vs depois) em função de ${x}?`}
+  if(d.includes('Antes vs Depois')){const i=tx(S.intervention)||'uma intervenção';return`Em ${local}, ${i} altera ${y} ao longo do tempo em função de ${x}?`;}
   if(d.includes('Comparação')) return`Em ${local}, ${y} difere entre grupos com diferentes níveis de ${x}?`;
   if(d.includes('Gradiente'))  return`Em ${local}, como ${y} varia ao longo de um gradiente de ${x}?`;
   if(d.includes('Série temporal')) return`Em ${local}, ${y} apresenta tendência associada a variações em ${x} ao longo do tempo?`;
@@ -955,7 +873,7 @@ function construirHipAuto(S){
   const x=tx(S.xVar)||'X';
   const local=tx(S.place)||'o local de estudo';
   const dir=tx(S.effectDir);
-  const mec=tx(S.mechanism)||(tx(S.intervention)?`devido a "${tx(S.intervention)}"` : 'por um mecanismo plausível');
+  const mec=tx(S.mechanism)||(tx(S.intervention)?`devido a "${tx(S.intervention)}"` :'por um mecanismo plausível');
   if(dir==='up')    return`SE ${x} aumentar em ${local}, ENTÃO ${y} aumentará, PORQUE ${mec}.`;
   if(dir==='down')  return`SE ${x} aumentar em ${local}, ENTÃO ${y} diminuirá, PORQUE ${mec}.`;
   if(dir==='curve') return`SE ${x} aumentar em ${local}, ENTÃO ${y} mudará de forma não-linear (limiar ou ótimo), PORQUE ${mec}.`;
@@ -975,14 +893,14 @@ function construirAlts(S){
   ];
 }
 
-/* ── RUBRICA ── */
+/* RUBRICA */
 function calcularRubrica(S){
   const itens=[
-    {label:'Problema bem contextualizado',ok:tx(S.problem).length>=40,pts:2},
+    {label:'Problema contextualizado (texto longo)',ok:tx(S.problem).length>=40,pts:2},
     {label:'Local e escala definidos',ok:tx(S.place).length>=3,pts:1},
-    {label:'Variáveis X e Y nomeadas com clareza',ok:tx(S.xVar).length>=3&&tx(S.yVar).length>=3,pts:2},
+    {label:'X e Y nomeados com clareza',ok:tx(S.xVar).length>=3&&tx(S.yVar).length>=3,pts:2},
     {label:'Delineamento escolhido',ok:tx(S.design).length>=3,pts:1},
-    {label:'Hipótese SE… ENTÃO… estruturada',ok:tx(S.hypUser).toUpperCase().includes('SE')&&tx(S.hypUser).toUpperCase().includes('ENTO'),pts:2},
+    {label:'Hipótese SE… ENTÃO… estruturada',ok:tx(S.hypUser).toUpperCase().includes('SE')&&tx(S.hypUser).toUpperCase().includes('ENT'),pts:2},
     {label:'Mecanismo causal explicado',ok:tx(S.mechanism).length>=10,pts:1},
     {label:'Método descrito com detalhes',ok:tx(S.methods).length>=25,pts:2},
     {label:'Limitações identificadas',ok:tx(S.limits).length>=15,pts:1},
@@ -992,37 +910,41 @@ function calcularRubrica(S){
   const score=itens.reduce((a,i)=>a+(i.ok?i.pts:0),0);
   return{itens,total,score};
 }
-
 function renderizarRubrica(S){
   const{itens,total,score}=calcularRubrica(S);
   const pct=Math.round(score/total*100);
   const nivel=score>=12?'Excelente':score>=8?'Bom':score>=5?'Em desenvolvimento':'Iniciante';
-  let html=`<div class="rub-meter"><div class="rub-score">${score}/${total}</div><div><div class="rub-nivel">${nivel}</div><div class="rub-sub">${pct}% de maturidade científica</div></div></div><div class="rub-barra"><div class="rub-fill" style="width:${pct}%"></div></div><div class="rub-itens">`;
-  itens.forEach(it=>{html+=`<div class="rub-item ${it.ok?'ok':'nao'}"><div class="rub-dot ${it.ok?'ok':'nao'}"></div><div class="rub-txt">${it.label}</div><div class="rub-pts">+${it.pts}</div></div>`});
-  html+='</div>';
-  $('rubrica-conteudo').innerHTML=html;
+  let h=`<div class="rub-meter"><div class="rub-score">${score}/${total}</div><div><div class="rub-nivel">${nivel}</div><div class="rub-sub">${pct}% de maturidade científica</div></div></div>`;
+  h+=`<div class="rub-barra"><div class="rub-fill" style="width:${pct}%"></div></div>`;
+  h+=`<div class="rub-itens">`;
+  itens.forEach(it=>{h+=`<div class="rub-item ${it.ok?'ok':'nao'}"><div class="rub-dot ${it.ok?'ok':'nao'}"></div><div class="rub-txt">${it.label}</div><div class="rub-pts">+${it.pts}</div></div>`;});
+  h+=`</div>`;
+  $('rubrica-conteudo').innerHTML=h;
 }
 
-/* ── MAGNITUDE ── */
+/* MAGNITUDE */
 function calcularMag(S){
   const mt=tx(S.magType),dir=tx(S.effectDir);
   let mA=parseFloat(S.meanA),mB=parseFloat(S.meanB),ratio=parseFloat(S.ratioBA),baseY=parseFloat(S.baseY),slopeY=parseFloat(S.slopeY);
+  if(mt==='scatter') return{t:'scatter'};
   if(mt==='auto'||mt===''){
-    if(dir==='up'){if(isNaN(mA))mA=10;if(isNaN(mB))mB=20;return{t:'groups',mA,mB}}
-    if(dir==='down'){if(isNaN(mA))mA=20;if(isNaN(mB))mB=10;return{t:'groups',mA,mB}}
-    if(dir==='curve')return{t:'curve'};if(dir==='null')return{t:'null'};
+    if(dir==='up'){if(isNaN(mA))mA=10;if(isNaN(mB))mB=20;return{t:'groups',mA,mB};}
+    if(dir==='down'){if(isNaN(mA))mA=20;if(isNaN(mB))mB=10;return{t:'groups',mA,mB};}
+    if(dir==='curve') return{t:'curve'};
+    if(dir==='null')  return{t:'null'};
     if(isNaN(mA))mA=10;if(isNaN(mB))mB=10;return{t:'groups',mA,mB};
   }
-  if(mt==='groups'){if(!isNaN(mA)&&!isNaN(ratio)&&isNaN(mB))mB=mA*ratio;if(isNaN(mA))mA=10;if(isNaN(mB))mB=20;return{t:'groups',mA,mB}}
-  if(mt==='slope'){if(isNaN(baseY))baseY=20;if(isNaN(slopeY))slopeY=-2;return{t:'slope',baseY,slopeY}}
+  if(mt==='groups'){if(!isNaN(mA)&&!isNaN(ratio)&&isNaN(mB))mB=mA*ratio;if(isNaN(mA))mA=10;if(isNaN(mB))mB=20;return{t:'groups',mA,mB};}
+  if(mt==='slope'){if(isNaN(baseY))baseY=20;if(isNaN(slopeY))slopeY=-2;return{t:'slope',baseY,slopeY};}
   return{t:'groups',mA:10,mB:20};
 }
 
-/* ── GRÁFICO ── */
+/* GRÁFICO */
 function desenharGrafico(S,mag){
-  const cv=$('chart'),ctx=cv.getContext('2d'),W=cv.width,H=cv.height;
+  const cv=$('chart');if(!cv)return;
+  const ctx=cv.getContext('2d'),W=cv.width,H=cv.height;
   ctx.clearRect(0,0,W,H);
-  const C={bg:'#FFFFFF',bord:'#E4E9E5',t:'#111814',t3:'#566860',t4:'#8FA89C',v:'#165C36',vm:'#1E7A47',vl:'#2EAD63',az:'#0F4C8A',azm:'#1566B3'};
+  const C={bg:'#FFFFFF',bord:'#E4E9E5',t:'#0A1209',t3:'#2C4A3A',t4:'#4A7060',v:'#165C36',vm:'#1E7A47',vl:'#2EAD63',az:'#0F4C8A',azm:'#1566B3'};
   ctx.fillStyle=C.bg;ctx.beginPath();ctx.roundRect(0,0,W,H,12);ctx.fill();
   const pad={l:72,r:28,t:28,b:68},PW=W-pad.l-pad.r,PH=H-pad.t-pad.b,pl=pad.l,pt=pad.t;
   const xLbl=tx(S.xVar)||'X',yLbl=tx(S.yVar)||'Y',design=tx(S.design);
@@ -1032,17 +954,18 @@ function desenharGrafico(S,mag){
     ctx.beginPath();ctx.moveTo(pl,pt+y);ctx.lineTo(pl+PW,pt+y);ctx.stroke();
     ctx.setLineDash([]);ctx.fillStyle=C.t4;ctx.font='12px Inter,system-ui';ctx.textAlign='right';ctx.fillText(lbl,pl-10,pt+y+4);
   }
-  function xL(x,lbl){ctx.fillStyle=C.t4;ctx.font='12px Inter,system-ui';ctx.textAlign='center';ctx.fillText(lbl,pl+x,pt+PH+22)}
+  function xL(x,lbl){ctx.fillStyle=C.t4;ctx.font='12px Inter,system-ui';ctx.textAlign='center';ctx.fillText(lbl,pl+x,pt+PH+22);}
 
   ctx.strokeStyle=C.bord;ctx.lineWidth=1.5;ctx.setLineDash([]);
   ctx.beginPath();ctx.moveTo(pl,pt);ctx.lineTo(pl,pt+PH);ctx.lineTo(pl+PW,pt+PH);ctx.stroke();
   ctx.fillStyle=C.t3;ctx.font='600 13px Inter,system-ui';ctx.textAlign='center';
-  ctx.fillText(xLbl.slice(0,44),pl+PW/2,H-8);
-  ctx.save();ctx.translate(18,pt+PH/2);ctx.rotate(-Math.PI/2);ctx.fillText(yLbl.slice(0,44),0,0);ctx.restore();
+  ctx.fillText(xLbl.slice(0,50),pl+PW/2,H-8);
+  ctx.save();ctx.translate(18,pt+PH/2);ctx.rotate(-Math.PI/2);ctx.fillText(yLbl.slice(0,50),0,0);ctx.restore();
 
-  if(mag.t==='groups'){
-    const mA=mag.mA??10,mB=mag.mB??20,maxY=Math.max(mA,mB)*1.4;
-    for(let i=0;i<=5;i++)gH(PH-(i/5*maxY/maxY*PH)-0,(maxY/5*i).toFixed(1));
+  const m=mag;
+  if(m.t==='groups'){
+    const mA=m.mA??10,mB=m.mB??20,maxY=Math.max(mA,mB)*1.4;
+    for(let i=0;i<=5;i++){const v=maxY/5*i;gH(PH-(v/maxY)*PH,v.toFixed(1));}
     const bw=PW*.18,bx1=pl+PW*.22,bx2=pl+PW*.58;
     const bh1=(mA/maxY)*PH,bh2=(mB/maxY)*PH,by1=pt+PH-bh1,by2=pt+PH-bh2;
     const gA=ctx.createLinearGradient(0,by1,0,pt+PH);gA.addColorStop(0,C.vl);gA.addColorStop(1,C.v);
@@ -1055,16 +978,15 @@ function desenharGrafico(S,mag){
     });
     ctx.fillStyle=C.t;ctx.font='600 13px Inter,system-ui';ctx.textAlign='center';
     ctx.fillText(mA.toFixed(1),bx1+bw/2,by1-10);ctx.fillText(mB.toFixed(1),bx2+bw/2,by2-10);
-    const gAl=design.includes('Gradiente')?'Baixo X':'Grupo A';
-    const gBl=design.includes('Gradiente')?'Alto X':'Grupo B';
-    xL(bx1-pl+bw/2,gAl);xL(bx2-pl+bw/2,gBl);
-  } else if(mag.t==='slope'){
-    const bY=mag.baseY??20,sY=mag.slopeY??-2,eY=bY+sY;
+    xL(bx1-pl+bw/2,design.includes('Gradiente')?'Baixo X':'Grupo A');
+    xL(bx2-pl+bw/2,design.includes('Gradiente')?'Alto X':'Grupo B');
+  } else if(m.t==='slope'){
+    const bY=m.baseY??20,sY=m.slopeY??-2,eY=bY+sY;
     const minY=Math.min(bY,eY)*.85,maxY=Math.max(bY,eY)*1.2,range=maxY-minY;
-    for(let i=0;i<=5;i++){const v=minY+(range/5*i);gH(PH-((v-minY)/range)*PH,v.toFixed(1))}
-    for(let i=0;i<=4;i++)xL((PW/4)*i,`X${i}`);
-    const bw2=range*.06/range*PH;
+    for(let i=0;i<=5;i++){const v=minY+(range/5*i);gH(PH-((v-minY)/range)*PH,v.toFixed(1));}
+    for(let i=0;i<=4;i++) xL((PW/4)*i,`X${i}`);
     ctx.fillStyle='rgba(22,92,54,.08)';ctx.beginPath();
+    const bw2=range*.05/range*PH+8;
     ctx.moveTo(pl,pt+PH-((bY-minY)/range)*PH+bw2);ctx.lineTo(pl+PW,pt+PH-((eY-minY)/range)*PH+bw2);
     ctx.lineTo(pl+PW,pt+PH-((eY-minY)/range)*PH-bw2);ctx.lineTo(pl,pt+PH-((bY-minY)/range)*PH-bw2);
     ctx.closePath();ctx.fill();
@@ -1075,15 +997,39 @@ function desenharGrafico(S,mag){
       ctx.fillStyle='#fff';ctx.beginPath();ctx.arc(x,y,7,0,Math.PI*2);ctx.fill();
       ctx.strokeStyle=C.v;ctx.lineWidth=2.5;ctx.beginPath();ctx.arc(x,y,7,0,Math.PI*2);ctx.stroke();
     });
-  } else if(mag.t==='curve'){
-    for(let i=0;i<=5;i++)gH(PH/5*i,(5-i)*6+'');
-    for(let i=0;i<=4;i++)xL((PW/4)*i,`X${i}`);
+  } else if(m.t==='scatter'){
+    const dir=tx(S.effectDir);
+    const minY=5,maxY=30,minX=5,maxX=30;
+    for(let i=0;i<=5;i++){const v=minY+(maxY-minY)/5*i;gH(PH-((v-minY)/(maxY-minY))*PH,v.toFixed(0));}
+    for(let i=0;i<=4;i++) xL((PW/4)*i,(minX+(maxX-minX)/4*i).toFixed(0));
+    const slope=dir==='up'?0.7:dir==='down'?-0.7:0;
+    const intercept=dir==='down'?25:8;
+    ctx.strokeStyle='rgba(22,92,54,.3)';ctx.lineWidth=1.5;ctx.setLineDash([5,4]);
+    ctx.beginPath();
+    ctx.moveTo(pl,pt+PH-((intercept+slope*minX-minY)/(maxY-minY))*PH);
+    ctx.lineTo(pl+PW,pt+PH-((intercept+slope*maxX-minY)/(maxY-minY))*PH);
+    ctx.stroke();ctx.setLineDash([]);
+    let rng=42;
+    const rand=()=>{rng=(rng*1664525+1013904223)&0xFFFFFFFF;return(rng>>>0)/0xFFFFFFFF;};
+    for(let i=0;i<28;i++){
+      const xv=minX+rand()*(maxX-minX);
+      const noise=(rand()-.5)*7;
+      const yv=Math.max(minY,Math.min(maxY,intercept+slope*xv+noise));
+      const px=pl+(xv-minX)/(maxX-minX)*PW;
+      const py=pt+PH-((yv-minY)/(maxY-minY))*PH;
+      ctx.fillStyle=C.v;ctx.globalAlpha=0.7;
+      ctx.beginPath();ctx.arc(px,py,5.5,0,Math.PI*2);ctx.fill();
+    }
+    ctx.globalAlpha=1;
+  } else if(m.t==='curve'){
+    for(let i=0;i<=5;i++) gH(PH/5*i,(5-i)*6+'');
+    for(let i=0;i<=4;i++) xL((PW/4)*i,`X${i}`);
     ctx.strokeStyle=C.v;ctx.lineWidth=2.5;ctx.beginPath();
-    for(let i=0;i<=60;i++){const t=i/60,x=pl+t*PW,y=pt+PH-(Math.sin(t*Math.PI)*PH*.72+PH*.08);i===0?ctx.moveTo(x,y):ctx.lineTo(x,y)}
+    for(let i=0;i<=60;i++){const tt=i/60,x=pl+tt*PW,y=pt+PH-(Math.sin(tt*Math.PI)*PH*.72+PH*.08);i===0?ctx.moveTo(x,y):ctx.lineTo(x,y);}
     ctx.stroke();
   } else {
     const mid=PH/2;gH(mid,'0');gH(0,'10');
-    for(let i=0;i<=4;i++)xL((PW/4)*i,`X${i}`);
+    for(let i=0;i<=4;i++) xL((PW/4)*i,`X${i}`);
     ctx.strokeStyle=C.t4;ctx.lineWidth=2;ctx.setLineDash([8,4]);
     ctx.beginPath();ctx.moveTo(pl,pt+mid);ctx.lineTo(pl+PW,pt+mid);ctx.stroke();ctx.setLineDash([]);
   }
@@ -1091,17 +1037,16 @@ function desenharGrafico(S,mag){
   ctx.fillText('Ernandes Sobreira — Lab Científico',W-10,H-6);
 }
 
-/* ── MAPA MENTAL ── */
+/* MAPA MENTAL */
 const mapa={nos:[],arestas:[],arr:null,ox:0,oy:0};
-
 function construirMapa(S){
-  const tema=tx(S.theme)||'Tema do Projeto';
+  const tema=tx(S.theme)||'Tema';
   const x=tx(S.xVar)||'X';const y=tx(S.yVar)||'Y';
   const local=tx(S.place)||'local';
-  const cx=480,cy=260,R=160;
+  const cx=430,cy=230,R=150;
   function cortar(s,max){
     s=s.slice(0,max);const pal=s.split(' ');const lin=[];let cur='';
-    pal.forEach(p=>{if((cur+' '+p).trim().length>16){lin.push(cur.trim());cur=p}else cur+=' '+p});
+    pal.forEach(p=>{if((cur+' '+p).trim().length>16){lin.push(cur.trim());cur=p;}else cur+=' '+p;});
     if(cur.trim())lin.push(cur.trim());return lin.slice(0,3).join('\n');
   }
   mapa.nos=[
@@ -1111,60 +1056,58 @@ function construirMapa(S){
     {id:'y',x:cx+R+60,y:cy-20,label:'Y: '+y.slice(0,14),cor:'#EAF1FB',txt:'#0F4C8A',r:40,borda:'#1566B3'},
     {id:'m',x:cx-R-20,y:cy+R+30,label:'Mecanismo',cor:'#FEF6EB',txt:'#8A4B00',r:38,borda:'#8A4B00'},
     {id:'mt',x:cx+R+20,y:cy+R+30,label:'Método',cor:'#EAF4EE',txt:'#165C36',r:36,borda:'#1E7A47'},
-    {id:'pl',x:cx,y:cy+R+90,label:'Local: '+local.slice(0,12),cor:'#F7F8F6',txt:'#566860',r:34,borda:'#C8D6CC'},
+    {id:'pl',x:cx,y:cy+R+90,label:'Local: '+local.slice(0,12),cor:'#F7F8F6',txt:'#2C4A3A',r:34,borda:'#C8D6CC'},
   ];
   mapa.arestas=[{de:'c',pa:'q'},{de:'c',pa:'x'},{de:'c',pa:'y'},{de:'c',pa:'m'},{de:'c',pa:'mt'},{de:'c',pa:'pl'},{de:'x',pa:'m'},{de:'y',pa:'m'}];
 }
-
 function desenharMapa(){
-  const cv=$('mind'),ctx=cv.getContext('2d'),W=cv.width,H=cv.height;
+  const cv=$('mind');if(!cv)return;
+  const ctx=cv.getContext('2d'),W=cv.width,H=cv.height;
   ctx.clearRect(0,0,W,H);
   ctx.fillStyle='#F7F8F6';ctx.beginPath();ctx.roundRect(0,0,W,H,12);ctx.fill();
-  ctx.strokeStyle='rgba(200,214,204,.35)';ctx.lineWidth=1;
-  for(let x=0;x<W;x+=40){ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,H);ctx.stroke()}
-  for(let y=0;y<H;y+=40){ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(W,y);ctx.stroke()}
+  ctx.strokeStyle='rgba(200,214,204,.3)';ctx.lineWidth=1;
+  for(let x=0;x<W;x+=40){ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,H);ctx.stroke();}
+  for(let y=0;y<H;y+=40){ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(W,y);ctx.stroke();}
   mapa.arestas.forEach(a=>{
     const de=mapa.nos.find(n=>n.id===a.de),pa=mapa.nos.find(n=>n.id===a.pa);
     if(!de||!pa)return;
-    ctx.strokeStyle='rgba(22,92,54,.18)';ctx.lineWidth=1.5;ctx.setLineDash([]);
+    ctx.strokeStyle='rgba(22,92,54,.2)';ctx.lineWidth=1.5;ctx.setLineDash([]);
     ctx.beginPath();ctx.moveTo(de.x,de.y);ctx.lineTo(pa.x,pa.y);ctx.stroke();
   });
   mapa.nos.forEach(n=>{
-    ctx.shadowColor='rgba(10,30,15,.12)';ctx.shadowBlur=12;ctx.shadowOffsetY=3;
+    ctx.shadowColor='rgba(10,30,15,.12)';ctx.shadowBlur=10;ctx.shadowOffsetY=3;
     ctx.fillStyle=n.cor;ctx.beginPath();ctx.ellipse(n.x,n.y,n.r,n.r*.6,0,0,Math.PI*2);ctx.fill();
-    if(n.borda){ctx.shadowBlur=0;ctx.shadowOffsetY=0;ctx.strokeStyle=n.borda;ctx.lineWidth=1.5;ctx.beginPath();ctx.ellipse(n.x,n.y,n.r,n.r*.6,0,0,Math.PI*2);ctx.stroke()}
+    if(n.borda){ctx.shadowBlur=0;ctx.shadowOffsetY=0;ctx.strokeStyle=n.borda;ctx.lineWidth=1.5;ctx.beginPath();ctx.ellipse(n.x,n.y,n.r,n.r*.6,0,0,Math.PI*2);ctx.stroke();}
     ctx.shadowBlur=0;ctx.shadowOffsetY=0;
     ctx.fillStyle=n.txt;ctx.font=(n.bold?'600 ':'500 ')+'11px Inter,system-ui';ctx.textAlign='center';ctx.textBaseline='middle';
     (n.label||'').split('\n').forEach((l,i,arr)=>ctx.fillText(l,n.x,n.y+(i-(arr.length-1)/2)*14));
   });
-  ctx.fillStyle='rgba(143,168,156,.5)';ctx.font='10px Inter,system-ui';ctx.textAlign='right';ctx.textBaseline='alphabetic';
+  ctx.fillStyle='rgba(74,112,96,.5)';ctx.font='10px Inter,system-ui';ctx.textAlign='right';ctx.textBaseline='alphabetic';
   ctx.fillText('Ernandes Sobreira — Lab Científico',W-10,H-8);
 }
-
 function mapaXY(e,cv){
   const r=cv.getBoundingClientRect(),sx=cv.width/r.width,sy=cv.height/r.height;
-  const cx=e.touches?e.touches[0].clientX:e.clientX,cy=e.touches?e.touches[0].clientY:e.clientY;
-  return{x:(cx-r.left)*sx,y:(cy-r.top)*sy};
+  const cx=e.touches?e.touches[0].clientX:e.clientX,cy2=e.touches?e.touches[0].clientY:e.clientY;
+  return{x:(cx-r.left)*sx,y:(cy2-r.top)*sy};
 }
-function achaNó(mx,my){return mapa.nos.slice().reverse().find(n=>{const dx=mx-n.x,dy=my-n.y;return(dx*dx)/(n.r*n.r)+(dy*dy)/((n.r*.6)*(n.r*.6))<=1})||null}
-
-$('mind').addEventListener('mousedown',e=>{const{x,y}=mapaXY(e,$('mind'));const n=achaNó(x,y);if(n){mapa.arr=n;mapa.ox=x-n.x;mapa.oy=y-n.y;e.preventDefault()}});
-$('mind').addEventListener('mousemove',e=>{if(!mapa.arr)return;const{x,y}=mapaXY(e,$('mind'));mapa.arr.x=x-mapa.ox;mapa.arr.y=y-mapa.oy;desenharMapa()});
+function achaNó(mx,my){return mapa.nos.slice().reverse().find(n=>{const dx=mx-n.x,dy=my-n.y;return(dx*dx)/(n.r*n.r)+(dy*dy)/((n.r*.6)*(n.r*.6))<=1;})||null;}
+$('mind').addEventListener('mousedown',e=>{const p=mapaXY(e,$('mind'));const n=achaNó(p.x,p.y);if(n){mapa.arr=n;mapa.ox=p.x-n.x;mapa.oy=p.y-n.y;e.preventDefault();}});
+$('mind').addEventListener('mousemove',e=>{if(!mapa.arr)return;const p=mapaXY(e,$('mind'));mapa.arr.x=p.x-mapa.ox;mapa.arr.y=p.y-mapa.oy;desenharMapa();});
 $('mind').addEventListener('mouseup',()=>mapa.arr=null);
-$('mind').addEventListener('touchstart',e=>{const{x,y}=mapaXY(e,$('mind'));const n=achaNó(x,y);if(n){mapa.arr=n;mapa.ox=x-n.x;mapa.oy=y-n.y;e.preventDefault()}},{passive:false});
-$('mind').addEventListener('touchmove',e=>{if(!mapa.arr)return;const{x,y}=mapaXY(e,$('mind'));mapa.arr.x=x-mapa.ox;mapa.arr.y=y-mapa.oy;desenharMapa();e.preventDefault()},{passive:false});
+$('mind').addEventListener('touchstart',e=>{const p=mapaXY(e,$('mind'));const n=achaNó(p.x,p.y);if(n){mapa.arr=n;mapa.ox=p.x-n.x;mapa.oy=p.y-n.y;e.preventDefault();}},{passive:false});
+$('mind').addEventListener('touchmove',e=>{if(!mapa.arr)return;const p=mapaXY(e,$('mind'));mapa.arr.x=p.x-mapa.ox;mapa.arr.y=p.y-mapa.oy;desenharMapa();e.preventDefault();},{passive:false});
 $('mind').addEventListener('touchend',()=>mapa.arr=null);
 
-/* ── GERAR ── */
+/* GERAR */
 function gerar(){
-  const S=getState(),q=construirPergunta(S),hAuto=construirHipAuto(S),hUser=tx(S.hypUser),dir=tx(S.effectDir),design=tx(S.design);
+  const S=getState();
+  const q=construirPergunta(S),hAuto=construirHipAuto(S),hUser=tx(S.hypUser),dir=tx(S.effectDir),design=tx(S.design);
   $('kPergunta').textContent=q;
   $('chipDelin').textContent='Delineamento: '+design.split('(')[0].trim();
   $('chipDir').textContent=dir==='up'?'X → Y aumenta':dir==='down'?'X → Y diminui':dir==='curve'?'Curva não-linear':'Hipótese nula';
-  const viavel=(tx(S.methods).length>15&&tx(S.place).length>2)?'Viável':'Verificar';
-  $('chipViab').textContent='Viabilidade: '+viavel;
+  $('chipViab').textContent='Viabilidade: '+((tx(S.methods).length>15&&tx(S.place).length>2)?'Viável':'Verificar');
   $('kHip').textContent=hAuto;
-  if(hUser.length>10){$('kHipUser').style.display='block';$('kHipUser').textContent='Sua versão: '+hUser}
+  if(hUser.length>10){$('kHipUser').style.display='block';$('kHipUser').textContent='Sua versão: '+hUser;}
   else $('kHipUser').style.display='none';
   renderizarRubrica(S);
   const mag=calcularMag(S);
@@ -1175,48 +1118,53 @@ function gerar(){
   const cronStr=tx(S.schedule);
   if(cronStr.length>10){
     $('cardCronograma').style.display='';
-    const linhas=cronStr.split('\n').filter(l=>l.trim());
-    $('timelineConteudo').innerHTML=linhas.map((l,i)=>{
+    $('timelineConteudo').innerHTML=cronStr.split('\n').filter(l=>l.trim()).map((l,i)=>{
       const p=l.split(':');const sem=p[0]?.trim()||`Atividade ${i+1}`;const desc=p.slice(1).join(':').trim()||l;
       return`<div class="tl-item"><div class="tl-dot">${i+1}</div><div><div class="tl-sem">${sem}</div><div class="tl-txt">${desc}</div></div></div>`;
     }).join('');
   }
   marcarEtapas(S);atualizarProgresso(S);salvarAuto();
+  $('saidas-wrap')||document.querySelector('.saidas-wrap')?.scrollIntoView({behavior:'smooth'});
   toast('Saídas geradas com sucesso.',1200);
 }
 window.gerar=gerar;
 
-/* ── TEXTO ── */
+/* TEXTO */
 function construirTexto(S,q,hAuto){
-  const sep='─'.repeat(54),hUser=tx(S.hypUser);
+  const sep='─'.repeat(54);
+  const hUser=tx(S.hypUser);
   const L=[
     'PROJETO DE PESQUISA — LAB CIENTÍFICO',
     `Gerado em: ${nowStr()} | Ernandes Sobreira — UNEMAT`,sep,'',
-    `ALUNO(A): ${tx(S.student)||'—'}`,`TEMA: ${tx(S.theme)||'—'}`,
-    `ÁREA: ${tx(S.field)||'—'} | LOCAL: ${tx(S.place)||'—'}`,'',
-    'PROBLEMA:',tx(S.problem)||'—','','PERGUNTA CIENTÍFICA:',q,'',
+    `ALUNO(A): ${tx(S.student)||'—'}  |  TURMA: ${tx(S.turma)||'—'}`,
+    `ORIENTADOR(A): ${tx(S.advisor)||'—'}`,
+    tx(S.coadvisor)?`COORIENTADOR(A): ${tx(S.coadvisor)}`:'',
+    `TEMA: ${tx(S.theme)||'—'}`,
+    `LOCAL: ${tx(S.place)||'—'}  |  ÁREA: ${tx(S.field)||'—'}`,'',
+    'PROBLEMA:',tx(S.problem)||'—','',
+    'PERGUNTA CIENTÍFICA:',q,'',
     'HIPÓTESE (automática):',hAuto,
   ];
-  if(hUser.length>5)L.push('','HIPÓTESE (sua versão):',hUser);
+  if(hUser.length>5) L.push('','HIPÓTESE (sua versão):',hUser);
   L.push('','VARIÁVEIS:',
     `X (explicativa): ${tx(S.xVar)||'—'}`,`Y (resposta): ${tx(S.yVar)||'—'}`,
     `Delineamento: ${tx(S.design)||'—'}`,`Direção do efeito: ${tx(S.effectDir)||'—'}`,
     `Unidade amostral: ${tx(S.unit)||'—'}`);
-  if(tx(S.intervention))L.push(`Intervenção: ${tx(S.intervention)}`);
+  if(tx(S.intervention)) L.push(`Intervenção: ${tx(S.intervention)}`);
   L.push('','MECANISMO:',tx(S.mechanism)||'—','','MÉTODO:',tx(S.methods)||'—');
   if(tx(S.limits))   L.push('','LIMITAÇÕES:',tx(S.limits));
   if(tx(S.schedule)) L.push('','CRONOGRAMA:',tx(S.schedule));
   L.push('','PUBLICAÇÃO:',
     `Destino: ${tx(S.wherePresent)||'—'}`,
     tx(S.venueName)?`Venue: ${tx(S.venueName)}`:'',
-    tx(S.venueLink) ?`Link: ${tx(S.venueLink)}` :'',
+    tx(S.venueLink)?`Link: ${tx(S.venueLink)}`:'',
     '',sep,
     'Idealizado por Ernandes Sobreira | UNEMAT Cáceres-MT',
     'ernandes.sobreira@unemat.br | Lattes: 7461346615427709');
   return L.filter(l=>l!==undefined).join('\n');
 }
 
-/* ── ALTERNATIVAS ── */
+/* ALTERNATIVAS */
 function gerarAlternativas(){
   const S=getState(),alt=construirAlts(S);
   $('cardAlts').style.display='';
@@ -1225,14 +1173,14 @@ function gerarAlternativas(){
 }
 window.gerarAlternativas=gerarAlternativas;
 
-/* ── CRONOGRAMA ── */
+/* CRONOGRAMA */
 function gerarCronograma(){
   const ini=$('startDate').value;
   const sem=parseInt($('durationWeeks').value||'12',10);
   const linhas=[
     'Semana 1: delimitar problema + pergunta (rascunho)',
-    'Semana 2: revisão bibliográfica (mapa de conceitos + 10 fontes)',
-    'Semana 3: definir X/Y + desenho amostral + critérios',
+    'Semana 2: revisão bibliográfica (10 fontes + mapa de conceitos)',
+    'Semana 3: definir X/Y + desenho amostral + critérios de inclusão',
     'Semana 4: piloto / teste do método',
     'Semana 5-7: coleta ou extração de dados',
     'Semana 8: organização (planilhas) + checagem de qualidade',
@@ -1241,43 +1189,98 @@ function gerarCronograma(){
     'Semana 11: redação (IMRaD/TCC) + revisão',
     'Semana 12: apresentação (slides ou pôster) + ajustes finais'
   ];
-  const n=Math.max(4,Math.min(sem,12));
+  const n=Math.max(4,Math.min(sem,10));
   $('schedule').value=`Início: ${ini||'—'} | Duração: ${sem} semanas\n`+linhas.slice(0,n).join('\n');
   salvarAuto();toast('Cronograma gerado.',900);
 }
 window.gerarCronograma=gerarCronograma;
 
-/* ── PLANOS ── */
-function lerPlanos(){try{return JSON.parse(localStorage.getItem(PLAN_KEY)||'[]')}catch{return[]}}
-function gravarPlanos(p){localStorage.setItem(PLAN_KEY,JSON.stringify(p.slice(0,60)))}
+/* PLANOS */
+function lerPlanos(){try{return JSON.parse(localStorage.getItem(PLAN_KEY)||'[]');}catch(e){return[];}}
+function gravarPlanos(p){localStorage.setItem(PLAN_KEY,JSON.stringify(p.slice(0,60)));}
 function atualizarSelectPlanos(){
   const lista=lerPlanos(),sel=$('planSelect');
   sel.innerHTML=lista.length?lista.map((p,i)=>`<option value="${i}">${p.nome} — ${p.dataStr}</option>`).join(''):'<option value="">Nenhum plano salvo</option>';
 }
-function salvarPlano(){const nome=($('planName').value||'').trim()||`Plano ${nowStr()}`;const lista=lerPlanos();lista.unshift({nome,dados:getState(),ts:Date.now(),dataStr:nowStr()});gravarPlanos(lista);atualizarSelectPlanos();toast('Plano salvo.',900)}
-function carregarPlano(){const idx=$('planSelect').value;const lista=lerPlanos();if(idx===''||!lista[Number(idx)])return;setState(lista[Number(idx)].dados);gerar();toast('Plano carregado.',900)}
-function duplicarPlano(){const idx=$('planSelect').value;const lista=lerPlanos();if(idx===''||!lista[Number(idx)])return;const p=lista[Number(idx)];lista.unshift({nome:p.nome+' (cópia)',dados:p.dados,ts:Date.now(),dataStr:nowStr()});gravarPlanos(lista);atualizarSelectPlanos();toast('Plano duplicado.',900)}
-function excluirPlano(){const idx=$('planSelect').value;const lista=lerPlanos();if(idx===''||!lista[Number(idx)])return;if(!confirm('Excluir este plano?'))return;lista.splice(Number(idx),1);gravarPlanos(lista);atualizarSelectPlanos();toast('Plano excluído.',900)}
+function salvarPlano(){
+  const nome=($('planName').value||'').trim()||`Plano ${nowStr()}`;
+  const lista=lerPlanos();
+  lista.unshift({nome,dados:getState(),ts:Date.now(),dataStr:nowStr()});
+  gravarPlanos(lista);atualizarSelectPlanos();toast('Plano salvo.',900);
+}
+function carregarPlano(){
+  const idx=$('planSelect').value;const lista=lerPlanos();
+  if(idx===''||!lista[Number(idx)])return;
+  setState(lista[Number(idx)].dados);gerar();toast('Plano carregado.',900);
+}
+function duplicarPlano(){
+  const idx=$('planSelect').value;const lista=lerPlanos();
+  if(idx===''||!lista[Number(idx)])return;
+  const p=lista[Number(idx)];
+  lista.unshift({nome:p.nome+' (cópia)',dados:p.dados,ts:Date.now(),dataStr:nowStr()});
+  gravarPlanos(lista);atualizarSelectPlanos();toast('Plano duplicado.',900);
+}
+function excluirPlano(){
+  const idx=$('planSelect').value;const lista=lerPlanos();
+  if(idx===''||!lista[Number(idx)])return;
+  if(!confirm('Excluir este plano?'))return;
+  lista.splice(Number(idx),1);gravarPlanos(lista);atualizarSelectPlanos();toast('Plano excluído.',900);
+}
 window.salvarPlano=salvarPlano;window.carregarPlano=carregarPlano;window.duplicarPlano=duplicarPlano;window.excluirPlano=excluirPlano;
 
-/* ── EXPORTAÇÕES ── */
+/* EXPORTAÇÕES */
 function nomeBase(){
-  const nm=(tx($('student').value)||'aluno').toLowerCase().replace(/[^a-z0-9]+/gi,'_').slice(0,20);
-  const th=(tx($('theme').value)||'tema').toLowerCase().replace(/[^a-z0-9]+/gi,'_').slice(0,26);
+  const nm=(tx($('student')?.value||'aluno')).toLowerCase().replace(/[^a-z0-9]+/gi,'_').slice(0,20);
+  const th=(tx($('theme')?.value||'tema')).toLowerCase().replace(/[^a-z0-9]+/gi,'_').slice(0,26);
   return`${nm}_${th}`;
 }
 function baixarBlob(nome,mime,conteudo){
-  try{const blob=conteudo instanceof Blob?conteudo:new Blob([conteudo],{type:mime});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=nome;a.rel='noopener';document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1200);return true}catch{return false}
+  try{
+    const blob=conteudo instanceof Blob?conteudo:new Blob([conteudo],{type:mime});
+    const url=URL.createObjectURL(blob);
+    const a=document.createElement('a');a.href=url;a.download=nome;a.rel='noopener';
+    document.body.appendChild(a);a.click();a.remove();
+    setTimeout(()=>URL.revokeObjectURL(url),1200);return true;
+  }catch(e){return false;}
 }
-function abrirBlob(mime,conteudo){const blob=conteudo instanceof Blob?conteudo:new Blob([conteudo],{type:mime});const url=URL.createObjectURL(blob);window.open(url,'_blank','noopener,noreferrer');setTimeout(()=>URL.revokeObjectURL(url),8000)}
-
-async function exportarTXT(){gerar();const txt=$('textoSaida').textContent,nome=`projeto_${nomeBase()}.txt`;if(!baixarBlob(nome,'text/plain;charset=utf-8',txt))abrirBlob('text/plain;charset=utf-8',txt);toast('TXT exportado.',900)}
-async function exportarPNG(){gerar();const blob=await new Promise(res=>$('chart').toBlob(b=>res(b),'image/png',1));if(!blob){toast('Falha ao gerar PNG.',1200);return}const nome=`grafico_${nomeBase()}.png`;if(!baixarBlob(nome,'image/png',blob))abrirBlob('image/png',blob);toast('Gráfico exportado.',900)}
-async function exportarPNGMapa(){gerar();const blob=await new Promise(res=>$('mind').toBlob(b=>res(b),'image/png',1));if(!blob){toast('Falha.',1200);return}const nome=`mapa_${nomeBase()}.png`;if(!baixarBlob(nome,'image/png',blob))abrirBlob('image/png',blob);toast('Mapa exportado.',900)}
+function abrirBlob(mime,conteudo){
+  const blob=conteudo instanceof Blob?conteudo:new Blob([conteudo],{type:mime});
+  const url=URL.createObjectURL(blob);
+  window.open(url,'_blank','noopener,noreferrer');
+  setTimeout(()=>URL.revokeObjectURL(url),8000);
+}
+async function exportarTXT(){
+  gerar();
+  const txt=$('textoSaida').textContent;
+  const nome=`projeto_${nomeBase()}.txt`;
+  if(!baixarBlob(nome,'text/plain;charset=utf-8',txt)) abrirBlob('text/plain;charset=utf-8',txt);
+  toast('TXT exportado.',900);
+}
+async function exportarPNG(){
+  gerar();
+  const blob=await new Promise(res=>$('chart').toBlob(b=>res(b),'image/png',1));
+  if(!blob){toast('Falha ao gerar PNG.',1200);return;}
+  const nome=`grafico_${nomeBase()}.png`;
+  if(!baixarBlob(nome,'image/png',blob)) abrirBlob('image/png',blob);
+  toast('Gráfico exportado.',900);
+}
+async function exportarPNGMapa(){
+  gerar();
+  const blob=await new Promise(res=>$('mind').toBlob(b=>res(b),'image/png',1));
+  if(!blob){toast('Falha.',1200);return;}
+  const nome=`mapa_${nomeBase()}.png`;
+  if(!baixarBlob(nome,'image/png',blob)) abrirBlob('image/png',blob);
+  toast('Mapa exportado.',900);
+}
 window.exportarTXT=exportarTXT;window.exportarPNG=exportarPNG;window.exportarPNGMapa=exportarPNGMapa;
 
-/* ── BOOT ── */
-function desenharInicial(){const S=getState();desenharGrafico(S,calcularMag(S));construirMapa(S);desenharMapa()}
+/* BOOT */
+function desenharInicial(){
+  const S=getState();
+  desenharGrafico(S,calcularMag(S));
+  construirMapa(S);
+  desenharMapa();
+}
 irEtapa(1);
 </script>
 </body>
