@@ -288,6 +288,20 @@ canvas{display:block;width:100%;height:auto}
   .row2,.row3{grid-template-columns:1fr}
   .app-bar-tema{display:none}
 }
+
+/* TROCA ALUNO-PROFESSOR */
+.troca-wrap{display:grid;grid-template-columns:1fr auto 1fr;gap:0;border:2.5px solid var(--verde-m);border-radius:var(--r2);overflow:hidden;margin-top:14px}
+.troca-col{padding:22px 24px}
+.troca-aluno{background:#E8F5EE}
+.troca-prof{background:#EAF1FB}
+.troca-sep{display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:700;color:var(--ink4);background:#fff;padding:0 16px;border-left:2px solid var(--bord);border-right:2px solid var(--bord)}
+.troca-titulo{font-size:14px;font-weight:700;color:var(--ink);margin-bottom:10px}
+.troca-desc{font-size:13.5px;color:var(--ink3);line-height:1.6;margin-bottom:14px;font-weight:300}
+.btn-troca{display:inline-flex;align-items:center;justify-content:center;padding:11px 20px;border:none;border-radius:var(--r);font-size:14px;font-weight:700;font-family:var(--sans);cursor:pointer;transition:var(--t);white-space:nowrap;text-decoration:none}
+.btn-troca.verde{background:var(--verde);color:#fff}
+.btn-troca.verde:hover{background:var(--verde-m)}
+.btn-troca.azul{background:var(--azul);color:#fff}
+.btn-troca.azul:hover{background:var(--azul-m)}
 </style>
 </head>
 <body>
@@ -647,14 +661,34 @@ canvas{display:block;width:100%;height:auto}
 
       <!-- PLANOS -->
       <div class="planos-wrap">
-        <span class="planos-label">Planos salvos</span>
-        <span class="planos-aviso" title="Os planos ficam salvos APENAS neste navegador, neste equipamento (localStorage). Para não perder, exporte o TXT regularmente.">⚠️ só neste PC/navegador</span>
+        <span class="planos-label">Planos neste navegador</span>
         <input id="planName" placeholder="Nome do plano..."/>
         <button class="btn-plano" onclick="salvarPlano()">Salvar</button>
         <select id="planSelect"></select>
         <button class="btn-plano" onclick="carregarPlano()">Carregar</button>
         <button class="btn-plano" onclick="duplicarPlano()">Copiar</button>
         <button class="btn-plano perigo" onclick="excluirPlano()">Excluir</button>
+      </div>
+
+      <!-- TROCA ALUNO ↔ PROFESSOR -->
+      <div class="troca-wrap">
+        <div class="troca-col troca-aluno">
+          <div class="troca-titulo">📤 Aluno — Enviar para o professor</div>
+          <p class="troca-desc">Exporta um arquivo <strong>.json</strong> com todo o seu projeto. Envie por e-mail, WhatsApp ou qualquer outro meio. O professor abre no Lab Científico e avalia com a rubrica.</p>
+          <div style="display:flex;gap:10px">
+            <input id="nomeArqExport" placeholder="Nome do arquivo (opcional)" style="flex:1;padding:10px 14px;font-size:14px;border:2px solid var(--verde-m);border-radius:var(--r);background:#E8F5EE;color:var(--ink);font-family:var(--sans);outline:none"/>
+            <button class="btn-troca verde" onclick="exportarJSON()">↓ Exportar JSON</button>
+          </div>
+        </div>
+        <div class="troca-sep">↔</div>
+        <div class="troca-col troca-prof">
+          <div class="troca-titulo">📥 Professor — Abrir projeto do aluno</div>
+          <p class="troca-desc">Abra o arquivo <strong>.json</strong> enviado pelo aluno. O projeto é carregado automaticamente. Ative o <strong>Modo Professor</strong> para ver a rubrica de avaliação.</p>
+          <label class="btn-troca azul" style="cursor:pointer">
+            ↑ Importar JSON do aluno
+            <input type="file" id="importJsonInput" accept=".json,application/json" style="display:none" onchange="importarJSON(event)"/>
+          </label>
+        </div>
       </div>
 
       <!-- RUBRICA -->
@@ -1273,6 +1307,55 @@ async function exportarPNGMapa(){
   toast('Mapa exportado.',900);
 }
 window.exportarTXT=exportarTXT;window.exportarPNG=exportarPNG;window.exportarPNGMapa=exportarPNGMapa;
+
+
+/* ── EXPORTAR / IMPORTAR JSON ── */
+function exportarJSON(){
+  const S=getState();
+  const nome=(($('nomeArqExport').value||'').trim()||
+    ((tx(S.student)||'aluno').toLowerCase().replace(/[^a-z0-9]+/gi,'_').slice(0,20)+'_projeto'));
+  const payload={
+    versao:'labcient6',
+    geradoEm:nowStr(),
+    autor:'Ernandes Sobreira — Lab Científico | UNEMAT Cáceres-MT',
+    dados:S
+  };
+  const json=JSON.stringify(payload,null,2);
+  const blob=new Blob([json],{type:'application/json'});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a');
+  a.href=url;a.download=nome+'.json';a.rel='noopener';
+  document.body.appendChild(a);a.click();a.remove();
+  setTimeout(()=>URL.revokeObjectURL(url),1500);
+  toast('Projeto exportado como JSON. Envie ao professor!',2200);
+}
+
+function importarJSON(event){
+  const file=event.target.files[0];
+  if(!file){return;}
+  const reader=new FileReader();
+  reader.onload=function(e){
+    try{
+      const payload=JSON.parse(e.target.result);
+      const dados=payload.dados||payload;
+      if(!dados||typeof dados!=='object'){throw new Error('Formato inválido');}
+      setState(dados);
+      gerar();
+      // Ativar modo professor automaticamente
+      if(modo!=='PROFESSOR') alternarModo();
+      toast('Projeto do aluno carregado! Modo Professor ativado.',2500);
+      // Scroll para rubrica
+      setTimeout(()=>$('sec-rubrica')?.scrollIntoView({behavior:'smooth'}),400);
+    }catch(err){
+      alert('Erro ao abrir o arquivo JSON: '+err.message+'. Verifique se o arquivo foi exportado pelo Lab Científico.');
+    }
+    // limpar input para permitir reimportar o mesmo arquivo
+    event.target.value='';
+  };
+  reader.readAsText(file,'UTF-8');
+}
+window.exportarJSON=exportarJSON;
+window.importarJSON=importarJSON;
 
 /* BOOT */
 function desenharInicial(){
