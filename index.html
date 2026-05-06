@@ -247,35 +247,81 @@ body{font-family:var(--sans);color:var(--ink);background:var(--bg);line-height:1
 .rub-pts{font-size:12px;font-weight:700;color:var(--ink4)}
 
 /* SAÍDAS */
-.saidas-wrap{padding-top:36px}
-.sec-titulo{font-size:11px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--ink4);margin-bottom:18px;display:flex;align-items:center;gap:12px}
+.saidas-wrap{padding-top:40px}
+
+/* CABEÇALHO DO PROJETO */
+.proj-header{background:var(--verde);border-radius:var(--r2);padding:28px 32px;margin-bottom:28px;display:grid;grid-template-columns:1fr auto;gap:20px;align-items:start}
+.proj-header-nome{font-family:var(--serif);font-size:26px;color:#fff;line-height:1.2;margin-bottom:6px}
+.proj-header-tema{font-size:15px;color:rgba(255,255,255,.75);font-weight:300;line-height:1.5;margin-bottom:16px}
+.proj-header-meta{display:flex;flex-wrap:wrap;gap:10px}
+.proj-meta-item{display:flex;align-items:center;gap:7px;background:rgba(255,255,255,.12);border-radius:999px;padding:5px 14px;font-size:13px;color:rgba(255,255,255,.9);font-weight:500}
+.proj-meta-item .ico{font-size:14px}
+.proj-header-pct{text-align:center}
+.proj-pct-num{font-family:var(--serif);font-size:52px;font-weight:600;color:#fff;line-height:1}
+.proj-pct-txt{font-size:12px;color:rgba(255,255,255,.6);text-transform:uppercase;letter-spacing:.8px;margin-top:4px}
+
+/* SEÇÃO TÍTULO */
+.sec-titulo{font-size:11px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--ink4);margin-bottom:18px;margin-top:8px;display:flex;align-items:center;gap:12px}
 .sec-titulo::after{content:'';flex:1;height:1px;background:var(--bord)}
-.saidas-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:24px}
-.saida-full{margin-bottom:24px}
+
+/* GRID SAÍDAS */
+.saidas-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:24px}
+.saida-full{margin-bottom:20px}
+
+/* CARD GENÉRICO */
 .card-saida{background:var(--bg);border:1px solid var(--bord);border-radius:var(--r2);overflow:hidden}
-.card-topo{display:flex;align-items:center;justify-content:space-between;padding:16px 22px;border-bottom:1px solid var(--bord)}
-.card-label{font-size:11.5px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:var(--ink4)}
+.card-topo{display:flex;align-items:center;justify-content:space-between;padding:14px 20px;border-bottom:1px solid var(--bord);background:var(--sur)}
+.card-label{font-size:11px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;color:var(--ink4)}
 .card-acao{font-size:13px;font-weight:600;color:var(--azul-m);cursor:pointer;padding:4px 10px;border-radius:999px;transition:var(--t)}
 .card-acao:hover{background:var(--azul-s)}
 .card-corpo{padding:22px}
-.pergunta-txt{font-family:var(--serif);font-size:19px;line-height:1.6;color:var(--ink);margin-bottom:18px}
-.chips{display:flex;gap:8px;flex-wrap:wrap}
-.chip{padding:5px 14px;border-radius:999px;font-size:13px;font-weight:600}
-.chip-v{background:var(--verde-s);color:var(--verde)}
-.chip-a{background:var(--azul-s);color:var(--azul)}
-.chip-am{background:var(--ambar-s);color:var(--ambar)}
-.hip-auto{font-size:16px;line-height:1.75;color:var(--ink2);padding:18px 20px;background:var(--verde-t);border-left:4px solid var(--verde);border-radius:0 var(--r) var(--r) 0;margin-bottom:14px;font-style:italic}
-.hip-user{font-size:15px;line-height:1.7;color:var(--ink3);padding:14px 18px;background:var(--azul-s);border-left:3px solid var(--azul-m);border-radius:0 var(--r) var(--r) 0}
-.alt-q{padding:14px 16px;background:var(--azul-s);border-left:3px solid var(--azul-m);border-radius:0 var(--r) var(--r) 0;font-size:15px;color:var(--ink2);line-height:1.65;margin-bottom:10px}
-.txt-saida{font-family:'Courier New',monospace;font-size:13px;line-height:1.75;color:var(--ink2);white-space:pre-wrap;background:var(--sur);padding:18px 20px;border-radius:var(--r);max-height:380px;overflow-y:auto;border:1px solid var(--bord)}
+
+/* PERGUNTA */
+.pergunta-bloco{background:linear-gradient(135deg,var(--verde) 0%,#1E7A47 100%);border-radius:var(--r2);padding:26px 28px;margin-bottom:20px}
+.pergunta-bloco-label{font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,.65);margin-bottom:12px}
+.pergunta-txt{font-family:var(--serif);font-size:20px;line-height:1.6;color:#fff;font-style:italic}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}
+.chip{padding:5px 14px;border-radius:999px;font-size:12.5px;font-weight:600}
+.chip-v{background:rgba(255,255,255,.18);color:#fff}
+.chip-a{background:rgba(255,255,255,.18);color:#fff}
+.chip-am{background:rgba(255,255,255,.18);color:#fff}
+
+/* HIPÓTESE */
+.hip-bloco{background:#fff;border:1px solid var(--bord);border-radius:var(--r2);overflow:hidden;margin-bottom:20px}
+.hip-bloco-top{background:var(--verde-s);padding:14px 20px;font-size:11px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;color:var(--verde);border-bottom:1px solid rgba(22,92,54,.15)}
+.hip-auto{font-family:var(--serif);font-size:17px;line-height:1.8;color:var(--ink);padding:22px 24px;font-style:italic;border-bottom:1px solid var(--bord)}
+.hip-user{font-size:15px;line-height:1.7;color:var(--ink3);padding:16px 24px;background:var(--azul-s);font-style:normal}
+.hip-user-label{font-size:11px;font-weight:700;color:var(--azul);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px}
+
+/* FICHAS DO PROJETO */
+.fichas-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:24px}
+.ficha{background:#fff;border:1px solid var(--bord);border-radius:var(--r2);padding:20px 22px;position:relative;overflow:hidden}
+.ficha::before{content:'';position:absolute;top:0;left:0;right:0;height:4px}
+.ficha.verde::before{background:var(--verde)}
+.ficha.azul::before{background:var(--azul)}
+.ficha.ambar::before{background:var(--ambar)}
+.ficha-ico{font-size:22px;margin-bottom:10px}
+.ficha-titulo{font-size:11px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;color:var(--ink4);margin-bottom:8px}
+.ficha-corpo{font-size:15px;color:var(--ink);line-height:1.55;font-weight:500}
+.ficha-sub{font-size:13px;color:var(--ink3);margin-top:4px;font-weight:300;line-height:1.5}
+
+/* ALTERNATIVAS */
+.alt-q{padding:14px 18px;background:#fff;border:1px solid var(--bord);border-radius:var(--r);font-size:15px;color:var(--ink2);line-height:1.65;margin-bottom:10px;border-left:4px solid var(--azul-m)}
+
+/* CANVAS */
 .canvas-wrap{border:1px solid var(--bord);border-radius:var(--r);overflow:hidden;background:var(--bg)}
 canvas{display:block;width:100%;height:auto}
+
+/* TIMELINE */
 .timeline{display:flex;flex-direction:column;gap:0}
-.tl-item{display:flex;gap:16px;padding:10px 0;position:relative}
-.tl-item:not(:last-child)::before{content:'';position:absolute;left:11px;top:38px;bottom:-10px;width:1px;background:var(--bord)}
-.tl-dot{width:24px;height:24px;border-radius:50%;background:var(--verde-s);border:2px solid var(--verde-m);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:var(--verde);flex-shrink:0;margin-top:2px}
-.tl-sem{font-size:11px;font-weight:700;color:var(--ink4);text-transform:uppercase;letter-spacing:.4px}
-.tl-txt{font-size:14px;color:var(--ink2);margin-top:2px;line-height:1.5}
+.tl-item{display:flex;gap:16px;padding:12px 0;position:relative}
+.tl-item:not(:last-child)::before{content:'';position:absolute;left:11px;top:40px;bottom:-12px;width:2px;background:var(--verde-s)}
+.tl-dot{width:24px;height:24px;border-radius:50%;background:var(--verde);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:#fff;flex-shrink:0;margin-top:2px}
+.tl-sem{font-size:12px;font-weight:700;color:var(--verde);text-transform:uppercase;letter-spacing:.4px}
+.tl-txt{font-size:14px;color:var(--ink2);margin-top:3px;line-height:1.55}
+
+/* TEXTO TXT — oculto, só para exportação */
+.txt-saida-hidden{display:none}
 
 .app-footer{text-align:center;padding:32px;font-size:13px;color:var(--ink4);border-top:1px solid var(--bord);margin-top:20px}
 .app-footer a{color:var(--verde);font-weight:600;text-decoration:none}
@@ -702,58 +748,140 @@ canvas{display:block;width:100%;height:auto}
     <!-- SAÍDAS -->
     <div class="saidas-wrap">
 
-      <div class="sec-titulo">Pergunta e Hipótese</div>
-      <div class="saidas-grid">
-        <div class="card-saida">
-          <div class="card-topo"><span class="card-label">Pergunta Científica</span><span class="card-acao" onclick="gerarAlternativas()">+ 3 alternativas</span></div>
-          <div class="card-corpo">
-            <div class="pergunta-txt" id="kPergunta">Preencha as etapas e clique em "Gerar saídas".</div>
-            <div class="chips">
-              <span class="chip chip-v" id="chipDelin">Delineamento: —</span>
-              <span class="chip chip-a" id="chipDir">Direção: —</span>
-              <span class="chip chip-am" id="chipViab">Viabilidade: —</span>
-            </div>
-          </div>
+      <!-- CABEÇALHO DO PROJETO -->
+      <div class="proj-header" id="projHeader" style="display:none">
+        <div>
+          <div class="proj-header-nome" id="phNome">—</div>
+          <div class="proj-header-tema" id="phTema">—</div>
+          <div class="proj-header-meta" id="phMeta"></div>
         </div>
-        <div class="card-saida">
-          <div class="card-topo"><span class="card-label">Hipótese SE… ENTÃO… PORQUE</span></div>
-          <div class="card-corpo">
-            <div class="hip-auto" id="kHip">Aguardando dados...</div>
-            <div class="hip-user" id="kHipUser" style="display:none"></div>
-          </div>
+        <div class="proj-header-pct">
+          <div class="proj-pct-num" id="phPct">0%</div>
+          <div class="proj-pct-txt">completo</div>
         </div>
       </div>
 
+      <!-- FICHAS RÁPIDAS -->
+      <div class="fichas-grid" id="fichasGrid" style="display:none">
+        <div class="ficha verde">
+          <div class="ficha-ico">📍</div>
+          <div class="ficha-titulo">Local de pesquisa</div>
+          <div class="ficha-corpo" id="fichaLocal">—</div>
+          <div class="ficha-sub" id="fichaArea">—</div>
+        </div>
+        <div class="ficha azul">
+          <div class="ficha-ico">🔗</div>
+          <div class="ficha-titulo">Relação estudada</div>
+          <div class="ficha-corpo" id="fichaX">X: —</div>
+          <div class="ficha-sub" id="fichaY">Y: —</div>
+        </div>
+        <div class="ficha ambar">
+          <div class="ficha-ico">🔬</div>
+          <div class="ficha-titulo">Delineamento</div>
+          <div class="ficha-corpo" id="fichaDelin">—</div>
+          <div class="ficha-sub" id="fichaDir">—</div>
+        </div>
+      </div>
+
+      <!-- PERGUNTA -->
+      <div class="pergunta-bloco" id="perguntaBloco" style="display:none">
+        <div class="pergunta-bloco-label">❓ Pergunta Científica</div>
+        <div class="pergunta-txt" id="kPergunta">Preencha as etapas e clique em "Gerar saídas".</div>
+        <div class="chips">
+          <span class="chip chip-v" id="chipDelin">Delineamento: —</span>
+          <span class="chip chip-a" id="chipDir">Direção: —</span>
+          <span class="chip chip-am" id="chipViab">Viabilidade: —</span>
+          <span class="chip chip-v" style="cursor:pointer;background:rgba(255,255,255,.25)" onclick="gerarAlternativas()">+ ver alternativas</span>
+        </div>
+      </div>
+
+      <!-- HIPÓTESE -->
+      <div class="hip-bloco saida-full" id="hipBloco" style="display:none">
+        <div class="hip-bloco-top">Hipótese SE… ENTÃO… PORQUE</div>
+        <div class="hip-auto" id="kHip">Aguardando dados...</div>
+        <div class="hip-user" id="kHipUser" style="display:none">
+          <div class="hip-user-label">Sua versão</div>
+          <div id="kHipUserTxt"></div>
+        </div>
+      </div>
+
+      <!-- ALTERNATIVAS -->
       <div class="card-saida saida-full" id="cardAlts" style="display:none">
         <div class="card-topo"><span class="card-label">Perguntas Alternativas</span><span class="card-acao" onclick="document.getElementById('cardAlts').style.display='none'">Fechar</span></div>
         <div class="card-corpo" id="altsCorpo"></div>
       </div>
 
-      <div class="sec-titulo">Visualizações</div>
-      <div class="saidas-grid">
+      <!-- PROBLEMA -->
+      <div class="card-saida saida-full" id="cardProblema" style="display:none">
+        <div class="card-topo"><span class="card-label">🔍 Problema Identificado</span></div>
+        <div class="card-corpo">
+          <div id="problemaTexto" style="font-size:16px;color:var(--ink2);line-height:1.8;font-weight:300"></div>
+          <div id="mecTexto" style="display:none;margin-top:16px;padding:16px 20px;background:var(--ambar-s);border-left:4px solid var(--ambar);border-radius:0 var(--r) var(--r) 0;font-size:15px;color:var(--ink2);line-height:1.7"></div>
+        </div>
+      </div>
+
+      <!-- VISUALIZAÇÕES -->
+      <div class="sec-titulo" id="secVisuais" style="display:none">Visualizações</div>
+      <div class="saidas-grid" id="gridVisuais" style="display:none">
         <div class="card-saida">
-          <div class="card-topo"><span class="card-label">Gráfico Hipotético</span><span class="card-acao" onclick="exportarPNG()">↓ PNG</span></div>
-          <div class="card-corpo" style="padding:14px"><div class="canvas-wrap"><canvas id="chart" width="860" height="380"></canvas></div></div>
+          <div class="card-topo">
+            <span class="card-label">📊 Gráfico Hipotético</span>
+            <span class="card-acao" onclick="exportarPNG()">↓ PNG</span>
+          </div>
+          <div class="card-corpo" style="padding:14px">
+            <div class="canvas-wrap"><canvas id="chart" width="860" height="380"></canvas></div>
+            <p style="font-size:12px;color:var(--ink4);margin-top:8px">Gráfico hipotético — representa a previsão, não dados reais.</p>
+          </div>
         </div>
         <div class="card-saida">
-          <div class="card-topo"><span class="card-label">Mapa Mental</span><span class="card-acao" onclick="exportarPNGMapa()">↓ PNG</span></div>
-          <div class="card-corpo" style="padding:14px"><div class="canvas-wrap"><canvas id="mind" width="860" height="460"></canvas></div>
+          <div class="card-topo">
+            <span class="card-label">🧠 Mapa Mental</span>
+            <span class="card-acao" onclick="exportarPNGMapa()">↓ PNG</span>
+          </div>
+          <div class="card-corpo" style="padding:14px">
+            <div class="canvas-wrap"><canvas id="mind" width="860" height="460"></canvas></div>
             <p style="font-size:12px;color:var(--ink4);margin-top:8px">Arraste os nós para reorganizar.</p>
           </div>
         </div>
       </div>
 
-      <div class="sec-titulo">Texto e Cronograma</div>
-      <div class="saidas-grid">
-        <div class="card-saida">
-          <div class="card-topo"><span class="card-label">Texto do Projeto</span><span class="card-acao" onclick="exportarTXT()">↓ TXT</span></div>
-          <div class="card-corpo"><div class="txt-saida" id="textoSaida">Clique em "Gerar saídas".</div></div>
+      <!-- MÉTODO + CRONOGRAMA -->
+      <div class="saidas-grid" id="gridMetodo" style="display:none">
+        <div class="card-saida" id="cardMetodo">
+          <div class="card-topo"><span class="card-label">⚗️ Método e Limitações</span></div>
+          <div class="card-corpo">
+            <div id="metodoTexto" style="font-size:15px;color:var(--ink2);line-height:1.75;font-weight:300;margin-bottom:14px"></div>
+            <div id="limitsTexto" style="display:none;padding:14px 16px;background:#FEF6EB;border-left:3px solid var(--ambar);border-radius:0 var(--r) var(--r) 0;font-size:14px;color:var(--ink3);line-height:1.6"></div>
+          </div>
         </div>
         <div class="card-saida" id="cardCronograma" style="display:none">
-          <div class="card-topo"><span class="card-label">Cronograma Visual</span></div>
+          <div class="card-topo"><span class="card-label">📅 Cronograma</span></div>
           <div class="card-corpo"><div class="timeline" id="timelineConteudo"></div></div>
         </div>
       </div>
+
+      <!-- PUBLICAÇÃO -->
+      <div class="card-saida saida-full" id="cardPublicacao" style="display:none">
+        <div class="card-topo"><span class="card-label">📄 Plano de Publicação</span><span class="card-acao" onclick="exportarTXT()">↓ Exportar TXT completo</span></div>
+        <div class="card-corpo" style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px">
+          <div>
+            <div style="font-size:11px;font-weight:700;color:var(--ink4);text-transform:uppercase;letter-spacing:.6px;margin-bottom:8px">Destino</div>
+            <div id="pubDestino" style="font-size:16px;font-weight:600;color:var(--ink)"></div>
+          </div>
+          <div>
+            <div style="font-size:11px;font-weight:700;color:var(--ink4);text-transform:uppercase;letter-spacing:.6px;margin-bottom:8px">Venue</div>
+            <div id="pubVenue" style="font-size:15px;color:var(--ink2)"></div>
+          </div>
+          <div>
+            <div style="font-size:11px;font-weight:700;color:var(--ink4);text-transform:uppercase;letter-spacing:.6px;margin-bottom:8px">Link</div>
+            <div id="pubLink" style="font-size:14px;color:var(--azul-m);word-break:break-all"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TEXTO OCULTO para exportação TXT -->
+      <div class="txt-saida-hidden" id="textoSaida"></div>
+      <div class="txt-saida-hidden" id="cardCronogramaHidden"></div>
 
       <div class="app-footer">
         Idealizado por <a href="https://ernandes-sobreira.github.io/meu-mundo/" target="_blank" rel="noopener">Ernandes Sobreira</a> — UNEMAT, Cáceres-MT
@@ -1133,32 +1261,117 @@ $('mind').addEventListener('touchmove',e=>{if(!mapa.arr)return;const p=mapaXY(e,
 $('mind').addEventListener('touchend',()=>mapa.arr=null);
 
 /* GERAR */
+function show(id,v){const el=$(id);if(el)el.style.display=v===false?'none':(v||'');}
+function txt(id,t){const el=$(id);if(el)el.textContent=t||'';}
+function html(id,h){const el=$(id);if(el)el.innerHTML=h||'';}
+
 function gerar(){
   const S=getState();
-  const q=construirPergunta(S),hAuto=construirHipAuto(S),hUser=tx(S.hypUser),dir=tx(S.effectDir),design=tx(S.design);
-  $('kPergunta').textContent=q;
-  $('chipDelin').textContent='Delineamento: '+design.split('(')[0].trim();
-  $('chipDir').textContent=dir==='up'?'X → Y aumenta':dir==='down'?'X → Y diminui':dir==='curve'?'Curva não-linear':'Hipótese nula';
-  $('chipViab').textContent='Viabilidade: '+((tx(S.methods).length>15&&tx(S.place).length>2)?'Viável':'Verificar');
-  $('kHip').textContent=hAuto;
-  if(hUser.length>10){$('kHipUser').style.display='block';$('kHipUser').textContent='Sua versão: '+hUser;}
-  else $('kHipUser').style.display='none';
+  const q=construirPergunta(S),hAuto=construirHipAuto(S);
+  const hUser=tx(S.hypUser),dir=tx(S.effectDir),design=tx(S.design);
+
+  /* ── Cabeçalho do projeto ── */
+  const nome=tx(S.student)||(tx(S.advisor)?'Projeto do aluno':'Projeto');
+  const turma=tx(S.turma);
+  txt('phNome', nome + (turma?' — '+turma:''));
+  txt('phTema', tx(S.theme)||'(sem tema definido)');
+  const ok=marcarEtapas(S);
+  const done=Object.values(ok).filter(Boolean).length;
+  const pct=Math.round(done/7*100);
+  txt('phPct', pct+'%');
+  let metaH='';
+  if(tx(S.advisor)) metaH+=`<span class="proj-meta-item"><span class="ico">👨‍🏫</span>${tx(S.advisor)}</span>`;
+  if(tx(S.coadvisor)) metaH+=`<span class="proj-meta-item"><span class="ico">👩‍🔬</span>${tx(S.coadvisor)}</span>`;
+  if(tx(S.place)) metaH+=`<span class="proj-meta-item"><span class="ico">📍</span>${tx(S.place)}</span>`;
+  if(tx(S.field)) metaH+=`<span class="proj-meta-item"><span class="ico">🔬</span>${tx(S.field)}</span>`;
+  html('phMeta', metaH);
+  show('projHeader','');
+
+  /* ── Fichas rápidas ── */
+  txt('fichaLocal', tx(S.place)||'—');
+  txt('fichaArea',  tx(S.field)||'—');
+  txt('fichaX', 'X: '+(tx(S.xVar)||'—'));
+  txt('fichaY', 'Y: '+(tx(S.yVar)||'—'));
+  txt('fichaDelin', design.split('(')[0].trim()||'—');
+  txt('fichaDir',   dir==='up'?'X → Y aumenta':dir==='down'?'X → Y diminui':dir==='curve'?'Relação não-linear':'Hipótese nula');
+  show('fichasGrid','');
+
+  /* ── Pergunta ── */
+  txt('kPergunta', q);
+  txt('chipDelin','Delineamento: '+design.split('(')[0].trim());
+  txt('chipDir', dir==='up'?'↑ X → Y aumenta':dir==='down'?'↓ X → Y diminui':dir==='curve'?'∿ Curva':'∅ Nula');
+  txt('chipViab','Viabilidade: '+((tx(S.methods).length>15&&tx(S.place).length>2)?'✓ Viável':'Verificar'));
+  show('perguntaBloco','');
+
+  /* ── Hipótese ── */
+  txt('kHip', hAuto);
+  if(hUser.length>10){
+    show('kHipUser','block');
+    html('kHipUserTxt', hUser);
+  } else {
+    show('kHipUser',false);
+  }
+  show('hipBloco','');
+
+  /* ── Problema e mecanismo ── */
+  const prob=tx(S.problem);
+  const mec=tx(S.mechanism);
+  if(prob.length>5){
+    txt('problemaTexto', prob);
+    if(mec.length>5){
+      show('mecTexto','block');
+      $('mecTexto').innerHTML='<strong style="color:var(--ambar);font-size:12px;text-transform:uppercase;letter-spacing:.5px">Mecanismo causal</strong><br>'+mec;
+    } else show('mecTexto',false);
+    show('cardProblema','');
+  } else show('cardProblema',false);
+
+  /* ── Visualizações ── */
   renderizarRubrica(S);
   const mag=calcularMag(S);
   desenharGrafico(S,mag);
   construirMapa(S);
   desenharMapa();
-  $('textoSaida').textContent=construirTexto(S,q,hAuto);
+  show('secVisuais','');
+  show('gridVisuais','');
+
+  /* ── Método + Cronograma ── */
+  const met=tx(S.methods);
+  const lim=tx(S.limits);
+  if(met.length>5){
+    txt('metodoTexto', met);
+    if(lim.length>5){
+      show('limitsTexto','block');
+      $('limitsTexto').innerHTML='<strong style="color:var(--ambar);font-size:12px;text-transform:uppercase;letter-spacing:.5px">Limitações e Riscos</strong><br>'+lim;
+    } else show('limitsTexto',false);
+  } else txt('metodoTexto','Método não informado ainda.');
+  show('gridMetodo','');
+
   const cronStr=tx(S.schedule);
   if(cronStr.length>10){
-    $('cardCronograma').style.display='';
-    $('timelineConteudo').innerHTML=cronStr.split('\n').filter(l=>l.trim()).map((l,i)=>{
-      const p=l.split(':');const sem=p[0]?.trim()||`Atividade ${i+1}`;const desc=p.slice(1).join(':').trim()||l;
+    show('cardCronograma','');
+    html('timelineConteudo', cronStr.split('\n').filter(l=>l.trim()).map((l,i)=>{
+      const p=l.split(':');
+      const sem=p[0]?.trim()||`Atividade ${i+1}`;
+      const desc=p.slice(1).join(':').trim()||l;
       return`<div class="tl-item"><div class="tl-dot">${i+1}</div><div><div class="tl-sem">${sem}</div><div class="tl-txt">${desc}</div></div></div>`;
-    }).join('');
+    }).join(''));
   }
-  marcarEtapas(S);atualizarProgresso(S);salvarAuto();
-  $('saidas-wrap')||document.querySelector('.saidas-wrap')?.scrollIntoView({behavior:'smooth'});
+
+  /* ── Publicação ── */
+  const dest=tx(S.wherePresent);
+  if(dest.length>2){
+    txt('pubDestino', dest);
+    txt('pubVenue',   tx(S.venueName)||'—');
+    const link=tx(S.venueLink);
+    html('pubLink', link?`<a href="${link}" target="_blank" rel="noopener" style="color:var(--azul-m)">${link}</a>`:'—');
+    show('cardPublicacao','');
+  } else show('cardPublicacao',false);
+
+  /* ── Texto oculto para exportação ── */
+  txt('textoSaida', construirTexto(S,q,hAuto));
+
+  atualizarProgresso(S);salvarAuto();
+  document.querySelector('.saidas-wrap')?.scrollIntoView({behavior:'smooth',block:'start'});
   toast('Saídas geradas com sucesso.',1200);
 }
 window.gerar=gerar;
